@@ -2,6 +2,13 @@
 <html lang="ar" dir="rtl">
 <head>
 
+    <link rel="manifest" href="manifest.json">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Berlin Store">
+    <link rel="apple-touch-icon" href="https://www.berlingoestore.com/images/BerlinStorefff.png">
+
     <link rel="icon" type="image/png" href="https://www.berlingoestore.com/images/BerlinStorefff.png">
     <link rel="icon" sizes="192x192" href="https://www.berlingoestore.com/images/BerlinStorefff.png">
     <link rel="apple-touch-icon" href="https://www.berlingoestore.com/images/BerlinStorefff.png">
@@ -6796,7 +6803,7 @@
             background-color: #3B6298 !important;
             color: #ffffff !important;
         }
-    
+
 
         #xboxPopularGamesContainer {
             animation: none !important; /* إيقاف الحركة */
@@ -10686,7 +10693,7 @@
                 margin-top: 15px;
             }
 
-      
+
 
         #discountMessage {
             min-height: 18px; /* لمنع اهتزاز التصميم */
@@ -24206,7 +24213,25 @@
 
         <script>
 
+            let deferredPrompt;
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                // هنا يمكنك إظهار زر التحميل الخاص بك
+                document.getElementById('installBtn').style.display = 'block';
+            });
 
+            function installApp() {
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    deferredPrompt.userChoice.then((choiceResult) => {
+                        if (choiceResult.outcome === 'accepted') {
+                            console.log('User accepted the install prompt');
+                        }
+                        deferredPrompt = null;
+                    });
+                }
+            }
                                                             let leafInterval;
 
                                                             function createFallingLeavesEffect() {
@@ -43748,6 +43773,16 @@ window.addEventListener('load', () => {
                              console.error("❌ فشل تسجيل الطلب: ", error);
                     });
 }
+
+         if ('serviceWorker' in navigator) {
+             window.addEventListener('load', () => {
+                 navigator.serviceWorker.register('/sw.js').then(reg => {
+                     console.log('Service Worker Registered!', reg);
+                 }).catch(err => {
+                     console.log('Service Worker Failed!', err);
+                 });
+             });
+  }
 
     </script>
 
