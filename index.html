@@ -24904,82 +24904,90 @@
             const orderId = document.getElementById('detail-order-id').innerText;
             const date = document.getElementById('detail-order-date').innerText;
             const total = document.getElementById('detail-order-total').innerText;
-            const itemsContainer = document.getElementById('detail-items-container');
             const status = document.getElementById('detail-order-status').innerText;
+            const itemsContainer = document.getElementById('detail-items-container');
 
-            // استخراج أسماء المنتجات فقط بشكل نظيف جداً
-            const itemsText = Array.from(itemsContainer.querySelectorAll('h4, div, p, span'))
-                .map(el => el.innerText)
-                .filter(txt => txt.trim().length > 1)
-                .join(' - ');
+            // استخراج اسم المنتج بشكل نظيف جداً
+            const productTitle = itemsContainer.querySelector('h4')?.innerText ||
+                itemsContainer.querySelector('div')?.innerText || "منتج رقمي";
 
-            // بناء القالب مع CSS داخلي "Inlined" لفرض الشكل الرسمي
-            const invoiceTemplate = `
-    <div style="padding: 40px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; direction: rtl; background: white; color: black; width: 750px;">
-        <table style="width: 100%; border-bottom: 3px solid #1a1a2e; padding-bottom: 20px;">
-            <tr>
-                <td style="text-align: right;">
-                    <img src="https://www.berlingoestore.com/images/BerlinStorefff.png" style="width: 90px; margin-bottom: 10px; filter: brightness(0);">
-                    <h1 style="margin: 0; font-size: 26px; color: #1a1a2e;">BERLIN STORE</h1>
-                    <p style="margin: 2px 0; color: #555; font-size: 14px;">متجرك الرقمي الأول للعروض والألعاب</p>
-                </td>
-                <td style="text-align: left; vertical-align: bottom;">
-                    <h2 style="margin: 0; color: #1a1a2e; font-size: 22px;">فاتورة بيع رسمية</h2>
-                    <p style="margin: 5px 0; font-size: 14px;"><b>رقم الطلب:</b> <span style="direction: ltr; display: inline-block;">${orderId}</span></p>
-                    <p style="margin: 5px 0; font-size: 14px;"><b>تاريخ الإصدار:</b> ${date}</p>
-                </td>
-            </tr>
-        </table>
+            // بناء محتوى الفاتورة من الصفر (تصميم ورقي رسمي 100%)
+            const invoiceHTML = `
+    <div id="real-pdf-invoice" style="
+        width: 700px;
+        padding: 50px;
+        background-color: white !important;
+        color: black !important;
+        font-family: 'Arial', sans-serif;
+        direction: rtl;
+        line-height: 1.6;
+    ">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #1a1a2e; padding-bottom: 20px; margin-bottom: 30px;">
+            <div style="text-align: right;">
+                <img src="https://www.berlingoestore.com/images/BerlinStorefff.png" style="width: 100px; filter: brightness(0); margin-bottom: 10px;">
+                <h1 style="margin: 0; font-size: 28px; color: #1a1a2e;">BERLIN STORE</h1>
+                <p style="margin: 0; font-size: 14px; color: #555;">لأحدث الألعاب والخدمات الرقمية</p>
+            </div>
+            <div style="text-align: left;">
+                <h2 style="margin: 0; color: #1a1a2e; font-size: 24px;">فاتورة مبيعات</h2>
+                <p style="margin: 5px 0;"><b>رقم الطلب:</b> <span style="direction: ltr;">${orderId}</span></p>
+                <p style="margin: 5px 0;"><b>التاريخ:</b> ${date}</p>
+            </div>
+        </div>
 
-        <table style="width: 100%; border-collapse: collapse; margin-top: 30px;">
+        <table style="width: 100%; border-collapse: collapse; margin: 30px 0;">
             <thead>
-                <tr style="background: #1a1a2e; color: white;">
-                    <th style="padding: 12px; border: 1px solid #1a1a2e; text-align: right;">البند / الوصف</th>
-                    <th style="padding: 12px; border: 1px solid #1a1a2e; text-align: center;">الحالة</th>
-                    <th style="padding: 12px; border: 1px solid #1a1a2e; text-align: left;">القيمة</th>
+                <tr style="background-color: #1a1a2e; color: white;">
+                    <th style="padding: 15px; border: 1px solid #1a1a2e; text-align: right;">البيان / المنتج</th>
+                    <th style="padding: 15px; border: 1px solid #1a1a2e; text-align: center;">الحالة</th>
+                    <th style="padding: 15px; border: 1px solid #1a1a2e; text-align: left;">السعر الإجمالي</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td style="padding: 20px; border: 1px solid #eee; font-size: 15px; color: #333;">${itemsText}</td>
-                    <td style="padding: 20px; border: 1px solid #eee; text-align: center; color: #27ae60; font-weight: bold;">${status}</td>
-                    <td style="padding: 20px; border: 1px solid #eee; text-align: left; font-weight: bold; font-size: 16px;">${total}</td>
+                    <td style="padding: 20px; border: 1px solid #ddd; font-size: 16px; font-weight: bold;">${productTitle}</td>
+                    <td style="padding: 20px; border: 1px solid #ddd; text-align: center; color: #27ae60; font-weight: bold;">${status}</td>
+                    <td style="padding: 20px; border: 1px solid #ddd; text-align: left; font-size: 18px; font-weight: 800;">${total}</td>
                 </tr>
             </tbody>
         </table>
 
-        <div style="margin-top: 30px; display: flex; justify-content: flex-end;">
-            <table style="width: 250px; border-collapse: collapse;">
-                <tr>
-                    <td style="padding: 10px; border: 1px solid #eee; background: #f9f9f9;">المجموع الفرعي</td>
-                    <td style="padding: 10px; border: 1px solid #eee; text-align: left;">${total}</td>
-                </tr>
-                <tr>
-                    <td style="padding: 10px; border: 1px solid #1a1a2e; background: #1a1a2e; color: white;"><b>الإجمالي المدفوع</b></td>
-                    <td style="padding: 10px; border: 1px solid #1a1a2e; text-align: left; font-weight: bold; font-size: 18px;">${total}</td>
-                </tr>
-            </table>
+        <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+            <div style="width: 250px; background-color: #f9f9f9; padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>المجموع:</span>
+                    <span>${total}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-weight: bold; border-top: 2px solid #ddd; padding-top: 10px; color: #1a1a2e; font-size: 18px;">
+                    <span>الإجمالي المدفوع:</span>
+                    <span>${total}</span>
+                </div>
+            </div>
         </div>
 
-        <div style="margin-top: 120px; text-align: center; border-top: 1px solid #eee; padding-top: 20px; color: #888; font-size: 12px;">
-            <p style="margin-bottom: 5px;">شكرًا لثقتكم في برلين ستور. هذه الفاتورة مستخرجة إلكترونياً ولا تحتاج لختم رسمي.</p>
-            <p style="font-weight: bold; color: #1a1a2e;">berlingoestore.com</p>
+        <div style="margin-top: 100px; text-align: center; border-top: 1px solid #eee; padding-top: 20px; color: #777; font-size: 13px;">
+            <p>شكراً لثقتكم في برلين ستور. هذه الفاتورة تم إنشاؤها آلياً وتعتبر مستنداً رسمياً للشراء.</p>
+            <p style="font-weight: bold; color: #1a1a2e; margin-top: 5px;">www.berlingoestore.com</p>
         </div>
-    </div>`;
+    </div>
+    `;
 
-            // التنفيذ باستخدام عنصر مؤقت مع إجبارية الخلفية البيضاء
-            const container = document.createElement('div');
-            container.style.background = "white"; // إجبار الخلفية البيضاء هنا أيضاً
-            container.innerHTML = invoiceTemplate;
+            // التنفيذ باستخدام وضع الـ "Isolation" الكامل
+            const tempContainer = document.createElement('div');
+            tempContainer.style.position = 'fixed';
+            tempContainer.style.left = '-9999px';
+            tempContainer.innerHTML = invoiceHTML;
+            document.body.appendChild(tempContainer);
 
             const opt = {
-                margin: [5, 5],
-                filename: `Berlin-Invoice-${orderId}.pdf`,
+                margin: [0, 0],
+                filename: `Berlin-Store-Invoice-${orderId}.pdf`,
                 image: { type: 'jpeg', quality: 1 },
                 html2canvas: {
-                    scale: 2,
+                    scale: 2, // دقة عالية جداً
                     useCORS: true,
-                    backgroundColor: "#FFFFFF", // إجبار اللون الأبيض في التصوير
+                    backgroundColor: "#ffffff", // إجبار الخلفية البيضاء
+                    removeContainer: true
                 },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
@@ -24987,15 +24995,17 @@
             try {
                 const btn = event.currentTarget;
                 const originalText = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التوليد...';
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري استخراج PDF...';
 
-                await html2pdf().set(opt).from(container).save();
+                // تصوير العنصر المنعزل تماماً
+                await html2pdf().set(opt).from(tempContainer.firstChild).save();
 
                 btn.innerHTML = originalText;
+                document.body.removeChild(tempContainer);
                 showToast("تم تحميل الفاتورة الرسمية بنجاح ✅", "success");
             } catch (error) {
                 console.error(error);
-                alert("حدث خطأ، حاول مرة أخرى.");
+                alert("فشل التوليد، يرجى المحاولة مرة أخرى.");
             }
         }
 
