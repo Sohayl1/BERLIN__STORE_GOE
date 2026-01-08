@@ -1,10 +1,35 @@
 ﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+
+    <link rel="icon" type="image/png" href="https://www.berlingoestore.com/images/BerlinStorefff.png">
+    <link rel="icon" sizes="192x192" href="https://www.berlingoestore.com/images/BerlinStorefff.png">
+    <link rel="apple-touch-icon" href="https://www.berlingoestore.com/images/BerlinStorefff.png">
+
+    <title>Berlin Store | All gaming needs</title>
+
+    <meta name="description" content="متجر برلين - خيارك الأول لشحن الألعاب، اشتراكات بلايستيشن، إكس بوكس، وخدمات الديجيتال بأفضل الأسعار.">
+    <meta name="keywords" content="شحن ألعاب, شدات ببجي, نيترو ديسكورد, بطاقات ستور, Berlin Store">
+    <meta name="theme-color" content="#6c5ce7">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://berlingoestore.com">
+    <meta property="og:title" content="Berlin Store | فخامة الألعاب والخدمات الرقمية 🎮">
+    <meta property="og:description" content="اشحن ألعابك المفضل، احصل على اشتراكاتك الرقمية، واستمتع بأفضل العروض والخدمات بأمان وسرعة فائقة.">
+    <meta property="og:image" content="https://www.berlingoestore.com/images/BerlinStorefff.png">
+    <meta property="og:site_name" content="Berlin Store">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Berlin Store | All gaming needs">
+    <meta name="twitter:description" content="متجرك الموثوق لشراء بطاقات الألعاب والاشتراكات الرقمية بأفضل سعر في السوق.">
+    <meta name="twitter:image" content="https://www.berlingoestore.com/images/BerlinStorefff.png">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://www.paypal.com/sdk/js?client-id=BAAL3mQ2rcEbdanwe3KkE5sbDUnKmaU01_QmtfijMRtf8ykcqndGsMpUAvsCBHOGqmjjsf2aOkS_PDWb-8&components=hosted-buttons&disable-funding=venmo&currency=USD">
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Berlin Store - Gaming shop & Products</title>
@@ -30,40 +55,43 @@
             border-bottom: none !important;
             padding-bottom: 0 !important;
         }
+
         .header-inline-container {
-    display: flex !important;
-    flex-direction: row !important; /* ترتيب أفقي */
-    align-items: center !important; /* محاذاة عمودية في المنتصف */
-    justify-content: center !important; /* التوسيط في نص الصفحة */
-    gap: 15px !important; /* المسافة بين النص واللوجو */
-    margin-bottom: 20px !important;
-    flex-wrap: nowrap !important; /* منع اللوجو من النزول لسطر جديد */
-}
+            display: flex !important;
+            flex-direction: row !important; /* ترتيب أفقي */
+            align-items: center !important; /* محاذاة عمودية في المنتصف */
+            justify-content: center !important; /* التوسيط في نص الصفحة */
+            gap: 15px !important; /* المسافة بين النص واللوجو */
+            margin-bottom: 20px !important;
+            flex-wrap: nowrap !important; /* منع اللوجو من النزول لسطر جديد */
+        }
 
-.glow-text-rtl-inline {
-    margin: 0 !important; /* إلغاء الهوامش الافتراضية لضبط المحاذاة */
-    font-size: 1.8rem !important;
-    white-space: nowrap !important; /* لضمان بقاء النص على سطر واحد */
-}
+        .glow-text-rtl-inline {
+            margin: 0 !important; /* إلغاء الهوامش الافتراضية لضبط المحاذاة */
+            font-size: 1.8rem !important;
+            white-space: nowrap !important; /* لضمان بقاء النص على سطر واحد */
+        }
 
-.logo-inline {
-    height: 50px !important; /* يمكنك تكبير أو تصغير اللوجو من هنا */
-    width: auto !important;
-    object-fit: contain !important;
-}
+        .logo-inline {
+            height: 50px !important; /* يمكنك تكبير أو تصغير اللوجو من هنا */
+            width: auto !important;
+            object-fit: contain !important;
+        }
 
-/* تعديل للموبايل لضمان عدم خروج النص عن الشاشة */
-@media (max-width: 600px) {
-    .glow-text-rtl-inline {
-        font-size: 1.3rem !important;
-    }
-    .logo-inline {
-        height: 35px !important;
-    }
-    .header-inline-container {
-        gap: 8px !important;
-    }
-}
+        /* تعديل للموبايل لضمان عدم خروج النص عن الشاشة */
+        @media (max-width: 600px) {
+            .glow-text-rtl-inline {
+                font-size: 1.3rem !important;
+            }
+
+            .logo-inline {
+                height: 35px !important;
+            }
+
+            .header-inline-container {
+                gap: 8px !important;
+            }
+        }
 
         /* حاوية الإعلان المركزية - النسخة المصغرة */
         .main-ad-banner {
@@ -1478,10 +1506,10 @@
 
         #daily-reward-section {
             /*
-            السطر ده بيعمل حاجتين:
-            1. linear-gradient: طبقة سوداء شفافة (0.7) عشان تغمق الصورة.
-            2. url: مسار الصورة بتاعتك (غير الاسم لو مختلف).
-         */
+                 السطر ده بيعمل حاجتين:
+                 1. linear-gradient: طبقة سوداء شفافة (0.7) عشان تغمق الصورة.
+                 2. url: مسار الصورة بتاعتك (غير الاسم لو مختلف).
+              */
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('./images/mc.gif') !important; /* 👈 غير اسم الصورة هنا */
             /* عشان الصورة تغطي المساحة بالكامل بدون تكرار */
             background-size: cover !important;
@@ -3875,8 +3903,8 @@
 
         /* إخفاء الزر عندما نكون في وضع التعديل (اختياري، لو حابب يختفي) */
         /* #profile-edit-mode[style*="block"] ~ .edit-profile-trigger-corner {
-                 display: none;
-             } */
+                      display: none;
+                  } */
         /* ========================================= */
         /* ✅ START: تحسينات صفحة البروفايل الجديدة */
         /* ========================================= */
@@ -5996,7 +6024,7 @@
             /* نلغي أي هامش علوي مبالغ فيه (نعتمد على Body Padding فقط) */
             margin-top: 20px !important;
             /* إذا كنت قد وضعت قيمة كبيرة مثل 80px في الـ HTML،
-                     استبدلها بـ 20px أو أقل لترك مسافة تنفس بسيطة تحت الناف بار */
+                          استبدلها بـ 20px أو أقل لترك مسافة تنفس بسيطة تحت الناف بار */
             padding-top: 0 !important;
         }
 
@@ -7627,8 +7655,8 @@
         /* ====================================================== */
 
         /* هذا الكود يستهدف النص داخل زر اختيار الدفع،
-                            يمنحه العرض الكامل، ويقوم بتوسيط النص بداخله.
-                          */
+                                 يمنحه العرض الكامل، ويقوم بتوسيط النص بداخله.
+                               */
         .custom-select-selected span {
             width: 100%;
             text-align: center;
@@ -8751,9 +8779,9 @@
         }
 
             /* 3. لا تقلق بشأن الأرقام. الكود الحالي الخاص بك سيتكفل بتكبيرها:
-                             #xboxGiftCardsContainer .product-item .product-price { font-size: 11px !important; }
-                             #xboxPopularGamesContainer .product-item .product-price { font-size: 14px !important; }
-                          */
+                                  #xboxGiftCardsContainer .product-item .product-price { font-size: 11px !important; }
+                                  #xboxPopularGamesContainer .product-item .product-price { font-size: 14px !important; }
+                               */
 
             /* 4. (اختياري) تعديل بسيط على العملة "EGP" لجعلها أصغر */
             #xboxGiftCardsContainer .product-item p .currency-symbol,
@@ -10635,14 +10663,14 @@
         /* ✅✅ فيد باك شامل لكل العناصر القابلة للنقر في الموقع ✅✅ */
 
         /*
-                                            هذا الكود يستهدف:
-                                            - كل الأزرار (button)
-                                            - الروابط في الشريط العلوي (a.nav-link)
-                                            - الأزرار العائمة (fixed-cart-button)
-                                            - بطاقات المنتجات والاشتراكات والخدمات (product-item, subscription-item, service-offer-card)
-                                            - خيارات اختيار الرتب (rank-option)
-                                            - خيارات الاشتراكات (subscription-option-label)
-                                          */
+                                                 هذا الكود يستهدف:
+                                                 - كل الأزرار (button)
+                                                 - الروابط في الشريط العلوي (a.nav-link)
+                                                 - الأزرار العائمة (fixed-cart-button)
+                                                 - بطاقات المنتجات والاشتراكات والخدمات (product-item, subscription-item, service-offer-card)
+                                                 - خيارات اختيار الرتب (rank-option)
+                                                 - خيارات الاشتراكات (subscription-option-label)
+                                               */
         button:active,
         a.nav-link:active,
         a.footer-link:active,
@@ -12194,8 +12222,8 @@
             }
 
                 /* 2. ✅✅ القاعدة الجديدة والمهمة ✅✅
-                                     القاعدة دي بتلغي أي توهج أو إطار عن حقل الإدخال *الداخلي*
-                                  */
+                                          القاعدة دي بتلغي أي توهج أو إطار عن حقل الإدخال *الداخلي*
+                                       */
                 #vodafoneForm .input-wrapper:focus-within input,
                 #vodafoneForm .input-wrapper:focus-within textarea {
                     border-color: transparent !important; /* <-- بيخفي إطار الحقل الداخلي */
@@ -15429,8 +15457,8 @@
             }
 
             /* التعديل: تطبيق التوهج فقط على الحقول التي (ليست) داخل .input-wrapper
-                                    واستخدام :not() لإلغاء التوهج المزدوج.
-                                  */
+                                         واستخدام :not() لإلغاء التوهج المزدوج.
+                                       */
             input:not(.input-wrapper input):focus,
             textarea:not(.input-wrapper textarea):focus,
             select:focus,
@@ -16071,13 +16099,13 @@
             }
 
         /*
-                                                  /*
-                                                  /*
-                                                  /*
-                                                    ======================================================
-                                                    START: MARVEL RIVALS CATEGORY STYLES
-                                                    ======================================================
-                                                  */
+                                                       /*
+                                                       /*
+                                                       /*
+                                                         ======================================================
+                                                         START: MARVEL RIVALS CATEGORY STYLES
+                                                         ======================================================
+                                                       */
 
         /* 1. تنسيقات القسم الرئيسي: يتم وضع لون شفاف فوق الصورة هنا */
         #marvelRivals {
@@ -16114,10 +16142,10 @@
         }
 
         /*
-                                                    ======================================================
-                                                    END: MARVEL RIVALS CATEGORY STYLES
-                                                    ======================================================
-                                                  */
+                                                         ======================================================
+                                                         END: MARVEL RIVALS CATEGORY STYLES
+                                                         ======================================================
+                                                       */
 
         /* === START: أنيميشن فتح النافذة المنبثقة === */
 
@@ -19457,8 +19485,8 @@
         @media screen and (max-width: 768px) {
 
             /* =========================================
-        1. تنسيق كروت خطوات العمل (Process Steps)
-        ========================================= */
+             1. تنسيق كروت خطوات العمل (Process Steps)
+             ========================================= */
             .process-step-card {
                 background: #ffffff !important; /* خلفية بيضاء */
                 border: 1px solid #e0e0e0 !important; /* حدود رمادية خفيفة */
@@ -19492,8 +19520,8 @@
 
 
             /* =========================================
-        2. تنسيق كروت الأسئلة الشائعة (FAQ)
-        ========================================= */
+             2. تنسيق كروت الأسئلة الشائعة (FAQ)
+             ========================================= */
             .faq-item-v2 {
                 background: #ffffff !important; /* خلفية بيضاء */
                 border: 1px solid #e0e0e0 !important;
@@ -19517,8 +19545,8 @@
             }
         }
         /* ==================================================
-   حل مشكلة خروج الكارت بره الشاشة (Mobile Fix)
-   ================================================== */
+        حل مشكلة خروج الكارت بره الشاشة (Mobile Fix)
+        ================================================== */
         @media (max-width: 768px) {
 
             /* 1. الحاوية الخارجية (الكارت نفسه) */
@@ -19608,8 +19636,8 @@
             }
         }
         /* ==================================================
-   🌟 تصميم صفحة المنتج الأسطوري (Mobile Legendary View)
-   ================================================== */
+        🌟 تصميم صفحة المنتج الأسطوري (Mobile Legendary View)
+        ================================================== */
         @media (max-width: 768px) {
 
             /* 1. الحاوية الرئيسية (إزالة الهوامش لتملأ الشاشة) */
@@ -19841,8 +19869,8 @@
                 }
         }
         /* =========================================================
-   إصلاح الصورة والفراغات (Mobile Final Fix)
-   ========================================================= */
+        إصلاح الصورة والفراغات (Mobile Final Fix)
+        ========================================================= */
         @media (max-width: 768px) {
 
             /* 1. تصفير الحاوية الأم (عشان الصورة تاخد راحتها) */
@@ -19938,12 +19966,14 @@
                 right: auto !important;
             }
         }
+
         @media (max-width: 992px) {
             /* إخفاء اللوجو في الموبايل فقط */
             .store-logo-on-homepage {
                 display: none !important;
             }
         }
+
         @media (max-width: 992px) {
             .glow-text-rtl {
                 color: #FFFFFF !important; /* أبيض ناصع جداً */
@@ -19961,6 +19991,7 @@
                 filter: brightness(1.5); /* زيادة سطوع العنصر ككل */
             }
         }
+
         button[onclick="openMyOrders()"] {
             margin-top: 25px !important;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* ظل يعطي عمق للزر بعد نزوله */
@@ -19971,7 +20002,6 @@
                 transform: translateY(-5px); /* حركة بسيطة للأعلى عند مرور الماوس */
                 box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
             }
-
     </style>
 
 </head>
@@ -19990,31 +20020,109 @@
 
 
             @media (max-width: 768px) {
-                /* استهداف نص الزر داخل حاوية nav-actions */
-                .nav-actions .quote-btn {
-                    font-size: 0 !important; /* إخفاء النص الأصلي */
-                    padding: 8px 12px !important; /* ضبط الحواف ليكون الزر أصغر ومناسب */
+                /* الحاوية الأساسية - جعلها بار سفلي عائم أسطوري */
+                .nav-actions {
+                    position: fixed !important;
+                    bottom: 20px !important; /* رفعه قليلاً عن الحافة ليعطي شكل عائم */
+                    left: 50% !important;
+                    transform: translateX(-50%) !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    gap: 12px !important;
+                    padding: 10px 20px !important;
+                    /* تأثير الزجاج الفخم */
+                    background: rgba(15, 10, 25, 0.75) !important;
+                    backdrop-filter: blur(15px) saturate(180%) !important;
+                    -webkit-backdrop-filter: blur(15px) saturate(180%) !important;
+                    /* الحدود والظل */
+                    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+                    border-radius: 50px !important;
+                    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.05) !important;
+                    z-index: 999999 !important;
+                    width: auto !important;
+                    min-width: 200px !important;
+                    transition: all 0.3s ease !important;
                 }
 
-                    /* إعادة إظهار الأيقونة لأنها اختفت بسبب font-size: 0 */
-                    .nav-actions .quote-btn i {
-                        font-size: 16px !important;
-                        margin-left: 0 !important;
+                    /* زر تواصل (الـ Quote Btn) المطور */
+                    .nav-actions .quote-btn {
+                        position: relative !important;
+                        font-size: 0 !important; /* إخفاء النص الأصلي */
+                        padding: 10px 18px !important;
+                        border-radius: 30px !important;
+                        background: linear-gradient(135deg, #25D366 0%, #128C7E 100%) !important;
+                        border: none !important;
+                        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3) !important;
+                        display: flex !important;
+                        align-items: center !important;
+                        transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
                     }
 
-                    /* إضافة النص الجديد "تواصل" باستخدام العنصر الزائف */
-                    .nav-actions .quote-btn::after {
-                        content: "تواصل";
-                        font-size: 13px !important; /* تحديد حجم الخط للنص الجديد */
-                        margin-right: 5px; /* مسافة بين الأيقونة والنص */
-                        font-family: 'Cairo', sans-serif;
+                        /* الأيقونة داخل الزر */
+                        .nav-actions .quote-btn i {
+                            font-size: 16px !important;
+                            margin-left: 0 !important;
+                            color: white !important;
+                            text-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+                        }
+
+                        /* نص "تواصل" الجديد ستايل أسطوري */
+                        .nav-actions .quote-btn::after {
+                            content: "تواصل";
+                            font-size: 14px !important;
+                            font-weight: 800 !important;
+                            margin-right: 6px;
+                            font-family: 'Cairo', sans-serif !important;
+                            color: white !important;
+                            display: inline-block !important;
+                        }
+
+                        /* نقطة الأونلاين - جعلها تنبض (Pulse) */
+                        .nav-actions .quote-btn .online-status-dot {
+                            right: 6px !important;
+                            top: 6px !important;
+                            width: 8px !important;
+                            height: 8px !important;
+                            background: #00ff00 !important;
+                            box-shadow: 0 0 10px #00ff00 !important;
+                            animation: pulse-green 1.5s infinite !important;
+                        }
+
+                    /* زر الثيم (الدارك مود) بجانب زر التواصل */
+                    .nav-actions .theme-toggle-giant {
+                        width: 40px !important;
+                        height: 40px !important;
+                        background: rgba(255, 255, 255, 0.1) !important;
+                        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+                        border-radius: 50% !important;
+                        display: flex !important;
+                        align-items: center !important;
+                        justify-content: center !important;
+                        color: #FFD700 !important; /* لون الشمس الذهبي */
                     }
 
-                    /* ضمان بقاء نقطة الأونلاين في مكانها الصحيح */
-                    .nav-actions .quote-btn .online-status-dot {
-                        right: 2px;
-                        top: 2px;
-                    }
+                /* إضافة مسافة في أسفل الموقع */
+                body {
+                    padding-bottom: 90px !important;
+                }
+            }
+
+            /* أنيميشن النبض للنقطة الخضراء */
+            @keyframes pulse-green {
+                0% {
+                    transform: scale(0.95);
+                    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7);
+                }
+
+                70% {
+                    transform: scale(1.1);
+                    box-shadow: 0 0 0 8px rgba(0, 255, 0, 0);
+                }
+
+                100% {
+                    transform: scale(0.95);
+                    box-shadow: 0 0 0 0 rgba(0, 255, 0, 0);
+                }
             }
 
             @media (max-width: 768px) {
@@ -24519,7 +24627,7 @@
     <div id="orderDetailModal" class="modal">
         <span class="close-btn" onclick="closeModal('orderDetailModal')">&times;</span>
 
-        <div class="modal-body" style="padding: 0;">
+        <div class="modal-body" style="padding: 0; overflow: hidden; display: flex; flex-direction: column;">
 
             <div class="order-receipt-header">
                 <h2 style="margin: 0; color: var(--accent-yellow); font-size: 1.8rem;">تفاصيل الطلب</h2>
@@ -24527,8 +24635,7 @@
                 <div id="detail-order-status" class="order-status-badge">مكتمل</div>
             </div>
 
-            <div class="order-receipt-body">
-
+            <div class="order-receipt-body" style="flex: 1;">
                 <div class="receipt-info-row">
                     <span><i class="far fa-calendar-alt"></i> التاريخ:</span>
                     <span id="detail-order-date" style="direction: ltr;">-</span>
@@ -24547,17 +24654,27 @@
                     <span>الإجمالي المدفوع:</span>
                     <span id="detail-order-total" style="color: #00ff00;">0 EGP</span>
                 </div>
-
             </div>
 
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 25px; border-top: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.2); flex-wrap: wrap; gap: 15px;">
 
-            <a href="https://discord.gg/D3shcEb5xe" target="_blank" style="display: block; margin-top: 15px; color: #7289DA; text-decoration: none; font-size: 13px; transition: color 0.3s;">
-                <i class="fab fa-discord"></i> واجهت مشكلة؟ تواصل معنا
-            </a>
+                <button type="button" onclick="downloadOrderInvoice()" class="invoice-btn-premium" style="margin: 0;">
+                    <div class="invoice-icon-wrapper">
+                        <i class="fas fa-file-invoice"></i>
+                    </div>
+                    <div class="invoice-btn-text">
+                        <span>استخراج الفاتورة</span>
+                        <small>PDF OFFICIAL</small>
+                    </div>
+                </button>
+
+                <a href="https://discord.gg/D3shcEb5xe" target="_blank" class="support-link-discord">
+                    <i class="fab fa-discord"></i>
+                    <span>تواصل معنا</span>
+                </a>
+            </div>
         </div>
-
     </div>
-
 
     <div id="daily-reward-section" class="section glass-card" style="display: none; text-align: center;">
 
@@ -24783,7 +24900,49 @@
 
     <script>
 
+        async function downloadOrderInvoice() {
+            // تحديد المودال والجزء المراد تصويره
+            const element = document.querySelector('#orderDetailModal .modal-body');
+            const orderId = document.getElementById('detail-order-id')?.innerText || "Order";
 
+            if (!element) {
+                showToast("خطأ: لم يتم العثور على محتوى الفاتورة", "error");
+                return;
+            }
+
+            // إعدادات احترافية لضمان عدم الفشل
+            const opt = {
+                margin: [15, 15],
+                filename: `Berlin-Store-${orderId}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true, // مهم جداً لو الصور من روابط خارجية
+                    letterRendering: true,
+                    backgroundColor: '#15151a' // الحفاظ على هوية برلين ستور السوداء
+                },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            const btn = event.currentTarget;
+            const originalContent = btn.innerHTML;
+
+            try {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري توليد PDF...';
+
+                // استخدام مكتبة html2pdf
+                await html2pdf().set(opt).from(element).save();
+
+                showToast("تم تحميل الفاتورة بنجاح ✅", "success");
+            } catch (error) {
+                console.error("PDF Generation Error:", error);
+                alert("حدث خطأ تقني. تأكد من السماح للمتصفح بتحميل ملفات الـ PDF.");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalContent;
+            }
+        }
 
                                         function openScriptTypeModal() {
                                             const modal = document.getElementById('scriptTypeModal');
@@ -24999,7 +25158,7 @@
                             <i class="fas fa-clock" style="font-size: 18px; display: block; margin-bottom: 5px;"></i>
                             جاري تحضير الطلب...
                             <br>
-                            <span style="color: #fff; font-weight: normal; font-size: 12px; display: block;">يرجى انتظار إشعار التسليم</span>
+                            <span style="color: #fff; font-weight: normal; font-size: 12px; display: block;">سيصلك على الايميل قريبا</span>
                         </div>`;
                             } else {
                                 initialStatusHTML = `
@@ -29156,6 +29315,79 @@
     </div>
 
     <style>
+
+        .invoice-btn-premium {
+            background: linear-gradient(135deg, #1e1e26 0%, #111115 100%);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .invoice-btn-premium:hover {
+                border-color: var(--gold);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(255, 215, 0, 0.1);
+                background: linear-gradient(135deg, #25252e 0%, #16161b 100%);
+            }
+
+        .invoice-icon-wrapper {
+            background: var(--gold);
+            color: #000;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .invoice-btn-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.2;
+        }
+
+            .invoice-btn-text span {
+                font-size: 0.85rem;
+                font-weight: 800;
+                color: var(--gold);
+            }
+
+            .invoice-btn-text small {
+                font-size: 0.6rem;
+                color: #888;
+                letter-spacing: 1px;
+            }
+
+        /* تأثير اللمعان عند التمرير */
+        .invoice-btn-premium::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,215,0,0.05), transparent);
+            transform: rotate(45deg);
+            transition: 0.5s;
+        }
+
+        .invoice-btn-premium:hover::after {
+            left: 100%;
+        }
+
+
         @media only screen and (max-width: 768px) {
 
             /* الفورم الرئيسي */
@@ -30401,9 +30633,72 @@
             }
         }
 
+        /* تنسيق رابط الدعم ليظهر كزر أنيق */
+        .support-link-discord {
+            color: #7289DA;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            background: rgba(114, 137, 218, 0.05);
+            border: 1px solid rgba(114, 137, 218, 0.1);
+        }
+
+            .support-link-discord:hover {
+                color: #fff;
+                background: rgba(114, 137, 218, 0.2);
+                transform: translateY(-2px);
+                border-color: rgba(114, 137, 218, 0.4);
+            }
+
+        /* تعديل بسيط لضمان المسافات في الموبايل */
+        @media (max-width: 600px) {
+            .modal-body div[style*="justify-content: space-between"] {
+                justify-content: center !important;
+                text-align: center;
+            }
+        }
+        .order-receipt-body {
+            background: none !important;
+            box-shadow: none !important;
+            border: none !important;
+        }
     </style>
 
     <script>
+
+        // داخل دالة downloadOrderInvoice
+        const btn = event.currentTarget;
+        const originalContent = btn.innerHTML;
+
+        try {
+            btn.disabled = true;
+            btn.style.opacity = "0.7";
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحضير...';
+
+            // كود المكتبة المستقر
+            const element = document.querySelector('#orderDetailModal .modal-body');
+            const opt = {
+                margin: 10,
+                filename: `Berlin-Invoice.pdf`,
+                html2canvas: { scale: 2, backgroundColor: '#15151a' },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            await html2pdf().set(opt).from(element).save();
+        } catch (e) {
+            console.error(e);
+        } finally {
+            btn.disabled = false;
+            btn.style.opacity = "1";
+            btn.innerHTML = originalContent;
+        }
+
 // دالة فتح النافذة المنبثقة للخدمة
 function openServiceModal(serviceId) {
             const modal = document.getElementById(`${serviceId}-modal`);
@@ -30896,6 +31191,8 @@ function filterPortfolio(category, btnElement) {
 
             </a>
         </div>
+
+
 
         <style>
 
