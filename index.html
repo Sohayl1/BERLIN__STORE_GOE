@@ -17,7 +17,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
 
+        .footer-single-divider {
+            border: 0;
+            height: 1px;
+            background-color: rgba(255, 255, 255, 0.1); /* لون أبيض خافت جداً */
+            margin: 15px auto; /* مساحة بسيطة فوق وتحت */
+            width: 500px; /* 👈 هنا السر: عرض قصير جداً زي اللي كان موجود */
+        }
 
+        /* التأكد من إزالة أي خطوط قديمة أخرى */
+        .trust-badges-container {
+            border-bottom: none !important;
+            padding-bottom: 0 !important;
+        }
         .header-inline-container {
     display: flex !important;
     flex-direction: row !important; /* ترتيب أفقي */
@@ -28765,7 +28777,7 @@
         <div id="video-design-modal" class="service-modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2><i class="fas fa-video"></i> تصميم فيديو وموشن</h2>
+                    <h2><i class="fas fa-video"></i> ايديت فيديو او ريلز</h2>
                     <button class="modal-close" onclick="closeServiceModal('video-design')">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -28773,7 +28785,7 @@
                         <img src="./images/design-offer-two.png" alt="تصميم فيديو" class="modal-preview-image">
                     </div>
                     <div class="modal-details">
-                        <h3>تصميم مقاطع فيديو وموشن جرافيك</h3>
+                        <h3>تصميم مقاطع فيديو وريلز</h3>
                         <p class="modal-description">نحوّل أفكارك إلى فيديو متحرك جذاب. تصميم فيديوهات إعلانية ومقدمات قنوات.</p>
 
                         <div class="service-details-box">
@@ -30277,44 +30289,118 @@
                 }
             }
 
-        /* تعديل حاوية الصورة في المودال */
-        .modal-preview {
-            max-height: 200px; /* تحديد أقصى ارتفاع */
-            overflow: hidden;
+        .modal .modal-body {
+            /* السماح بالسكرول (التحريك باللمس أو البكرة) */
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            /* إخفاء شكل شريط التمرير (المسطرة) تماماً ليبقى التصميم نظيفاً */
+            scrollbar-width: none !important; /* Firefox */
+            -ms-overflow-style: none !important; /* IE and Edge */
+            /* مسافات داخلية متوازنة */
+            padding: 25px 25px 15px 25px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+            /* تحسين انسيابية السكرول على الموبايل */
+            -webkit-overflow-scrolling: touch;
+        }
+
+            /* إخفاء السكرول بار في متصفحات كروم وسفاري */
+            .modal .modal-body::-webkit-scrollbar {
+                display: none !important;
+            }
+
+            /* ضمان أن المحتوى لا يلتصق بالحافة السفلية أثناء السكرول */
+            .modal .modal-body > *:last-child {
+                margin-bottom: 10px !important;
+            }
+            /* تنسيق جسم المودال ليكون مرن */
+.modal-body {
+    display: flex !important;
+    flex-direction: column !important;
+    padding-top: 15px !important; /* تقليل المسافة العلوية داخل الصندوق */
+}
+
+/* إخفاء السكرول بار المزعج داخل خانة المنتجات مع الحفاظ على القدرة على التمرير */
+#cartItemsContainer::-webkit-scrollbar {
+    width: 5px;
+}
+#cartItemsContainer::-webkit-scrollbar-thumb {
+    background: var(--accent-yellow);
+    border-radius: 10px;
+}
+        /* 1. ضبط توزيع العناصر داخل المودال لضمان عدم اختفاء الأجزاء السفلية */
+        #cartModal .modal-body {
+            display: flex !important;
+            flex-direction: column !important;
+            padding: 10px 20px !important; /* تقليل المسافات العلوية والسفلية جداً */
+            height: auto !important;
+            max-height: 80vh !important; /* ضمان بقاء النافذة ضمن حدود الشاشة */
+        }
+
+        /* 2. رفع كلمة سلة التسوق وتقليل المسافة تحتها */
+        #cartModal h2 {
+            margin-top: 0 !important;
+            margin-bottom: 10px !important;
+            font-size: 1.3rem !important; /* تصغير طفيف للعنوان لتوفير مساحة */
+        }
+
+        /* 3. تكبير خانة المنتجات وجعلها مرنة تشغل كل المساحة المتاحة */
+        #cartItemsContainer {
+            flex-grow: 1 !important; /* أهم سطر: يجعل الخانة تتمدد وتدفع ما تحتها للقاع */
+            min-height: 180px !important; /* ضمان مساحة واسعة للمنتجات */
+            overflow-y: auto !important; /* تفعيل السكرول داخل الخانة فقط */
+            background: rgba(255, 255, 255, 0.02);
             border-radius: 10px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 10px !important;
         }
 
+        /* 4. ضغط العناصر السفلية لضمان ظهورها بالكامل */
+        #cartTotalContainer {
+            margin-bottom: 8px !important;
+            font-size: 1rem !important;
+        }
+
+
+        /* 5. جعل شارات الثقة مدمجة (أيقونة بجانب النص) لتوفير مساحة */
+        .modal-trust-badges {
+            display: flex !important;
+            justify-content: center !important;
+            gap: 15px !important;
+            padding-top: 8px !important;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* تصغير حاوية الصورة العلوية في خدمات التصميم */
+        .modal-preview {
+            max-width: 200px; /* يمكنك تغيير هذا الرقم (مثلاً 150px) لتصغيرها أكثر */
+            margin: 0 auto 15px auto; /* توسيط الصورة وإضافة مسافة أسفلها */
+            background: rgba(0, 0, 0, 0.2); /* خلفية خفيفة خلف الصورة */
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        /* ضبط حجم الصورة نفسها لتملأ الحاوية المصغرة */
         .modal-preview-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* لضبط الصورة داخل الإطار */
-            max-height: 200px; /* تحديد أقصى ارتفاع للصورة */
+            width: 100% !important;
+            height: auto !important;
+            max-height: 150px !important; /* تحديد أقصى ارتفاع للصورة */
+            object-fit: contain; /* الحفاظ على أبعاد الصورة دون تشويه */
+            display: block;
         }
 
-        .modal-body {
-            padding: 20px;
-            overflow-y: auto;
-            flex-grow: 1;
-            scrollbar-width: thin;
-            scrollbar-color: #ffd700 #1a1a2e;
-            padding-bottom: 80px;
-            max-height: calc(90vh - 150px); /* تحديد أقصى ارتفاع */
-        }
+        /* تعديل للموبايل لضمان أن الحجم لا يزال مناسباً */
         @media (max-width: 768px) {
             .modal-preview {
-                max-height: 150px;
+                max-width: 150px;
             }
 
             .modal-preview-image {
-                max-height: 150px;
-            }
-
-            .modal-body {
-                max-height: calc(100vh - 200px);
+                max-height: 120px !important;
             }
         }
+
     </style>
 
     <script>
@@ -30382,7 +30468,7 @@ function selectContactMethod(method) {
             // إعداد رسالة النجاح
             const serviceNames = {
                 'graphic-design': 'تصميم جرافيك',
-                'video-design': 'تصميم فيديو وموشن',
+                'video-design': 'ايديت فيديو او ريلز',
                 'gaming-design': 'تصميمات جيمنج'
             };
 
@@ -32926,7 +33012,7 @@ function filterPortfolio(category, btnElement) {
                                 </svg>
                                 <textarea name="notes" maxlength="400" placeholder="أضف ملاحظة (اختياري)"></textarea>
                             </div>
-                            <p style="font-size: 12px; color: #ccc; margin-top: 2px; font-weight: bold; text-align: center; margin-bottom: 0;">بعد اتمام الدفع هيوصلك المنتج فورا</p>
+
                         </div>
                         <div class="button-container">
                             <div class="discount-code-container">
@@ -33083,22 +33169,32 @@ function filterPortfolio(category, btnElement) {
         <span class="close-btn" onclick="closeModal('cartModal')">&times;</span>
         <div class="modal-body">
             <h2 style="
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px; /* مسافة بين الأيقونة والكلمة */
-    margin-bottom: 20px;
-">
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: -10px; /* رفع الكلمة للأعلى */
+            margin-bottom: 15px; /* تقليل المسافة تحتها */
+        ">
                 <svg xmlns="https://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16" style="color: var(--accent-yellow);">
                     <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
                 </svg>
-
                 سلة التسوق
             </h2>
-            <div id="cartItemsContainer">
+
+            <div id="cartItemsContainer" style="
+            min-height: 200px; /* ضمان مساحة كافية حتى لو السلة فارغة */
+            max-height: 50vh;  /* تسمح بالنمو لـ 50% من طول الشاشة قبل ظهور السكرول */
+            overflow-y: auto;  /* ظهور سكرول داخلي لو المنتجات كتير */
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(255,255,255,0.03); /* تمييز بسيط للمنطقة */
+            border-radius: 10px;
+        ">
                 <p style="text-align: center; color: #ccc;">سلتك فارغة.</p>
             </div>
+
             <div id="cartTotalContainer" class="cart-modal-total">
                 الإجمالي: <span id="cartTotalPrice">0</span> EGP
             </div>
@@ -33107,14 +33203,12 @@ function filterPortfolio(category, btnElement) {
                 <span id="toggle-discount-link" class="toggle-discount"></span>
             </div>
 
-
             <button onclick="goToCheckout()" class="checkout-btn-centered">مواصلة الشراء</button>
 
             <div class="modal-trust-badges">
                 <div class="trust-badge">
                     <svg xmlns="https://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                     <span>دفع آمن</span>
-
                 </div>
                 <div class="trust-badge">
                     <svg xmlns="https://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
@@ -33668,8 +33762,7 @@ function filterPortfolio(category, btnElement) {
     </div>
 
     <footer id="footer">
-
-        <div class="trust-badges-container">
+        <div class="trust-badges-container" style="border: none; margin-bottom: 0;">
             <div class="trust-badge">
                 <svg xmlns="https://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                 <span>دفع آمن 100%</span>
@@ -33684,42 +33777,33 @@ function filterPortfolio(category, btnElement) {
             </div>
         </div>
 
-        <div id="suggestionModal" class="modal">
-            <span class="close-btn" onclick="closeModal('suggestionModal')">×</span>
-            <div class="modal-body">
-                <h2>شاركنا اقتراحك</h2>
-                <p style="font-size: 14px; color: #ccc; margin-top: -10px; margin-bottom: 20px;">سواء كانت فكرة لمنتج جديد أو تحسين لخدمة حالية، رأيك يهمنا.</p>
-                <form id="suggestionForm">
-                    <input type="text" name="name" placeholder="اسمك (اختياري)">
-                    <textarea name="suggestion" rows="5" placeholder="اكتب اقتراحك هنا..." required></textarea>
-                    <button type="submit">إرسال الاقتراح</button>
-                </form>
-                <div id="suggestionMessage" style="margin-top: 15px; font-weight: bold;"></div>
-            </div>
-        </div>
+        <hr class="footer-single-divider">
 
-
-        <div class="footer-links">
-            <a href="https://discord.gg/D3shcEb5xe" target="_blank" class="footer-link">
-                <span>سيرفر الديسكورد</span>
-                <img src="./images/discord.png" alt="Discord">
-            </a>
+        <div class="footer-links" style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 20px; margin-top: 10px;">
             <a href="https://linktr.ee/Berlinstore22" target="_blank" class="footer-link">
                 <span>جميع روابطنا</span>
-                <img src="./images/BerlinStore.png" alt="Berlin Store Logo">
+                <img src="./images/BerlinStore.png" alt="Berlin Store Logo" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 5px;">
             </a>
             <a href="#about" class="footer-link">من نحن؟</a>
             <a href="#terms" class="footer-link">شروط الخدمة</a>
             <a href="#privacy" class="footer-link">سياسة الخصوصية</a>
             <a href="#faq" class="footer-link">الأسئلة الشائعة</a>
+
+            <div class="footer-social-inline" style="display: flex; gap: 15px; margin-right: 10px; border-right: 1px solid rgba(255,255,255,0.1); padding-right: 15px;">
+                <a href="https://www.facebook.com/profile.php?id=61550828833554" target="_blank" class="footer-link"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/berlinstore_goe/" target="_blank" class="footer-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://discord.gg/D3shcEb5xe" target="_blank" class="footer-link"><i class="fab fa-discord"></i></a>
+            </div>
         </div>
 
-        <p id="copyright">© 2020-2026 GOE Berlin Store. جميع الحقوق محفوظة.</p>
+        <p id="copyright" style="margin-top: 25px;">© 2020-2026 GOE Berlin Store. جميع الحقوق محفوظة.</p>
 
         <div class="payment-icons-corner">
-            <img src="./images/paypal.png" alt="PayPal" class="pay-img-corner" title="PayPal">
-            <img src="./images/vf-cash.png" alt="Vodafone Cash" class="pay-img-corner" title="Vodafone Cash">
+            <img src="./images/paypal.png" alt="PayPal" class="pay-img-corner">
+            <img src="./images/vf-cash.png" alt="Vodafone Cash" class="pay-img-corner">
         </div>
+
+
 
         <button id="theme-toggle-btn">
             <svg class="sun-icon" xmlns="https://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
