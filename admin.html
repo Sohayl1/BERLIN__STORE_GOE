@@ -349,6 +349,9 @@
             flex: 1;
             background: var(--bg-body);
             position: relative;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
         .header-bar {
@@ -432,6 +435,9 @@
             padding: 30px;
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .form-grid {
@@ -450,6 +456,8 @@
             color: white;
             font-family: inherit;
             transition: 0.3s;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
             .c-input:focus {
@@ -501,6 +509,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
+            width: 100%;
         }
 
         .product-card {
@@ -510,6 +519,8 @@
             padding: 15px;
             position: relative;
             transition: 0.3s;
+            width: 100%;
+            box-sizing: border-box;
         }
 
             .product-card:hover {
@@ -578,6 +589,7 @@
             overflow-x: auto;
             border-radius: var(--radius-md);
             border: var(--border);
+            width: 100%;
         }
 
         .custom-table {
@@ -713,7 +725,170 @@
             justify-content: center;
         }
 
-        /* Mobile */
+        /* ==========================================================================
+           7. AD MANAGEMENT SECTION
+           ==========================================================================
+        */
+        .ad-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 25px;
+        }
+
+        .ad-card-item {
+            background: var(--bg-card);
+            border: var(--border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+            .ad-card-item:hover {
+                border-color: var(--purple);
+                transform: translateY(-5px);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            }
+
+        .ad-preview-container {
+            width: 100%;
+            height: 180px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            position: relative;
+            background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ad-preview-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .no-preview {
+            text-align: center;
+            color: #666;
+            padding: 20px;
+        }
+
+            .no-preview i {
+                font-size: 2.5rem;
+                margin-bottom: 10px;
+                opacity: 0.3;
+            }
+
+        .ad-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .ad-input-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .ad-input-label i {
+                color: var(--purple);
+            }
+
+        .ad-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-sm);
+            color: white;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+        }
+
+            .ad-input:focus {
+                border-color: var(--purple);
+                background: rgba(108, 92, 231, 0.05);
+                box-shadow: 0 0 15px rgba(108, 92, 231, 0.2);
+                outline: none;
+            }
+
+            .ad-input::placeholder {
+                color: #555;
+            }
+
+        .refresh-preview-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+            .refresh-preview-btn:hover {
+                background: var(--purple);
+                transform: rotate(90deg);
+            }
+
+        .save-ad-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--green) 0%, #00d2a0 100%);
+            color: #000;
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(0, 184, 148, 0.2);
+            max-width: 500px;
+            margin: 20px auto 0;
+        }
+
+            .save-ad-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 15px 40px rgba(0, 184, 148, 0.3);
+            }
+
+            .save-ad-btn:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+                transform: none;
+            }
+
+        /* ==========================================================================
+           8. MOBILE RESPONSIVE
+           ==========================================================================
+        */
         .mobile-header {
             display: none;
             padding: 15px 20px;
@@ -759,70 +934,27 @@
                 height: calc(100vh - 60px);
             }
 
-            .products-container {
+            .products-container,
+            .ad-cards-grid {
                 grid-template-columns: 1fr;
             }
+
+            .glass-panel {
+                padding: 20px;
+            }
+
+            .ad-preview-container {
+                height: 200px;
+            }
         }
 
-        .nav-btn {
-            background: transparent;
-            border: none;
-            width: 100%;
-            padding: 14px 20px;
-            border-radius: var(--radius-md);
-            color: var(--text-muted);
-            /* التعديلات الجديدة على الخط */
-            font-family: 'Tajawal', sans-serif;
-            font-size: 1rem;
-            font-weight: 600; /* خط أعرض قليلاً */
-            letter-spacing: 0.5px; /* تباعد بسيط يعطي فخامة */
-
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: right;
-            margin-bottom: 5px;
+        @media (max-width: 1200px) and (min-width: 961px) {
+            .ad-cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
 
-            .nav-btn i {
-                width: 25px;
-                font-size: 1.1rem;
-                transition: 0.3s;
-                opacity: 0.7;
-            }
-
-            .nav-btn:hover {
-                background: rgba(255, 255, 255, 0.05);
-                color: white;
-                transform: translateX(-5px); /* حركة بسيطة لليمين عند التمرير */
-            }
-
-            .nav-btn.active {
-                background: linear-gradient(90deg, rgba(108, 92, 231, 0.2) 0%, transparent 100%);
-                color: var(--purple);
-                border-right: 4px solid var(--purple); /* زيادة سمك الخط الجانبي */
-                font-weight: 800; /* جعل النص أعرض في الحالة النشطة */
-            }
-
-                .nav-btn.active i {
-                    color: var(--purple);
-                    opacity: 1;
-                    filter: drop-shadow(0 0 8px var(--purple-glow));
-                }
-
-        .logout-btn {
-            margin-top: auto;
-            color: #ff7675;
-            font-weight: 700;
-            border: 1px solid rgba(214, 48, 49, 0.1);
-        }
-
-            .logout-btn:hover {
-                background: rgba(214, 48, 49, 0.1) !important;
-                color: #d63031;
-            }
+        /* Navigation Button Styles */
         .nav-btn {
             background: transparent;
             border: none;
@@ -832,7 +964,7 @@
             color: var(--text-muted);
             font-family: 'Tajawal', sans-serif;
             font-size: 1.05rem;
-            font-weight: 600; /* خط سميك وواضح */
+            font-weight: 600;
             letter-spacing: 0.3px;
             display: flex;
             align-items: center;
@@ -853,14 +985,14 @@
             .nav-btn:hover {
                 background: rgba(255, 255, 255, 0.05);
                 color: white;
-                transform: translateX(-5px); /* حركة انزلاق بسيطة لليمين */
+                transform: translateX(-5px);
             }
 
             .nav-btn.active {
                 background: linear-gradient(90deg, rgba(108, 92, 231, 0.2) 0%, transparent 100%);
                 color: var(--purple);
                 border-right: 4px solid var(--purple);
-                font-weight: 800; /* خط أعرض للتاب النشط */
+                font-weight: 800;
             }
 
                 .nav-btn.active i {
@@ -871,57 +1003,12 @@
 
         .logout-btn {
             margin-top: auto;
-            color: #ff7675 !important; /* لون أحمر هادئ للخروج */
+            color: #ff7675 !important;
             font-weight: 700;
         }
     </style>
 </head>
 <body>
-
-    <section id="ad-management" class="animate__animated animate__fadeIn" style="display: none;">
-        <div class="header-bar">
-            <div class="page-title">
-                <h1>إعدادات السلايدر</h1>
-                <p>إدارة صور العروض والروابط في الصفحة الرئيسية</p>
-            </div>
-        </div>
-
-        <div class="glass-panel" style="max-width: 900px;">
-            <h3 style="margin-top:0; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:15px; color:var(--gold);">
-                <i class="fas fa-sliders-h"></i> التحكم في محتوى السلايدر
-            </h3>
-
-            <div class="form-grid" style="grid-template-columns: 1fr;">
-                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
-                    <h4 style="margin:0 0 15px 0; color: #00d4ff;"><i class="fas fa-image"></i> الإعلان الأول</h4>
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <input type="text" id="admin-ad-img1" class="c-input" placeholder="رابط الصورة 1">
-                        <input type="text" id="admin-ad-link1" class="c-input" placeholder="رابط المنتج 1">
-                    </div>
-                </div>
-
-                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
-                    <h4 style="margin:0 0 15px 0; color: #00d4ff;"><i class="fas fa-image"></i> الإعلان الثاني</h4>
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <input type="text" id="admin-ad-img2" class="c-input" placeholder="رابط الصورة 2">
-                        <input type="text" id="admin-ad-link2" class="c-input" placeholder="رابط المنتج 2">
-                    </div>
-                </div>
-
-                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
-                    <h4 style="margin:0 0 15px 0; color: #00d4ff;"><i class="fas fa-image"></i> الإعلان الثالث</h4>
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <input type="text" id="admin-ad-img3" class="c-input" placeholder="رابط الصورة 3">
-                        <input type="text" id="admin-ad-link3" class="c-input" placeholder="رابط المنتج 3">
-                    </div>
-                </div>
-            </div>
-
-            <button type="button" onclick="updateFirebaseSlider()" id="saveAdBtn" class="btn-action btn-success" style="width: 100%; justify-content: center; margin-top: 25px; height: 60px; font-size: 1.15rem;">
-                <i class="fas fa-save"></i> حفظ وتحديث الموقع فوراً
-            </button>
-        </div>
-    </section>
 
     <div id="login-screen">
         <div class="login-card">
@@ -995,7 +1082,6 @@
                 </div>
             </div>
 
-
             <div class="dashboard-sidebar" style="display: flex; flex-direction: column; gap: 10px; padding: 15px;">
                 <button class="nav-btn active" onclick="switchTab('products', this)">
                     <i class="fas fa-cube"></i> إدارة المنتجات
@@ -1009,8 +1095,6 @@
                 </button>
             </div>
 
-
-
             <button class="nav-btn logout-btn" onclick="logout()">
                 <i class="fas fa-sign-out-alt"></i> تسجيل خروج
             </button>
@@ -1022,7 +1106,7 @@
         </aside>
 
         <main class="main-content">
-
+            <!-- Products Section -->
             <section id="section-products" class="animate__animated animate__fadeIn">
                 <div class="header-bar">
                     <div class="page-title">
@@ -1078,6 +1162,7 @@
                 <div id="products-list" class="products-container"></div>
             </section>
 
+            <!-- Orders Section -->
             <section id="section-orders" class="animate__animated animate__fadeIn" style="display: none;">
                 <div class="header-bar">
                     <div class="page-title">
@@ -1130,192 +1215,132 @@
                 </div>
             </section>
 
+            <!-- AD MANAGEMENT SECTION - FIXED ON LEFT SIDE -->
+            <section id="ad-management" class="animate__animated animate__fadeIn" style="display: none;">
+                <div class="header-bar">
+                    <div class="page-title">
+                        <h1>إدارة الإعلانات</h1>
+                        <p>تحكم كامل في إعلانات السلايدر الرئيسي</p>
+                    </div>
+                </div>
+
+                <div class="glass-panel">
+                    <h3 style="margin: 0 0 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; color: var(--gold);">
+                        <i class="fas fa-sliders-h"></i> إعدادات الإعلانات الثلاثة
+                    </h3>
+
+                    <div class="ad-cards-grid">
+                        <!-- Ad Card 1 -->
+                        <div class="ad-card-item">
+                            <h4><i class="fas fa-image" style="color: #FF6B6B;"></i> الإعلان الأول</h4>
+
+                            <div class="ad-preview-container">
+                                <img id="preview-img-1" class="ad-preview-img" style="display: none;">
+                                <div id="no-preview-1" class="no-preview">
+                                    <i class="fas fa-image"></i>
+                                    <div>لم تتم إضافة صورة</div>
+                                </div>
+                                <button class="refresh-preview-btn" onclick="refreshPreview(1)">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+
+                            <div class="ad-input-group">
+                                <label class="ad-input-label">
+                                    <i class="fas fa-link"></i> رابط الصورة
+                                </label>
+                                <input type="text" id="admin-ad-img1" class="ad-input" placeholder="https://example.com/image1.jpg" oninput="updateCardPreview(1)">
+
+                                <label class="ad-input-label" style="margin-top: 10px;">
+                                    <i class="fas fa-external-link-alt"></i> رابط التوجيه
+                                </label>
+                                <input type="text" id="admin-ad-link1" class="ad-input" placeholder="https://yourstore.com/product1">
+                            </div>
+
+                            <div class="ad-card-info">
+                                <i class="fas fa-info-circle"></i> يظهر أولاً في السلايدر الرئيسي
+                            </div>
+                        </div>
+
+                        <!-- Ad Card 2 -->
+                        <div class="ad-card-item">
+                            <h4><i class="fas fa-image" style="color: #4ECDC4;"></i> الإعلان الثاني</h4>
+
+                            <div class="ad-preview-container">
+                                <img id="preview-img-2" class="ad-preview-img" style="display: none;">
+                                <div id="no-preview-2" class="no-preview">
+                                    <i class="fas fa-image"></i>
+                                    <div>لم تتم إضافة صورة</div>
+                                </div>
+                                <button class="refresh-preview-btn" onclick="refreshPreview(2)">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+
+                            <div class="ad-input-group">
+                                <label class="ad-input-label">
+                                    <i class="fas fa-link"></i> رابط الصورة
+                                </label>
+                                <input type="text" id="admin-ad-img2" class="ad-input" placeholder="https://example.com/image2.jpg" oninput="updateCardPreview(2)">
+
+                                <label class="ad-input-label" style="margin-top: 10px;">
+                                    <i class="fas fa-external-link-alt"></i> رابط التوجيه
+                                </label>
+                                <input type="text" id="admin-ad-link2" class="ad-input" placeholder="https://yourstore.com/product2">
+                            </div>
+
+                            <div class="ad-card-info">
+                                <i class="fas fa-info-circle"></i> يظهر ثانياً في السلايدر
+                            </div>
+                        </div>
+
+                        <!-- Ad Card 3 -->
+                        <div class="ad-card-item">
+                            <h4><i class="fas fa-image" style="color: #FFD93D;"></i> الإعلان الثالث</h4>
+
+                            <div class="ad-preview-container">
+                                <img id="preview-img-3" class="ad-preview-img" style="display: none;">
+                                <div id="no-preview-3" class="no-preview">
+                                    <i class="fas fa-image"></i>
+                                    <div>لم تتم إضافة صورة</div>
+                                </div>
+                                <button class="refresh-preview-btn" onclick="refreshPreview(3)">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+
+                            <div class="ad-input-group">
+                                <label class="ad-input-label">
+                                    <i class="fas fa-link"></i> رابط الصورة
+                                </label>
+                                <input type="text" id="admin-ad-img3" class="ad-input" placeholder="https://example.com/image3.jpg" oninput="updateCardPreview(3)">
+
+                                <label class="ad-input-label" style="margin-top: 10px;">
+                                    <i class="fas fa-external-link-alt"></i> رابط التوجيه
+                                </label>
+                                <input type="text" id="admin-ad-link3" class="ad-input" placeholder="https://yourstore.com/product3">
+                            </div>
+
+                            <div class="ad-card-info">
+                                <i class="fas fa-info-circle"></i> يظهر ثالثاً في السلايدر
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" onclick="updateFirebaseSlider()" id="saveAdBtn" class="save-ad-btn">
+                        <i class="fas fa-save"></i> حفظ جميع الإعلانات
+                    </button>
+                </div>
+            </section>
+
         </main>
     </div>
 
     <script>
-
-        // ✅ دالة حفظ البيانات الجديدة (3 صور مع روابطهم الخاصة)
-        async function updateFirebaseSlider() {
-            console.log("محاولة حفظ بيانات السلايدر...");
-
-            // 1. تعريف العناصر (الحقول الستة)
-            const btn = document.getElementById('saveAdBtn');
-
-            const img1 = document.getElementById('admin-ad-img1').value;
-            const link1 = document.getElementById('admin-ad-link1').value;
-
-            const img2 = document.getElementById('admin-ad-img2').value;
-            const link2 = document.getElementById('admin-ad-link2').value;
-
-            const img3 = document.getElementById('admin-ad-img3').value;
-            const link3 = document.getElementById('admin-ad-link3').value;
-
-            // 2. التحقق من وجود الصورة الأولى على الأقل
-            if (!img1) {
-                alert("⚠️ يرجى وضع رابط الصورة الأولى (الأساسية) على الأقل.");
-                return;
-            }
-
-            // 3. تأثير التحميل على الزر
-            const originalContent = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
-            btn.disabled = true;
-
-            try {
-                // التأكد من اتصال فايربيس
-                if (typeof db === 'undefined') throw new Error("Firebase db is not defined");
-
-                // 4. الإرسال لفايربيس بالهيكل الجديد (كل صورة ولينك في مجموعة واحدة)
-                await db.collection("settings").doc("mainAd").set({
-                    ad1: { img: img1, url: link1 },
-                    ad2: { img: img2, url: link2 },
-                    ad3: { img: img3, url: link3 },
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                }, { merge: true });
-
-                alert("✅ تم تحديث السلايدر والروابط بنجاح!");
-            } catch (error) {
-                console.error("❌ Firebase Error:", error);
-                alert("❌ حدث خطأ أثناء الحفظ: " + error.message);
-            } finally {
-                // 5. إعادة الزر لحالته الطبيعية
-                btn.innerHTML = originalContent;
-                btn.disabled = false;
-            }
-        }
-
-        // سطر لضمان أن المتصفح يرى الدالة من الـ HTML
-        window.updateFirebaseSlider = updateFirebaseSlider;
-
-        // ✅ دالة جلب البيانات عند فتح التبويب لتظهر في الحقول
-        function loadCurrentSliderData() {
-            if (typeof db !== 'undefined') {
-                db.collection("settings").doc("mainAd").get().then((doc) => {
-                    if (doc.exists) {
-                        const d = doc.data();
-                        if (d.ad1) {
-                            document.getElementById('admin-ad-img1').value = d.ad1.img || '';
-                            document.getElementById('admin-ad-link1').value = d.ad1.url || '';
-                        }
-                        if (d.ad2) {
-                            document.getElementById('admin-ad-img2').value = d.ad2.img || '';
-                            document.getElementById('admin-ad-link2').value = d.ad2.url || '';
-                        }
-                        if (d.ad3) {
-                            document.getElementById('admin-ad-img3').value = d.ad3.img || '';
-                            document.getElementById('admin-ad-link3').value = d.ad3.url || '';
-                        }
-                    }
-                });
-            }
-        }
-
-        // استدعاء الجلب عند تحميل الصفحة
-        document.addEventListener("DOMContentLoaded", loadCurrentSliderData);
-
-        // دالة لجلب البيانات القديمة وعرضها في الحقول عند فتح الصفحة
-        function loadSliderData() {
-            if (typeof db !== 'undefined') {
-                db.collection("settings").doc("mainAd").get().then((doc) => {
-                    if (doc.exists) {
-                        const data = doc.data();
-                        if (document.getElementById('admin-ad-img1')) document.getElementById('admin-ad-img1').value = data.imageUrl || '';
-                        if (document.getElementById('admin-ad-img2')) document.getElementById('admin-ad-img2').value = data.imageUrl2 || '';
-                        if (document.getElementById('admin-ad-img3')) document.getElementById('admin-ad-img3').value = data.imageUrl3 || '';
-                        if (document.getElementById('admin-ad-link')) document.getElementById('admin-ad-link').value = data.targetUrl || '';
-                    }
-                });
-            }
-        }
-
-        // استدعاء جلب البيانات فور تحميل الصفحة
-        document.addEventListener("DOMContentLoaded", loadSliderData);
-
-        // 1. جلب البيانات الحالية عند فتح الصفحة لتراها أمامك
-        function loadCurrentAdSettings() {
-            if (typeof db !== 'undefined') {
-                db.collection("settings").doc("mainAd").get().then((doc) => {
-                    if (doc.exists) {
-                        const data = doc.data();
-                        document.getElementById('admin-ad-img').value = data.imageUrl || '';
-                        document.getElementById('admin-ad-link').value = data.targetUrl || '';
-                    }
-                }).catch((error) => {
-                    console.error("خطأ في جلب بيانات الإعلان: ", error);
-                });
-            }
-        }
-
-        // 2. وظيفة التحديث وحفظ البيانات الجديدة
-        async function updateFirebaseAd() {
-            const imgVal = document.getElementById('admin-ad-img').value;
-            const linkVal = document.getElementById('admin-ad-link').value;
-            const btn = document.getElementById('saveAdBtn');
-
-            if (!imgVal || !linkVal) {
-                alert("⚠️ يرجى وضع رابط الصورة ورابط التوجيه أولاً");
-                return;
-            }
-
-            // تغيير شكل الزر أثناء التحميل
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التحديث...';
-            btn.style.opacity = "0.7";
-            btn.disabled = true;
-
-            try {
-                // تحديث مستند mainAd (أو إنشاؤه إذا لم يكن موجوداً)
-                await db.collection("settings").doc("mainAd").set({
-                    imageUrl: imgVal,
-                    targetUrl: linkVal,
-                    lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
-                }, { merge: true });
-
-                alert("✅ تم تحديث الإعلان بنجاح! سيظهر لجميع الزوار الآن.");
-            } catch (error) {
-                console.error("Error: ", error);
-                alert("❌ حدث خطأ أثناء التحديث: " + error.message);
-            } finally {
-                // إعادة الزر لحالته الطبيعية
-                btn.innerHTML = originalText;
-                btn.style.opacity = "1";
-                btn.disabled = false;
-            }
-        }
-
-        // تشغيل الجلب التلقائي عند تحميل الداشبورد
-        document.addEventListener("DOMContentLoaded", loadCurrentAdSettings);
-
-        // وظيفة تحديث الإعلان من الداشبورد
-        function updateFirebaseAd() {
-            const imgVal = document.getElementById('admin-ad-img').value;
-            const linkVal = document.getElementById('admin-ad-link').value;
-
-            if (!imgVal || !linkVal) {
-                alert("يرجى ملء الرابطين أولاً");
-                return;
-            }
-
-            // التحديث باستخدام doc().set مع merge لضمان عدم مسح أي بيانات أخرى
-            db.collection("settings").doc("mainAd").set({
-                imageUrl: imgVal,
-                targetUrl: linkVal,
-                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
-            }, { merge: true })
-                .then(() => {
-                    alert("✅ تم تحديث الإعلان بنجاح في الموقع!");
-                })
-                .catch((error) => {
-                    console.error("❌ خطأ في التحديث: ", error);
-                    alert("فشل التحديث، تأكد من صلاحيات الإدمن.");
-                });
-        }
         // ============================================
         // 1. CONFIGURATION & SETUP
         // ============================================
 
-        // رابط Apps Script الذي قمنا بإنشائه (تأكد أنه آخر نسخة)
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwuGMt0s9txuTj97OQI1zCqKfWmCCYP9hDPe21V_P3wPlYBV959tcfmTgQ1ZmglEdHBUQ/exec";
 
         const firebaseConfig = {
@@ -1359,7 +1384,7 @@
             loginScreen.style.opacity = '0';
             setTimeout(() => {
                 loginScreen.style.display = 'none';
-                document.getElementById('app-layout').style.display = 'grid'; // Grid for desktop
+                document.getElementById('app-layout').style.display = 'grid';
                 if (window.innerWidth <= 960) document.getElementById('app-layout').style.display = 'block';
                 loadProducts();
             }, 800);
@@ -1374,17 +1399,15 @@
         // 3. UI LOGIC (TABS & SIDEBAR)
         // ============================================
         function switchTab(tabName, btn) {
-            // 1. إخفاء جميع الأقسام (المنتجات، الطلبات، الإعلانات)
+            // Hide all sections
             document.getElementById('section-products').style.display = 'none';
             document.getElementById('section-orders').style.display = 'none';
+            document.getElementById('ad-management').style.display = 'none';
 
-            const adSection = document.getElementById('ad-management');
-            if (adSection) adSection.style.display = 'none';
-
-            // 2. إزالة حالة النشاط (active) من كل الأزرار
+            // Remove active class from all buttons
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
 
-            // 3. إظهار القسم المختار بناءً على الـ ID
+            // Show selected section
             let targetId = (tabName === 'ad-management') ? 'ad-management' : `section-${tabName}`;
             const targetElement = document.getElementById(targetId);
 
@@ -1392,15 +1415,18 @@
                 targetElement.style.display = 'block';
             }
 
-            // 4. تفعيل الزر الذي تم الضغط عليه
+            // Activate selected button
             if (btn) btn.classList.add('active');
 
-            // 5. تحميل البيانات فورياً عند فتح التبويب
+            // Load data for each section
             if (tabName === 'orders') loadOrders();
             if (tabName === 'products') loadProducts();
-            if (tabName === 'ad-management') loadCurrentSliderData();
+            if (tabName === 'ad-management') {
+                loadCurrentSliderData();
+                setTimeout(updateAllPreviews, 100);
+            }
 
-            // 6. للموبايل: إغلاق القائمة الجانبية بعد الاختيار
+            // Close sidebar on mobile
             const sidebar = document.getElementById('sidebar');
             if (window.innerWidth <= 960 && sidebar) {
                 sidebar.classList.remove('active');
@@ -1412,7 +1438,160 @@
         }
 
         // ============================================
-        // 4. PRODUCTS MANAGEMENT (CRUD)
+        // 4. AD MANAGEMENT FUNCTIONS
+        // ============================================
+        function updateCardPreview(cardNumber) {
+            const imgUrl = document.getElementById(`admin-ad-img${cardNumber}`).value;
+            const imgElement = document.getElementById(`preview-img-${cardNumber}`);
+            const noPreviewElement = document.getElementById(`no-preview-${cardNumber}`);
+
+            if (imgUrl && imgUrl.trim() !== '') {
+                imgElement.src = imgUrl;
+                imgElement.style.display = 'block';
+                noPreviewElement.style.display = 'none';
+
+                // Handle image error
+                imgElement.onerror = function () {
+                    imgElement.style.display = 'none';
+                    noPreviewElement.innerHTML = `
+                            <i class="fas fa-exclamation-triangle" style="color: #FF6B6B;"></i>
+                            <div>رابط الصورة غير صالح</div>
+                            <div style="font-size: 0.7rem; margin-top: 5px;">تأكد من الرابط</div>
+                        `;
+                    noPreviewElement.style.display = 'flex';
+                    noPreviewElement.style.flexDirection = 'column';
+                    noPreviewElement.style.alignItems = 'center';
+                    noPreviewElement.style.justifyContent = 'center';
+                    noPreviewElement.style.height = '100%';
+                };
+            } else {
+                imgElement.style.display = 'none';
+                noPreviewElement.innerHTML = `
+                        <i class="fas fa-image"></i>
+                        <div>لم تتم إضافة صورة</div>
+                    `;
+                noPreviewElement.style.display = 'flex';
+                noPreviewElement.style.flexDirection = 'column';
+                noPreviewElement.style.alignItems = 'center';
+                noPreviewElement.style.justifyContent = 'center';
+                noPreviewElement.style.height = '100%';
+            }
+        }
+
+        function refreshPreview(cardNumber) {
+            const imgElement = document.getElementById(`preview-img-${cardNumber}`);
+            const currentSrc = imgElement.src;
+
+            // Show loading effect
+            const btn = event.currentTarget;
+            const originalIcon = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+            // Reload image
+            imgElement.src = '';
+            setTimeout(() => {
+                imgElement.src = currentSrc;
+                btn.innerHTML = originalIcon;
+                showToast(`تم تحديث معاينة الإعلان ${cardNumber}`, "success");
+            }, 500);
+        }
+
+        function updateAllPreviews() {
+            for (let i = 1; i <= 3; i++) {
+                updateCardPreview(i);
+            }
+        }
+
+        function loadCurrentSliderData() {
+            if (typeof db !== 'undefined') {
+                db.collection("settings").doc("mainAd").get().then((doc) => {
+                    if (doc.exists) {
+                        const d = doc.data();
+                        if (d.ad1) {
+                            document.getElementById('admin-ad-img1').value = d.ad1.img || '';
+                            document.getElementById('admin-ad-link1').value = d.ad1.url || '';
+                        }
+                        if (d.ad2) {
+                            document.getElementById('admin-ad-img2').value = d.ad2.img || '';
+                            document.getElementById('admin-ad-link2').value = d.ad2.url || '';
+                        }
+                        if (d.ad3) {
+                            document.getElementById('admin-ad-img3').value = d.ad3.img || '';
+                            document.getElementById('admin-ad-link3').value = d.ad3.url || '';
+                        }
+
+                        // Update previews after loading data
+                        setTimeout(updateAllPreviews, 100);
+                    } else {
+                        updateAllPreviews();
+                    }
+                }).catch((error) => {
+                    console.error("خطأ في جلب بيانات السلايدر: ", error);
+                    updateAllPreviews();
+                });
+            } else {
+                setTimeout(updateAllPreviews, 300);
+            }
+        }
+
+        async function updateFirebaseSlider() {
+            console.log("محاولة حفظ بيانات السلايدر...");
+
+            // Collect data
+            const btn = document.getElementById('saveAdBtn');
+
+            const img1 = document.getElementById('admin-ad-img1').value;
+            const link1 = document.getElementById('admin-ad-link1').value;
+
+            const img2 = document.getElementById('admin-ad-img2').value;
+            const link2 = document.getElementById('admin-ad-link2').value;
+
+            const img3 = document.getElementById('admin-ad-img3').value;
+            const link3 = document.getElementById('admin-ad-link3').value;
+
+            // Validate at least first image
+            if (!img1) {
+                showToast("⚠️ يرجى وضع رابط الصورة الأولى على الأقل", "error");
+                return;
+            }
+
+            // Loading effect
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+            btn.disabled = true;
+
+            try {
+                if (typeof db === 'undefined') throw new Error("Firebase db is not defined");
+
+                // Save to Firebase
+                await db.collection("settings").doc("mainAd").set({
+                    ad1: { img: img1, url: link1 },
+                    ad2: { img: img2, url: link2 },
+                    ad3: { img: img3, url: link3 },
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                }, { merge: true });
+
+                showToast("✅ تم تحديث السلايدر والروابط بنجاح!", "success");
+
+                // Celebration effect
+                confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            } catch (error) {
+                console.error("❌ Firebase Error:", error);
+                showToast("❌ حدث خطأ أثناء الحفظ: " + error.message, "error");
+            } finally {
+                // Restore button
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+            }
+        }
+
+        // Initialize previews on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(updateAllPreviews, 500);
+        });
+
+        // ============================================
+        // 5. PRODUCTS MANAGEMENT (CRUD)
         // ============================================
         function loadProducts() {
             const col = document.getElementById('p-collection').value;
@@ -1429,24 +1608,24 @@
                 snapshot.forEach(doc => {
                     const data = doc.data();
                     const card = `
-                                    <div class="product-card" data-id="${doc.id}">
-                                        <img src="${data.image}" class="p-img" onerror="this.src='https://placehold.co/400x300/1a1a1a/FFF?text=No+Image'">
-                                        <div class="p-details">
-                                            <h3>${data.title}</h3>
-                                            <div class="p-price">${data.price} EGP</div>
-                                            <div style="font-size:0.8rem; color:#777; margin-top:5px;">${data.platform || 'General'}</div>
-                                        </div>
-                                        <div class="p-actions">
-                                            <button onclick="editProduct('${doc.id}', '${col}')" class="icon-btn btn-edit"><i class="fas fa-pen"></i></button>
-                                            <button onclick="deleteProduct('${doc.id}', '${col}')" class="icon-btn btn-del"><i class="fas fa-trash"></i></button>
-                                            <div style="margin-right:auto; cursor:grab; color:#555;" class="drag-handle"><i class="fas fa-grip-lines"></i></div>
-                                        </div>
-                                    </div>
-                                `;
+                            <div class="product-card" data-id="${doc.id}">
+                                <img src="${data.image}" class="p-img" onerror="this.src='https://placehold.co/400x300/1a1a1a/FFF?text=No+Image'">
+                                <div class="p-details">
+                                    <h3>${data.title}</h3>
+                                    <div class="p-price">${data.price} EGP</div>
+                                    <div style="font-size:0.8rem; color:#777; margin-top:5px;">${data.platform || 'General'}</div>
+                                </div>
+                                <div class="p-actions">
+                                    <button onclick="editProduct('${doc.id}', '${col}')" class="icon-btn btn-edit"><i class="fas fa-pen"></i></button>
+                                    <button onclick="deleteProduct('${doc.id}', '${col}')" class="icon-btn btn-del"><i class="fas fa-trash"></i></button>
+                                    <div style="margin-right:auto; cursor:grab; color:#555;" class="drag-handle"><i class="fas fa-grip-lines"></i></div>
+                                </div>
+                            </div>
+                        `;
                     container.innerHTML += card;
                 });
 
-                // Init Sortable (Horizontal Grid Enabled)
+                // Init Sortable
                 if (currentSortable) currentSortable.destroy();
                 currentSortable = new Sortable(container, {
                     handle: '.drag-handle',
@@ -1469,7 +1648,10 @@
                 category: "games"
             };
 
-            if (!productData.title || !productData.price) { showToast("يرجى ملء البيانات الأساسية", "error"); return; }
+            if (!productData.title || !productData.price) {
+                showToast("يرجى ملء البيانات الأساسية", "error");
+                return;
+            }
 
             if (id) {
                 // Update
@@ -1542,7 +1724,7 @@
         }
 
         // ============================================
-        // 5. ORDERS MANAGEMENT
+        // 6. ORDERS MANAGEMENT
         // ============================================
         function loadOrders() {
             const tbody = document.getElementById('orders-body');
@@ -1567,7 +1749,7 @@
                     // Parse Date
                     const date = order.createdAt ? new Date(order.createdAt.seconds * 1000).toLocaleString('en-GB') : 'N/A';
 
-                    // Parse User Info (handling potential format variations)
+                    // Parse User Info
                     let userEmail = order.userEmail || "";
                     if (userEmail.includes("Email:")) userEmail = userEmail.split("Email:")[1].trim();
                     const userName = order.userName || "Guest";
@@ -1578,25 +1760,25 @@
                     if (order.status === 'cancelled') statusHtml = `<span class="status-pill st-cancelled">ملغي</span>`;
 
                     const row = `
-                                    <tr>
-                                        <td style="font-family:monospace; color:var(--purple); letter-spacing:1px;">#${doc.id.substr(0, 6)}</td>
-                                        <td>
-                                            <div style="font-weight:bold;">${userName}</div>
-                                            <div style="font-size:0.75rem; color:#888;">${userEmail}</div>
-                                        </td>
-                                        <td>${order.items && order.items[0] ? order.items[0].title : 'Unknown Product'}</td>
-                                        <td style="color:var(--gold); font-weight:bold;">${order.totalPrice} EGP</td>
-                                        <td style="font-size:0.85rem;">${date}</td>
-                                        <td>${statusHtml}</td>
-                                        <td>
-                                            <div style="display:flex; gap:5px;">
-                                                <button onclick="updateStatus('${doc.id}', 'completed')" class="icon-btn" style="background:#00b894; color:#000;" title="إكمال"><i class="fas fa-check"></i></button>
-                                                <button onclick="updateStatus('${doc.id}', 'cancelled')" class="icon-btn" style="background:#d63031; color:#fff;" title="إلغاء"><i class="fas fa-times"></i></button>
-                                                <button onclick="prepareEmail('${userEmail}', '${userName}')" class="icon-btn" style="background:var(--purple); color:#fff;" title="إرسال المنتج"><i class="fas fa-envelope"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                `;
+                            <tr>
+                                <td style="font-family:monospace; color:var(--purple); letter-spacing:1px;">#${doc.id.substr(0, 6)}</td>
+                                <td>
+                                    <div style="font-weight:bold;">${userName}</div>
+                                    <div style="font-size:0.75rem; color:#888;">${userEmail}</div>
+                                </td>
+                                <td>${order.items && order.items[0] ? order.items[0].title : 'Unknown Product'}</td>
+                                <td style="color:var(--gold); font-weight:bold;">${order.totalPrice} EGP</td>
+                                <td style="font-size:0.85rem;">${date}</td>
+                                <td>${statusHtml}</td>
+                                <td>
+                                    <div style="display:flex; gap:5px;">
+                                        <button onclick="updateStatus('${doc.id}', 'completed')" class="icon-btn" style="background:#00b894; color:#000;" title="إكمال"><i class="fas fa-check"></i></button>
+                                        <button onclick="updateStatus('${doc.id}', 'cancelled')" class="icon-btn" style="background:#d63031; color:#fff;" title="إلغاء"><i class="fas fa-times"></i></button>
+                                        <button onclick="prepareEmail('${userEmail}', '${userName}')" class="icon-btn" style="background:var(--purple); color:#fff;" title="إرسال المنتج"><i class="fas fa-envelope"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
                     tbody.innerHTML += row;
                 });
 
@@ -1615,14 +1797,13 @@
                 loadOrders();
 
                 if (status === 'completed') {
-                    // Confetti Effect
                     confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
                 }
             });
         }
 
         // ============================================
-        // 6. EMAIL SYSTEM (APPS SCRIPT INTEGRATION)
+        // 7. EMAIL SYSTEM (APPS SCRIPT INTEGRATION)
         // ============================================
         function prepareEmail(email, name) {
             document.getElementById('mail-to').value = email;
@@ -1646,7 +1827,7 @@
             const payload = {
                 email: document.getElementById('mail-to').value,
                 clientName: document.getElementById('mail-name').value,
-                senderName: "Berlin Store", // Fixed sender name
+                senderName: "Berlin Store",
                 accountEmail: document.getElementById('mail-account').value,
                 accountPass: document.getElementById('mail-pass').value,
                 message: document.getElementById('mail-msg').value
@@ -1665,14 +1846,14 @@
             // Send via Fetch
             fetch(APPS_SCRIPT_URL, {
                 method: "POST",
-                mode: "no-cors", // Standard for Google Apps Script Web App
+                mode: "no-cors",
                 headers: { "Content-Type": "text/plain;charset=utf-8" },
                 body: JSON.stringify(payload)
             })
                 .then(() => {
                     showToast("تم إرسال الإيميل للعميل بنجاح ✅", "success");
                     closeModal('email-modal');
-                    confetti({ particleCount: 50, spread: 50 }); // Small celebration
+                    confetti({ particleCount: 50, spread: 50 });
                 })
                 .catch(err => {
                     console.error(err);
@@ -1685,7 +1866,7 @@
         }
 
         // ============================================
-        // 7. UTILS
+        // 8. UTILS
         // ============================================
         function showToast(msg, type) {
             const container = document.getElementById('toast-container');
