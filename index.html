@@ -6795,48 +6795,7 @@
             background-color: #3B6298 !important;
             color: #ffffff !important;
         }
-        /* ========================================= */
-        /* 🛒 إصلاح زر كود الخصم (مربع ثابت) */
-        /* ========================================= */
-
-        /* 1. الحاوية: تضمن أن العناصر بجانب بعضها في اليسار */
-        #cartModal .discount-code-container {
-            display: flex !important;
-            flex-wrap: nowrap !important;
-            align-items: center !important;
-            justify-content: flex-end !important; /* محاذاة لليسار في RTL */
-            gap: 8px !important;
-            width: 100% !important;
-        }
-
-            /* 2. حقل الإدخال: يأخذ مساحة مناسبة */
-            #cartModal .discount-code-container input {
-                width: 140px !important; /* عرض مناسب للكود */
-                height: 38px !important; /* ارتفاع موحد */
-                padding: 0 10px !important;
-                font-size: 13px !important;
-                margin: 0 !important;
-                border-radius: 6px !important;
-                text-align: center !important;
-            }
-
-            /* 3. الزر: مربع صغير وثابت لا ينضغط */
-            #cartModal .discount-code-container button {
-                width: 38px !important; /* العرض */
-                height: 38px !important; /* الارتفاع (نفس حقل الإدخال) */
-                min-width: 38px !important; /* ⛔ هذا السطر يمنع الانكماش */
-                flex-shrink: 0 !important; /* ⛔ وهذا السطر يؤكد منع الانكماش */
-
-                padding: 0 !important;
-                margin: 0 !important;
-                border-radius: 6px !important;
-                display: flex !important;
-                align-items: center !important;
-                justify-content: center !important;
-                font-size: 18px !important;
-                font-weight: bold !important;
-                line-height: 1 !important;
-            }
+    
 
         #xboxPopularGamesContainer {
             animation: none !important; /* إيقاف الحركة */
@@ -10726,14 +10685,7 @@
                 margin-top: 15px;
             }
 
-        /* تنسيقات بسيطة لحقل الخصم والزر */
-        .discount-code-container {
-            display: flex;
-            justify-content: center;
-            align-items: stretch;
-            margin-top: 2px;
-            margin-bottom: 5px;
-        }
+      
 
         #discountMessage {
             min-height: 18px; /* لمنع اهتزاز التصميم */
@@ -17870,13 +17822,18 @@
         }
 
             .discount-code-container input {
-                width: 180px;
+                width: 180px; /* العرض الذي تفضله */
                 margin: 0;
-                padding: 12px;
+                padding: -5px -5px; /* تقليل الطول عن طريق خفض الـ padding من 10px لـ 6px */
                 text-align: center;
+                background: rgba(255, 255, 255, 0.05);
+                color: white;
                 border: 1px solid var(--main-purple);
-                border-left: none; /* لإزالة الحد الفاصل من جهة الإدخال */
-                border-radius: 0 8px 8px 0; /* لتدوير الحواف اليمنى فقط */
+                border-left: none;
+                border-radius: 0 -5px -5px 0;
+                box-sizing: border-box;
+                outline: none;
+                font-size: 12px; /* تصغير الخط قليلاً ليتناسب مع الارتفاع الجديد */
             }
 
             .discount-code-container button {
@@ -24972,7 +24929,7 @@
     </div>
 
     <div style="margin-top: 80px; text-align: center; border-top: 1px solid #eee; padding-top: 20px; color: #777; font-size: 12px;">
-<p>شكراً لثقتكم في "برلين ستور". جميع الحقوق محفوظة © 2026. هذه فاتورة إلكترونية معتمدة تم إنشاؤها آلياً.</p>
+        <p>شكراً لثقتكم في برلين ستور. هذه الفاتورة تم إنشاؤها آلياً وتعتبر مستنداً رسمياً.</p>
         <p style="font-weight: bold; color: #1a1a2e; margin-top: 5px;">www.berlingoestore.com</p>
     </div>
 </div>
@@ -30740,6 +30697,7 @@
             box-shadow: none !important;
             border: none !important;
         }
+
     </style>
 
     <script>
