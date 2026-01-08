@@ -6,7 +6,7 @@
     <link rel="icon" sizes="192x192" href="https://www.berlingoestore.com/images/BerlinStorefff.png">
     <link rel="apple-touch-icon" href="https://www.berlingoestore.com/images/BerlinStorefff.png">
 
-    <title>Berlin Store | All gaming needs</title>
+    <title>Berlin Store | Gaming shop</title>
 
     <meta name="description" content="متجر برلين - خيارك الأول لشحن الألعاب، اشتراكات بلايستيشن، إكس بوكس، وخدمات الديجيتال بأفضل الأسعار.">
     <meta name="keywords" content="شحن ألعاب, شدات ببجي, نيترو ديسكورد, بطاقات ستور, Berlin Store">
@@ -24901,46 +24901,76 @@
     <script>
 
         async function downloadOrderInvoice() {
-            // تحديد المودال والجزء المراد تصويره
-            const element = document.querySelector('#orderDetailModal .modal-body');
-            const orderId = document.getElementById('detail-order-id')?.innerText || "Order";
+            const orderId = document.getElementById('detail-order-id').innerText;
+            const date = document.getElementById('detail-order-date').innerText;
+            const total = document.getElementById('detail-order-total').innerText;
+            const items = document.getElementById('detail-items-container').innerHTML;
+            const status = document.getElementById('detail-order-status').innerText;
 
-            if (!element) {
-                showToast("خطأ: لم يتم العثور على محتوى الفاتورة", "error");
-                return;
-            }
+            // بناء محتوى الفاتورة الرسمي (أبيض وأسود للطباعة)
+            const invoiceContent = `
+        <div style="padding: 40px; font-family: 'Tajawal', sans-serif; direction: rtl; color: #000; background: #fff;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 20px;">
+                <div>
+                    <img src="https://www.berlingoestore.com/images/BerlinStorefff.png" style="width: 80px; filter: invert(1);">
+                    <h1 style="margin: 5px 0; font-size: 24px;">BERLIN STORE</h1>
+                </div>
+                <div style="text-align: left;">
+                    <h2 style="margin: 0; color: #333;">فاتورة مبيعات</h2>
+                    <p style="margin: 5px 0;">رقم الطلب: <span style="font-family: monospace;">${orderId}</span></p>
+                    <p style="margin: 5px 0;">التاريخ: ${date}</p>
+                </div>
+            </div>
 
-            // إعدادات احترافية لضمان عدم الفشل
+            <div style="margin: 30px 0;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #f4f4f4;">
+                            <th style="border: 1px solid #ddd; padding: 12px; text-align: right;">المنتج</th>
+                            <th style="border: 1px solid #ddd; padding: 12px; text-align: center;">الحالة</th>
+                            <th style="border: 1px solid #ddd; padding: 12px; text-align: left;">السعر</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 12px;">${items}</td>
+                            <td style="border: 1px solid #ddd; padding: 12px; text-align: center;">${status}</td>
+                            <td style="border: 1px solid #ddd; padding: 12px; text-align: left; font-weight: bold;">${total}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 40px; text-align: left; border-top: 2px solid #000; padding-top: 10px;">
+                <h3>الإجمالي الكلي: ${total}</h3>
+            </div>
+
+            <div style="margin-top: 50px; text-align: center; font-size: 12px; color: #777;">
+                <p>شكراً لتعاملك مع Berlin Store</p>
+                <p>هذه فاتورة رقمية معتمدة من النظام</p>
+                <p>www.berlingoestore.com</p>
+            </div>
+        </div>
+    `;
+
+            // إنشاء حاوية مؤقتة
+            const worker = document.createElement('div');
+            worker.innerHTML = invoiceContent;
+
             const opt = {
-                margin: [15, 15],
-                filename: `Berlin-Store-${orderId}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: {
-                    scale: 2,
-                    useCORS: true, // مهم جداً لو الصور من روابط خارجية
-                    letterRendering: true,
-                    backgroundColor: '#15151a' // الحفاظ على هوية برلين ستور السوداء
-                },
+                margin: [0, 0],
+                filename: `Berlin-Invoice-${orderId}.pdf`,
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 3, useCORS: true, letterRendering: true },
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            const btn = event.currentTarget;
-            const originalContent = btn.innerHTML;
-
             try {
-                btn.disabled = true;
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري توليد PDF...';
-
-                // استخدام مكتبة html2pdf
-                await html2pdf().set(opt).from(element).save();
-
-                showToast("تم تحميل الفاتورة بنجاح ✅", "success");
-            } catch (error) {
-                console.error("PDF Generation Error:", error);
-                alert("حدث خطأ تقني. تأكد من السماح للمتصفح بتحميل ملفات الـ PDF.");
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = originalContent;
+                showToast("جاري استخراج الفاتورة الرسمية...", "info");
+                await html2pdf().set(opt).from(worker).save();
+            } catch (err) {
+                console.error(err);
+                alert("حدث خطأ أثناء الطباعة");
             }
         }
 
