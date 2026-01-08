@@ -14,7 +14,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Tajawal:wght@500;700&display=swap" rel="stylesheet">
     <style>
         /* ==========================================================================
            1. CORE VARIABLES & RESET (THEME ENGINE)
@@ -763,42 +763,165 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: var(--radius-md);
+            color: var(--text-muted);
+            /* التعديلات الجديدة على الخط */
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            font-weight: 600; /* خط أعرض قليلاً */
+            letter-spacing: 0.5px; /* تباعد بسيط يعطي فخامة */
+
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: right;
+            margin-bottom: 5px;
+        }
+
+            .nav-btn i {
+                width: 25px;
+                font-size: 1.1rem;
+                transition: 0.3s;
+                opacity: 0.7;
+            }
+
+            .nav-btn:hover {
+                background: rgba(255, 255, 255, 0.05);
+                color: white;
+                transform: translateX(-5px); /* حركة بسيطة لليمين عند التمرير */
+            }
+
+            .nav-btn.active {
+                background: linear-gradient(90deg, rgba(108, 92, 231, 0.2) 0%, transparent 100%);
+                color: var(--purple);
+                border-right: 4px solid var(--purple); /* زيادة سمك الخط الجانبي */
+                font-weight: 800; /* جعل النص أعرض في الحالة النشطة */
+            }
+
+                .nav-btn.active i {
+                    color: var(--purple);
+                    opacity: 1;
+                    filter: drop-shadow(0 0 8px var(--purple-glow));
+                }
+
+        .logout-btn {
+            margin-top: auto;
+            color: #ff7675;
+            font-weight: 700;
+            border: 1px solid rgba(214, 48, 49, 0.1);
+        }
+
+            .logout-btn:hover {
+                background: rgba(214, 48, 49, 0.1) !important;
+                color: #d63031;
+            }
+        .nav-btn {
+            background: transparent;
+            border: none;
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: var(--radius-md);
+            color: var(--text-muted);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 600; /* خط سميك وواضح */
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: right;
+            margin-bottom: 4px;
+        }
+
+            .nav-btn i {
+                width: 25px;
+                font-size: 1.2rem;
+                transition: 0.3s;
+                opacity: 0.8;
+            }
+
+            .nav-btn:hover {
+                background: rgba(255, 255, 255, 0.05);
+                color: white;
+                transform: translateX(-5px); /* حركة انزلاق بسيطة لليمين */
+            }
+
+            .nav-btn.active {
+                background: linear-gradient(90deg, rgba(108, 92, 231, 0.2) 0%, transparent 100%);
+                color: var(--purple);
+                border-right: 4px solid var(--purple);
+                font-weight: 800; /* خط أعرض للتاب النشط */
+            }
+
+                .nav-btn.active i {
+                    color: var(--purple);
+                    opacity: 1;
+                    filter: drop-shadow(0 0 8px var(--purple-glow));
+                }
+
+        .logout-btn {
+            margin-top: auto;
+            color: #ff7675 !important; /* لون أحمر هادئ للخروج */
+            font-weight: 700;
+        }
     </style>
 </head>
 <body>
 
-    <div id="ad-management" class="tab-content" style="display: none; position: relative; z-index: 10;">
-        <div class="dashboard-card glass-card" style="padding: 25px; direction: rtl; color: white; margin: 20px auto; max-width: 650px; border-radius: 15px; background: rgba(25, 10, 50, 0.95); border: 2px solid rgba(142, 106, 191, 0.5); box-shadow: 0 0 20px rgba(0,0,0,0.8);">
+    <section id="ad-management" class="animate__animated animate__fadeIn" style="display: none;">
+        <div class="header-bar">
+            <div class="page-title">
+                <h1>إعدادات السلايدر</h1>
+                <p>إدارة صور العروض والروابط في الصفحة الرئيسية</p>
+            </div>
+        </div>
 
-            <h3 style="color: #f1c40f; margin-bottom: 25px; text-align: center; text-shadow: 0 0 10px rgba(241, 196, 15, 0.5);">
-                <i class="fas fa-sliders-h"></i> إعدادات السلايدر الاحترافي
+        <div class="glass-panel" style="max-width: 900px;">
+            <h3 style="margin-top:0; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:15px; color:var(--gold);">
+                <i class="fas fa-sliders-h"></i> التحكم في محتوى السلايدر
             </h3>
 
-            <div style="background: rgba(255,255,255,0.07); padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1);">
-                <h4 style="margin:0 0 15px 0; color: #00d4ff;"><i class="fas fa-image"></i> الإعلان الأول</h4>
-                <input type="text" id="admin-ad-img1" placeholder="رابط الصورة 1" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #555; background: #000; color: #fff; margin-bottom: 10px;">
-                <input type="text" id="admin-ad-link1" placeholder="رابط المنتج 1" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #555; background: #000; color: #fff;">
+            <div class="form-grid" style="grid-template-columns: 1fr;">
+                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
+                    <h4 style="margin:0 0 15px 0; color: #00d4ff;"><i class="fas fa-image"></i> الإعلان الأول</h4>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <input type="text" id="admin-ad-img1" class="c-input" placeholder="رابط الصورة 1">
+                        <input type="text" id="admin-ad-link1" class="c-input" placeholder="رابط المنتج 1">
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
+                    <h4 style="margin:0 0 15px 0; color: #00d4ff;"><i class="fas fa-image"></i> الإعلان الثاني</h4>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <input type="text" id="admin-ad-img2" class="c-input" placeholder="رابط الصورة 2">
+                        <input type="text" id="admin-ad-link2" class="c-input" placeholder="رابط المنتج 2">
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05);">
+                    <h4 style="margin:0 0 15px 0; color: #00d4ff;"><i class="fas fa-image"></i> الإعلان الثالث</h4>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <input type="text" id="admin-ad-img3" class="c-input" placeholder="رابط الصورة 3">
+                        <input type="text" id="admin-ad-link3" class="c-input" placeholder="رابط المنتج 3">
+                    </div>
+                </div>
             </div>
 
-            <div style="background: rgba(255,255,255,0.07); padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.1);">
-                <h4 style="margin:0 0 15px 0; color: #00d4ff;"><i class="fas fa-image"></i> الإعلان الثاني</h4>
-                <input type="text" id="admin-ad-img2" placeholder="رابط الصورة 2" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #555; background: #000; color: #fff; margin-bottom: 10px;">
-                <input type="text" id="admin-ad-link2" placeholder="رابط المنتج 2" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #555; background: #000; color: #fff;">
-            </div>
-
-            <div style="background: rgba(255,255,255,0.07); padding: 15px; border-radius: 10px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.1);">
-                <h4 style="margin:0 0 15px 0; color: #00d4ff;"><i class="fas fa-image"></i> الإعلان الثالث</h4>
-                <input type="text" id="admin-ad-img3" placeholder="رابط الصورة 3" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #555; background: #000; color: #fff; margin-bottom: 10px;">
-                <input type="text" id="admin-ad-link3" placeholder="رابط المنتج 3" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #555; background: #000; color: #fff;">
-            </div>
-
-            <button type="button" onclick="updateFirebaseSlider()" id="saveAdBtn"
-                    style="width: 100%; background: #27ae60; color: white; border: none; padding: 18px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 1.2rem;">
+            <button type="button" onclick="updateFirebaseSlider()" id="saveAdBtn" class="btn-action btn-success" style="width: 100%; justify-content: center; margin-top: 25px; height: 60px; font-size: 1.15rem;">
                 <i class="fas fa-save"></i> حفظ وتحديث الموقع فوراً
             </button>
-
         </div>
-    </div>
+    </section>
 
     <div id="login-screen">
         <div class="login-card">
@@ -880,7 +1003,8 @@
                 <button class="nav-btn" onclick="switchTab('orders', this)">
                     <i class="fas fa-shopping-bag"></i> إدارة الطلبات
                 </button>
-                <button class="nav-btn" onclick="switchTab('ad-management', this)" style="background: rgba(142, 68, 173, 0.2); border: 1px solid #8e44ad;">
+                <button class="nav-btn" onclick="switchTab('ad-management', this)"
+                        style="background: rgba(155, 89, 182, 0.1); border: 1px solid rgba(155, 89, 182, 0.3); margin-top: 5px;">
                     <i class="fas fa-images"></i> إدارة الإعلان
                 </button>
             </div>
@@ -1250,20 +1374,17 @@
         // 3. UI LOGIC (TABS & SIDEBAR)
         // ============================================
         function switchTab(tabName, btn) {
-            // 1. إخفاء جميع الأقسام (بما في ذلك قسم الإعلانات الجديد)
+            // 1. إخفاء جميع الأقسام (المنتجات، الطلبات، الإعلانات)
             document.getElementById('section-products').style.display = 'none';
             document.getElementById('section-orders').style.display = 'none';
 
-            // التأكد من وجود قسم الإعلانات وإخفائه
             const adSection = document.getElementById('ad-management');
             if (adSection) adSection.style.display = 'none';
 
-            // 2. إزالة كلاس active من كل الأزرار
+            // 2. إزالة حالة النشاط (active) من كل الأزرار
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
 
-            // 3. إظهار القسم المختار
-            // ملاحظة: إذا كان اسم التبويب ad-management سيفتحه مباشرة، 
-            // وإذا كان يتبع نمط section- سيفتحه بالنمط القديم
+            // 3. إظهار القسم المختار بناءً على الـ ID
             let targetId = (tabName === 'ad-management') ? 'ad-management' : `section-${tabName}`;
             const targetElement = document.getElementById(targetId);
 
@@ -1271,15 +1392,15 @@
                 targetElement.style.display = 'block';
             }
 
-            // 4. تفعيل الزر المختار
+            // 4. تفعيل الزر الذي تم الضغط عليه
             if (btn) btn.classList.add('active');
 
-            // 5. تحميل البيانات الخاصة بكل قسم
+            // 5. تحميل البيانات فورياً عند فتح التبويب
             if (tabName === 'orders') loadOrders();
             if (tabName === 'products') loadProducts();
-            if (tabName === 'ad-management') loadCurrentSliderData(); // تحميل بيانات السلايدر عند فتح التبويب
+            if (tabName === 'ad-management') loadCurrentSliderData();
 
-            // 6. للموبايل: إغلاق القائمة الجانبية
+            // 6. للموبايل: إغلاق القائمة الجانبية بعد الاختيار
             const sidebar = document.getElementById('sidebar');
             if (window.innerWidth <= 960 && sidebar) {
                 sidebar.classList.remove('active');
