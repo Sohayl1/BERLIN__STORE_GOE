@@ -24907,53 +24907,32 @@
             const status = document.getElementById('detail-order-status').innerText;
             const itemsContainer = document.getElementById('detail-items-container');
 
-            // --- تعديل محسّن لاستخراج اسم المنتج دون تكرار ---
+            // --- تعديل 1: استخراج نظيف جداً لمنع التكرار ---
+            // سنقوم بجلب أول عنوان فقط وتجنب جلب كل الطبقات الداخلية
             let productTitle = "منتج رقمي";
-
-            // محاولة إيجاد أول عنصر نصي غير فارغ وغير مكرر
-            const allTextElements = itemsContainer.querySelectorAll('*');
-            const seenTexts = new Set();
-
-            for (let element of allTextElements) {
-                const text = element.innerText?.trim();
-                if (text &&
-                    text.length > 2 &&
-                    !seenTexts.has(text) &&
-                    !text.includes('...') &&
-                    !text.includes('ج.م') &&
-                    !text.includes('$')) {
-
-                    // تجزئة النص وأخذ أول جزء مفيد
-                    const cleanText = text.split('\n')[0]
-                        .split('  ')[0]
-                        .replace(/\s+/g, ' ')
-                        .trim();
-
-                    if (cleanText.length > 2) {
-                        productTitle = cleanText;
-                        seenTexts.add(cleanText);
-                        break; // نأخذ أول عنصر نظيف فقط
-                    }
-                }
+            const titleElement = itemsContainer.querySelector('h3, h4, .p-title, span');
+            if (titleElement) {
+                productTitle = titleElement.innerText.split('\n')[0].trim(); // نأخذ السطر الأول فقط
             }
 
-            // --- بناء فاتورة بمقاسات متوافقة مع A4 ---
+            // --- تعديل 2: بناء الفاتورة بمقاسات A4 دقيقة (794px هو عرض A4 بـ 96dpi) ---
             const invoiceHTML = `
-<div id="real-pdf-invoice" style="
-    width: 595px; /* A4 width in pixels for 72 DPI */
-    max-width: 595px;
-    margin: 0 auto;
-    padding: 30px;
-    background-color: white !important;
-    color: black !important;
-    font-family: 'Arial', sans-serif;
-    direction: rtl;
-    line-height: 1.4;
-    box-sizing: border-box;
-    overflow: hidden;
-">
+    const invoiceHTML = `
+                < div id = "real-pdf-invoice" style = "
+            width: 595px; /* A4 width in pixels for 72 DPI */
+            max - width: 595px;
+            margin: 0 auto;
+            padding: 30px;
+            background - color: white!important;
+            color: black!important;
+            font - family: 'Arial', sans - serif;
+            direction: rtl;
+            line - height: 1.4;
+            box - sizing: border - box;
+            overflow: hidden;
+            ">
 
-    <!-- Header -->
+                < !--Header -->
     <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #1a1a2e; padding-bottom: 15px; margin-bottom: 20px;">
         <div style="text-align: right; flex: 1;">
             <img src="https://www.berlingoestore.com/images/BerlinStorefff.png" 
@@ -24972,7 +24951,7 @@
         </div>
     </div>
 
-    <!-- Products Table -->
+    <!--Products Table-- >
     <div style="margin: 15px 0; overflow: hidden;">
         <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
             <thead>
@@ -25001,7 +24980,7 @@
         </table>
     </div>
 
-    <!-- Total Section -->
+    <!--Total Section-- >
     <div style="margin-top: 25px; display: flex; justify-content: flex-end;">
         <div style="width: 200px; background-color: #f9f9f9; padding: 12px; 
                     border: 1px solid #ddd; border-radius: 5px;">
@@ -25017,24 +24996,24 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <div style="margin-top: 50px; text-align: center; border-top: 1px solid #eee; 
+    <!--Footer -->
+                <div style="margin-top: 50px; text-align: center; border-top: 1px solid #eee; 
                 padding-top: 15px; color: #666; font-size: 11px; line-height: 1.6;">
-        <p style="margin: 0 0 5px;">
-            شكراً لثقتكم في "برلين ستور". جميع الحقوق محفوظة © 2026.
-        </p>
-        <p style="margin: 0; font-weight: bold; color: #1a1a2e;">
-            www.berlingoestore.com
-        </p>
-        <p style="margin: 5px 0 0; font-size: 10px; color: #999;">
-            هذه فاتورة إلكترونية معتمدة تم إنشاؤها آلياً
-        </p>
-    </div>
+                    <p style="margin: 0 0 5px;">
+                        شكراً لثقتكم في "برلين ستور". جميع الحقوق محفوظة © 2026.
+                    </p>
+                    <p style="margin: 0; font-weight: bold; color: #1a1a2e;">
+                        www.berlingoestore.com
+                    </p>
+                    <p style="margin: 5px 0 0; font-size: 10px; color: #999;">
+                        هذه فاتورة إلكترونية معتمدة تم إنشاؤها آلياً
+                    </p>
+                </div>
 
-</div>
+</div >
 `;
 
-            // إنشاء عنصر مؤقت
+            // التنفيذ باستخدام عنصر مؤقت منعزل
             const tempContainer = document.createElement('div');
             tempContainer.style.position = 'absolute';
             tempContainer.style.left = '-9999px';
@@ -25042,62 +25021,33 @@
             tempContainer.innerHTML = invoiceHTML;
             document.body.appendChild(tempContainer);
 
-            // إعدادات html2pdf محسنة
+            // --- تعديل 3: ضبط مقاسات الورقة لمنع الـ Overflow ---
             const opt = {
-                margin: [15, 15, 15, 15], // هوامش متساوية
+                margin: [10, 5, 10, 5], // هوامش أمان علوية وجانبية
                 filename: `Berlin-Invoice-${orderId}.pdf`,
-                image: {
-                    type: 'jpeg',
-                    quality: 0.98
-                },
+                image: { type: 'jpeg', quality: 1 },
                 html2canvas: {
                     scale: 2,
                     useCORS: true,
                     backgroundColor: "#ffffff",
-                    width: 595, // عرض A4 بالبكسل لـ 72 DPI
-                    height: tempContainer.firstChild.scrollHeight,
-                    windowWidth: 595,
-                    logging: false,
-                    letterRendering: true
+                    width: 700, // نحدد العرض بدقة لمنع الخروج عن الهامش
                 },
-                jsPDF: {
-                    unit: 'px', // استخدم البكسل بدلاً من المليمتر
-                    format: 'a4',
-                    orientation: 'portrait',
-                    compress: true
-                }
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
             try {
                 const btn = event.currentTarget;
                 const originalText = btn.innerHTML;
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري التصدير...';
-                btn.disabled = true;
 
-                // الانتظار قليلاً لتحميل الصورة
-                await new Promise(resolve => setTimeout(resolve, 500));
-
-                // إنشاء PDF
-                await html2pdf()
-                    .set(opt)
-                    .from(tempContainer.firstChild)
-                    .save();
+                await html2pdf().set(opt).from(tempContainer.firstChild).save();
 
                 btn.innerHTML = originalText;
-                btn.disabled = false;
                 document.body.removeChild(tempContainer);
-
                 showToast("تم تحميل الفاتورة بنجاح ✅", "success");
-
             } catch (error) {
-                console.error("خطأ في إنشاء الفاتورة:", error);
-                showToast("حدث خطأ أثناء إنشاء الفاتورة، يرجى المحاولة مرة أخرى", "error");
-
-                // استعادة حالة الزر
-                if (btn) {
-                    btn.innerHTML = originalText;
-                    btn.disabled = false;
-                }
+                console.error(error);
+                alert("فشل التوليد، حاول مرة أخرى.");
             }
         }
 
