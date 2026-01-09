@@ -33318,6 +33318,49 @@ function filterPortfolio(category, btnElement) {
                 }
             }
 
+            @media screen and (max-width: 767px) {
+                /* 1. تصغير الحاوية وتقليل المسافات */
+                .header-inline-container {
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    gap: 8px !important; /* تقليل المسافة بين النص واللوجو */
+                    margin-bottom: 15px !important;
+                    padding: 0 10px !important;
+                }
+
+                /* 2. تصغير حجم نص الترحيب */
+                .glow-text-rtl {
+                    font-size: 1.5rem !important; /* حجم خط أصغر ومناسب للموبايل */
+                    white-space: nowrap !important; /* يمنع النص ينزل في سطرين */
+                    letter-spacing: 0px !important;
+                }
+
+                p.glow-text-rtl {
+                    font-size: 0.9rem !important; /* حجم أصغر بوضوح عشان يكون متناسق */
+                    margin-top: 5px !important;
+                    margin-bottom: 20px !important;
+                    line-height: 1.4 !important;
+                    color: rgba(255, 255, 255, 0.7) !important; /* تخفيف اللون شوية بيدي شكل بروفيشنال */
+                    padding: 0 15px !important; /* عشان النص ميبقاش لازق في حواف الشاشة */
+                }
+            }
+                /* 3. تصغير حجم اللوجو */
+                .logo-inline {
+                    width: 35px !important; /* حجم لوجو صغير ومسمسم */
+                    height: auto !important;
+                }
+
+                /* 4. ضبط صندوق اللوجو */
+                .logo-box {
+                    width: 40px !important;
+                    height: 40px !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                }
+            }
+
         </style>
 
         <script>
