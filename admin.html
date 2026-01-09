@@ -1233,7 +1233,7 @@
                         <!-- Ad Card 1 -->
                         <div class="ad-card-item">
                             <h4><i class="fas fa-image" style="color: #FF6B6B;"></i> الإعلان الأول</h4>
-
+                            
                             <div class="ad-preview-container">
                                 <img id="preview-img-1" class="ad-preview-img" style="display: none;">
                                 <div id="no-preview-1" class="no-preview">
@@ -1244,19 +1244,19 @@
                                     <i class="fas fa-sync-alt"></i>
                                 </button>
                             </div>
-
+                            
                             <div class="ad-input-group">
                                 <label class="ad-input-label">
                                     <i class="fas fa-link"></i> رابط الصورة
                                 </label>
                                 <input type="text" id="admin-ad-img1" class="ad-input" placeholder="https://example.com/image1.jpg" oninput="updateCardPreview(1)">
-
+                                
                                 <label class="ad-input-label" style="margin-top: 10px;">
                                     <i class="fas fa-external-link-alt"></i> رابط التوجيه
                                 </label>
                                 <input type="text" id="admin-ad-link1" class="ad-input" placeholder="https://yourstore.com/product1">
                             </div>
-
+                            
                             <div class="ad-card-info">
                                 <i class="fas fa-info-circle"></i> يظهر أولاً في السلايدر الرئيسي
                             </div>
@@ -1265,7 +1265,7 @@
                         <!-- Ad Card 2 -->
                         <div class="ad-card-item">
                             <h4><i class="fas fa-image" style="color: #4ECDC4;"></i> الإعلان الثاني</h4>
-
+                            
                             <div class="ad-preview-container">
                                 <img id="preview-img-2" class="ad-preview-img" style="display: none;">
                                 <div id="no-preview-2" class="no-preview">
@@ -1276,19 +1276,19 @@
                                     <i class="fas fa-sync-alt"></i>
                                 </button>
                             </div>
-
+                            
                             <div class="ad-input-group">
                                 <label class="ad-input-label">
                                     <i class="fas fa-link"></i> رابط الصورة
                                 </label>
                                 <input type="text" id="admin-ad-img2" class="ad-input" placeholder="https://example.com/image2.jpg" oninput="updateCardPreview(2)">
-
+                                
                                 <label class="ad-input-label" style="margin-top: 10px;">
                                     <i class="fas fa-external-link-alt"></i> رابط التوجيه
                                 </label>
                                 <input type="text" id="admin-ad-link2" class="ad-input" placeholder="https://yourstore.com/product2">
                             </div>
-
+                            
                             <div class="ad-card-info">
                                 <i class="fas fa-info-circle"></i> يظهر ثانياً في السلايدر
                             </div>
@@ -1297,7 +1297,7 @@
                         <!-- Ad Card 3 -->
                         <div class="ad-card-item">
                             <h4><i class="fas fa-image" style="color: #FFD93D;"></i> الإعلان الثالث</h4>
-
+                            
                             <div class="ad-preview-container">
                                 <img id="preview-img-3" class="ad-preview-img" style="display: none;">
                                 <div id="no-preview-3" class="no-preview">
@@ -1308,19 +1308,19 @@
                                     <i class="fas fa-sync-alt"></i>
                                 </button>
                             </div>
-
+                            
                             <div class="ad-input-group">
                                 <label class="ad-input-label">
                                     <i class="fas fa-link"></i> رابط الصورة
                                 </label>
                                 <input type="text" id="admin-ad-img3" class="ad-input" placeholder="https://example.com/image3.jpg" oninput="updateCardPreview(3)">
-
+                                
                                 <label class="ad-input-label" style="margin-top: 10px;">
                                     <i class="fas fa-external-link-alt"></i> رابط التوجيه
                                 </label>
                                 <input type="text" id="admin-ad-link3" class="ad-input" placeholder="https://yourstore.com/product3">
                             </div>
-
+                            
                             <div class="ad-card-info">
                                 <i class="fas fa-info-circle"></i> يظهر ثالثاً في السلايدر
                             </div>
@@ -1454,10 +1454,10 @@
                 imgElement.onerror = function () {
                     imgElement.style.display = 'none';
                     noPreviewElement.innerHTML = `
-                            <i class="fas fa-exclamation-triangle" style="color: #FF6B6B;"></i>
-                            <div>رابط الصورة غير صالح</div>
-                            <div style="font-size: 0.7rem; margin-top: 5px;">تأكد من الرابط</div>
-                        `;
+                        <i class="fas fa-exclamation-triangle" style="color: #FF6B6B;"></i>
+                        <div>رابط الصورة غير صالح</div>
+                        <div style="font-size: 0.7rem; margin-top: 5px;">تأكد من الرابط</div>
+                    `;
                     noPreviewElement.style.display = 'flex';
                     noPreviewElement.style.flexDirection = 'column';
                     noPreviewElement.style.alignItems = 'center';
@@ -1467,9 +1467,9 @@
             } else {
                 imgElement.style.display = 'none';
                 noPreviewElement.innerHTML = `
-                        <i class="fas fa-image"></i>
-                        <div>لم تتم إضافة صورة</div>
-                    `;
+                    <i class="fas fa-image"></i>
+                    <div>لم تتم إضافة صورة</div>
+                `;
                 noPreviewElement.style.display = 'flex';
                 noPreviewElement.style.flexDirection = 'column';
                 noPreviewElement.style.alignItems = 'center';
@@ -1608,20 +1608,20 @@
                 snapshot.forEach(doc => {
                     const data = doc.data();
                     const card = `
-                            <div class="product-card" data-id="${doc.id}">
-                                <img src="${data.image}" class="p-img" onerror="this.src='https://placehold.co/400x300/1a1a1a/FFF?text=No+Image'">
-                                <div class="p-details">
-                                    <h3>${data.title}</h3>
-                                    <div class="p-price">${data.price} EGP</div>
-                                    <div style="font-size:0.8rem; color:#777; margin-top:5px;">${data.platform || 'General'}</div>
-                                </div>
-                                <div class="p-actions">
-                                    <button onclick="editProduct('${doc.id}', '${col}')" class="icon-btn btn-edit"><i class="fas fa-pen"></i></button>
-                                    <button onclick="deleteProduct('${doc.id}', '${col}')" class="icon-btn btn-del"><i class="fas fa-trash"></i></button>
-                                    <div style="margin-right:auto; cursor:grab; color:#555;" class="drag-handle"><i class="fas fa-grip-lines"></i></div>
-                                </div>
+                        <div class="product-card" data-id="${doc.id}">
+                            <img src="${data.image}" class="p-img" onerror="this.src='https://placehold.co/400x300/1a1a1a/FFF?text=No+Image'">
+                            <div class="p-details">
+                                <h3>${data.title}</h3>
+                                <div class="p-price">${data.price} EGP</div>
+                                <div style="font-size:0.8rem; color:#777; margin-top:5px;">${data.platform || 'General'}</div>
                             </div>
-                        `;
+                            <div class="p-actions">
+                                <button onclick="editProduct('${doc.id}', '${col}')" class="icon-btn btn-edit"><i class="fas fa-pen"></i></button>
+                                <button onclick="deleteProduct('${doc.id}', '${col}')" class="icon-btn btn-del"><i class="fas fa-trash"></i></button>
+                                <div style="margin-right:auto; cursor:grab; color:#555;" class="drag-handle"><i class="fas fa-grip-lines"></i></div>
+                            </div>
+                        </div>
+                    `;
                     container.innerHTML += card;
                 });
 
@@ -1648,9 +1648,9 @@
                 category: "games"
             };
 
-            if (!productData.title || !productData.price) {
-                showToast("يرجى ملء البيانات الأساسية", "error");
-                return;
+            if (!productData.title || !productData.price) { 
+                showToast("يرجى ملء البيانات الأساسية", "error"); 
+                return; 
             }
 
             if (id) {
@@ -1760,25 +1760,25 @@
                     if (order.status === 'cancelled') statusHtml = `<span class="status-pill st-cancelled">ملغي</span>`;
 
                     const row = `
-                            <tr>
-                                <td style="font-family:monospace; color:var(--purple); letter-spacing:1px;">#${doc.id.substr(0, 6)}</td>
-                                <td>
-                                    <div style="font-weight:bold;">${userName}</div>
-                                    <div style="font-size:0.75rem; color:#888;">${userEmail}</div>
-                                </td>
-                                <td>${order.items && order.items[0] ? order.items[0].title : 'Unknown Product'}</td>
-                                <td style="color:var(--gold); font-weight:bold;">${order.totalPrice} EGP</td>
-                                <td style="font-size:0.85rem;">${date}</td>
-                                <td>${statusHtml}</td>
-                                <td>
-                                    <div style="display:flex; gap:5px;">
-                                        <button onclick="updateStatus('${doc.id}', 'completed')" class="icon-btn" style="background:#00b894; color:#000;" title="إكمال"><i class="fas fa-check"></i></button>
-                                        <button onclick="updateStatus('${doc.id}', 'cancelled')" class="icon-btn" style="background:#d63031; color:#fff;" title="إلغاء"><i class="fas fa-times"></i></button>
-                                        <button onclick="prepareEmail('${userEmail}', '${userName}')" class="icon-btn" style="background:var(--purple); color:#fff;" title="إرسال المنتج"><i class="fas fa-envelope"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                        `;
+                        <tr>
+                            <td style="font-family:monospace; color:var(--purple); letter-spacing:1px;">#${doc.id.substr(0, 6)}</td>
+                            <td>
+                                <div style="font-weight:bold;">${userName}</div>
+                                <div style="font-size:0.75rem; color:#888;">${userEmail}</div>
+                            </td>
+                            <td>${order.items && order.items[0] ? order.items[0].title : 'Unknown Product'}</td>
+                            <td style="color:var(--gold); font-weight:bold;">${order.totalPrice} EGP</td>
+                            <td style="font-size:0.85rem;">${date}</td>
+                            <td>${statusHtml}</td>
+                            <td>
+                                <div style="display:flex; gap:5px;">
+                                    <button onclick="updateStatus('${doc.id}', 'completed')" class="icon-btn" style="background:#00b894; color:#000;" title="إكمال"><i class="fas fa-check"></i></button>
+                                    <button onclick="updateStatus('${doc.id}', 'cancelled')" class="icon-btn" style="background:#d63031; color:#fff;" title="إلغاء"><i class="fas fa-times"></i></button>
+                                    <button onclick="prepareEmail('${userEmail}', '${userName}')" class="icon-btn" style="background:var(--purple); color:#fff;" title="إرسال المنتج"><i class="fas fa-envelope"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
                     tbody.innerHTML += row;
                 });
 
