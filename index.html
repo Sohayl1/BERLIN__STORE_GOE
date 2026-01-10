@@ -32187,6 +32187,10 @@ function filterPortfolio(category, btnElement) {
                     <option value="USD">🌐𝗚𝗟𝗢𝗕𝗔𝗟</option>
                 </select>
             </div>
+            <button id="pwa-install-btn" class="pwa-install-button" onclick="installPWA()">
+                <i class="fas fa-download"></i>
+                <span>تثبيت التطبيق</span>
+            </button>
         </div>
 
         <div class="user-menu-wrapper" style="position: relative; display: flex; align-items: center;">
@@ -32434,6 +32438,43 @@ function filterPortfolio(category, btnElement) {
 
 
         <style>
+
+            /* 1. إخفاء الزر نهائياً على الكمبيوتر */
+            #pwa-install-btn {
+                display: none !important;
+            }
+
+            /* 2. إجبار الزر على الظهور في الموبايل فقط (صغير ومزاح لليسار) */
+            @media (max-width: 768px) {
+                #pwa-install-btn {
+                    /* التنسيق العام */
+                    display: inline-flex !important;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 4px;
+                    /* الألوان */
+                    background: linear-gradient(45deg, #0066ff, #00d4ff);
+                    color: white;
+                    border: none;
+                    border-radius: 50px;
+                    cursor: pointer;
+                    box-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+                    /* ✅✅ الحجم الصغير ✅✅ */
+                    padding: 4px 10px;
+                    font-size: 10px;
+                    font-weight: bold;
+                    height: 26px;
+                    /* ✅✅ التحريك لليسار ✅✅ */
+                    /* زود الرقم ده (12px) لو عايزه يروح شمال أكتر */
+                    margin-right: 29px;
+                    margin-left: 5px;
+                }
+
+                    /* تصغير الأيقونة */
+                    #pwa-install-btn i {
+                        font-size: 11px;
+                    }
+            }
 
             /* ========================================= */
             /* 📱 إصلاح الناف بار للموبايل (إرجاعه للأعلى) */
@@ -43248,7 +43289,7 @@ function filterPortfolio(category, btnElement) {
                                                                                                                                                                                                                                                                                                                                                                                                                             <h3 onclick="${clickHandler}">${displayedTitle}</h3>
                                                                                                                                                                                                                                                                                                                                                                                                                             <p class="product-description-text">${shortDescription}</p>
                                                                                                                                                                                                                                                                                                                                                                                                                             <p>${priceDisplay}</p>
-                                                                                                                                                                                                                                                                                                                                                                                                                            ${product.stock ? `<p class="product-urgency">🔥 2 قطع فقط متبقية!</p>` : ''}
+                                                                                                                                                                                                                                                                                                                                                                                                                          
                                                                                                                                                                                                                                                                                                                                                                                                                             <div class="product-buttons-wrapper" style="margin-top: auto;">
                                                                                                                                                                                                                                                                                                                                                                                                                                 ${buttonsHTML}
                                                                                                                                                                                                                                                                                                                                                                                                                             </div>
@@ -45819,7 +45860,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                                                          // 2. تجهيز بيانات الطلب
                                                                          const orderData = {
                                                                              orderId: Math.floor(100000 + Math.random() * 900000).toString(), // رقم سداسي عشوائي
-                                                                         userName: document.getElementById('account_contact')?.value || "Guest Customer",
+                                                                         userName: document.getElementById('account_contact')?.value || "Dear Gamer",
                                                                          userEmail: customerDetails || "No Details", // هنا بنحط تفاصيل الحساب أو الآيدي
                                                                          totalPrice: currentProduct.price, // السعر من المتغير مباشرة
                                                                          status: "pending", // الحالة: قيد المراجعة
@@ -45979,7 +46020,77 @@ document.addEventListener('keydown', function(event) {
 
 
 
+         let deferredPrompt; // لتخزين حدث التثبيت للأندرويد
+         const pwaBtn = document.getElementById('pwa-install-btn');
 
+    // 2. دالة لمعرفة هل الجهاز آيفون؟
+    const isIos = () => {
+        const userAgent = window.navigator.userAgent.toLowerCase();
+         return /iphone|ipad|ipod/.test(userAgent);
+    };
+
+    // 3. دالة لمعرفة هل التطبيق مثبت بالفعل؟
+    const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
+    // ==========================================
+    // 🤖 منطق الأندرويد (Chrome / Samsung)
+    // ==========================================
+    window.addEventListener('beforeinstallprompt', (e) => {
+             // منع المتصفح من إظهار النافذة التلقائية
+             e.preventDefault();
+         // حفظ الحدث لاستخدامه لما العميل يدوس على الزرار
+         deferredPrompt = e;
+
+         // ✅ إظهار الزرار في الناف بار
+         if(pwaBtn) {
+             pwaBtn.classList.add('show');
+         console.log("PWA Install Button Visible (Android/PC)");
+        }
+    });
+
+         // ==========================================
+         // 🍎 منطق الآيفون (iOS)
+         // ==========================================
+         // الآيفون مش بيبعت حدث قبل التثبيت، فبنظهره يدوي لو مش مثبت
+         if (isIos() && !isInStandaloneMode()) {
+        if(pwaBtn) pwaBtn.classList.add('show');
+    }
+
+         // ==========================================
+         // 🖱️ دالة الضغط على الزر (تتنفذ لما تدوس)
+         // ==========================================
+         async function installPWA() {
+        // حالة الآيفون: رسالة تعليمات
+        if (isIos()) {
+             alert("لتثبيت التطبيق على الآيفون:\n1. اضغط على زر المشاركة (Share) أسفل المتصفح 📤.\n2. اختر 'إضافة إلى الصفحة الرئيسية' (Add to Home Screen) ➕.");
+         return;
+        }
+
+         // حالة الأندرويد: فتح نافذة التثبيت
+         if (deferredPrompt) {
+             deferredPrompt.prompt();
+         // انتظار رد المستخدم (وافق ولا رفض)
+         const {outcome} = await deferredPrompt.userChoice;
+         console.log(`User response: ${outcome}`);
+            
+            // تصفير المتغير
+            deferredPrompt = null;
+            
+            // إخفاء الزر لو وافق
+            if(outcome === 'accepted'){
+                if(pwaBtn) pwaBtn.classList.remove('show');
+            }
+        } else {
+            // لو المتصفح مش داعم التثبيت التلقائي
+            alert("لتثبيت التطبيق، اضغط على خيارات المتصفح (⋮) واختر 'Install App' أو 'Add to Home Screen'.");
+        }
+    }
+
+    // 4. لو التطبيق اتثبت بنجاح، نخفي الزرار
+    window.addEventListener('appinstalled', () => {
+        if(pwaBtn) pwaBtn.classList.remove('show');
+        console.log('PWA was installed');
+    });
 
     </script>
 
