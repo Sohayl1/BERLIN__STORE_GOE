@@ -18,6 +18,89 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
+
+        /* ==========================================================================
+   10. MOBILE BOTTOM NAVIGATION
+   ==========================================================================
+*/
+        .mobile-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(20, 20, 30, 0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(124, 58, 237, 0.1);
+            display: none;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            z-index: 1000;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-nav-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            padding: 12px 10px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.8rem;
+            position: relative;
+        }
+
+            .mobile-nav-btn i {
+                font-size: 1.2rem;
+                transition: all 0.3s ease;
+            }
+
+            .mobile-nav-btn.active {
+                color: var(--purple);
+            }
+
+                .mobile-nav-btn.active i {
+                    color: var(--purple);
+                    transform: translateY(-3px);
+                    filter: drop-shadow(0 0 5px rgba(124, 58, 237, 0.3));
+                }
+
+                .mobile-nav-btn.active::after {
+                    content: '';
+                    position: absolute;
+                    top: -1px;
+                    width: 30px;
+                    height: 3px;
+                    background: var(--gradient-purple);
+                    border-radius: 2px;
+                }
+
+            .mobile-nav-btn:hover:not(.active) {
+                color: white;
+                transform: translateY(-2px);
+            }
+
+                .mobile-nav-btn:hover:not(.active) i {
+                    color: white;
+                }
+
+        /* إظهار شريط التنقل في الموبايل فقط */
+        @media (max-width: 1024px) {
+            .mobile-bottom-nav {
+                display: flex;
+            }
+
+            /* تعديل padding للمحتوى الرئيسي ليتناسب مع شريط التنقل */
+            .main-content {
+                padding-bottom: 80px !important;
+            }
+        }
         /* ==========================================================================
            0. LOADING SCREEN
            ==========================================================================
@@ -420,6 +503,8 @@
                 height: 1px;
                 background: linear-gradient(90deg, transparent, var(--purple), transparent);
             }
+
+
 
         .brand {
             display: flex;
@@ -1565,6 +1650,73 @@
         .select-box:hover::after {
             border-top-color: #fff;
         }
+        @media (max-width: 1024px) {
+            .app-layout {
+                grid-template-columns: 1fr;
+                display: block;
+            }
+
+            .sidebar {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                height: 100%;
+                width: 300px;
+                transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                z-index: 1001;
+                box-shadow: 10px 0 40px rgba(0,0,0,0.3);
+                backdrop-filter: none !important; /* إضافة هذا السطر */
+            }
+
+                .sidebar.active {
+                    left: 0;
+                }
+
+            .mobile-header {
+                display: flex;
+                backdrop-filter: none !important; /* إضافة هذا السطر */
+            }
+
+            .main-content {
+                padding: 80px 25px 25px 25px;
+                height: 100vh;
+                overflow-y: auto;
+            }
+
+            .products-container,
+            .ad-cards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+
+            .glass-panel {
+                padding: 30px;
+                backdrop-filter: none !important; /* إضافة هذا السطر */
+            }
+
+            .ad-preview-container {
+                height: 180px;
+            }
+        }
+
+        /* إضافة backdrop للقائمة الجانبية */
+        #sidebar-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(2px);
+            z-index: 999;
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            #sidebar-backdrop.active {
+                display: block;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -2167,8 +2319,9 @@
             document.getElementById('section-orders').style.display = 'none';
             document.getElementById('ad-management').style.display = 'none';
 
-            // Remove active class from all buttons
+            // Remove active class from all buttons (both desktop and mobile)
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.mobile-nav-btn').forEach(b => b.classList.remove('active'));
 
             // Show selected section
             let targetId = (tabName === 'ad-management') ? 'ad-management' : `section-${tabName}`;
@@ -2176,9 +2329,10 @@
 
             if (targetElement) {
                 targetElement.style.display = 'block';
+                targetElement.classList.add('animate__animated', 'animate__fadeIn');
             }
 
-            // Activate selected button
+            // Activate selected buttons (both desktop and mobile)
             if (btn) {
                 btn.classList.add('active');
 
@@ -2187,6 +2341,21 @@
                 setTimeout(() => {
                     btn.style.transform = '';
                 }, 150);
+            }
+
+            // Also activate corresponding mobile button
+            const mobileBtns = document.querySelectorAll('.mobile-nav-btn');
+            mobileBtns.forEach(mobileBtn => {
+                if (mobileBtn.onclick && mobileBtn.onclick.toString().includes(tabName)) {
+                    mobileBtn.classList.add('active');
+                }
+            });
+
+            // Close sidebar on mobile
+            if (window.innerWidth <= 1024) {
+                document.getElementById('sidebar').classList.remove('active');
+                const backdrop = document.getElementById('sidebar-backdrop');
+                if (backdrop) backdrop.remove();
             }
 
             // Load data for each section
@@ -2202,37 +2371,61 @@
                     setTimeout(updateAllPreviews, 100);
                     break;
             }
-
-            // Close sidebar on mobile
-            if (window.innerWidth <= 1024) {
-                document.getElementById('sidebar').classList.remove('active');
-            }
         }
+
+        // Handle window resize
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 1024) {
+                const backdrop = document.getElementById('sidebar-backdrop');
+                if (backdrop) backdrop.remove();
+                document.getElementById('sidebar').classList.remove('active');
+
+                // إخفاء شريط التنقل السفلي في الشاشات الكبيرة
+                document.getElementById('mobile-bottom-nav').style.display = 'none';
+            } else {
+                // إظهار شريط التنقل السفلي في الموبايل
+                document.getElementById('mobile-bottom-nav').style.display = 'flex';
+            }
+        });
+
+        // تهيئة شريط التنقل عند التحميل
+        window.addEventListener('load', function () {
+            if (window.innerWidth <= 1024) {
+                document.getElementById('mobile-bottom-nav').style.display = 'flex';
+            }
+        });
 
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('active');
 
-            // Add backdrop when sidebar is open
+            // إضافة/إزالة backdrop
+            const backdrop = document.getElementById('sidebar-backdrop');
             if (sidebar.classList.contains('active')) {
-                const backdrop = document.createElement('div');
-                backdrop.id = 'sidebar-backdrop';
-                backdrop.style.cssText = `
-                            position: fixed;
-                            top: 0;
-                            left: 0;
-                            right: 0;
-                            bottom: 0;
-                            background: rgba(0,0,0,0.3);
-                            backdrop-filter: blur(2px);
-                            z-index: 1000;
-                            display: block;
-                        `;
-                backdrop.onclick = toggleSidebar;
-                document.body.appendChild(backdrop);
+                // إنشاء backdrop إذا لم يكن موجوداً
+                if (!backdrop) {
+                    const newBackdrop = document.createElement('div');
+                    newBackdrop.id = 'sidebar-backdrop';
+                    newBackdrop.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0,0,0,0.5);
+                    backdrop-filter: blur(2px);
+                    z-index: 999;
+                `;
+                    newBackdrop.onclick = toggleSidebar;
+                    document.body.appendChild(newBackdrop);
+                } else {
+                    backdrop.style.display = 'block';
+                }
             } else {
-                const backdrop = document.getElementById('sidebar-backdrop');
-                if (backdrop) backdrop.remove();
+                // إخفاء backdrop
+                if (backdrop) {
+                    backdrop.style.display = 'none';
+                }
             }
         }
 
@@ -2261,10 +2454,10 @@
                         imgElement.style.display = 'none';
                         imgElement.classList.remove('loading');
                         noPreviewElement.innerHTML = `
-                                    <i class="fas fa-exclamation-triangle" style="color: #FF6B6B;"></i>
-                                    <div>رابط الصورة غير صالح</div>
-                                    <div style="font-size: 0.7rem; margin-top: 5px;">تأكد من الرابط</div>
-                                `;
+                                        <i class="fas fa-exclamation-triangle" style="color: #FF6B6B;"></i>
+                                        <div>رابط الصورة غير صالح</div>
+                                        <div style="font-size: 0.7rem; margin-top: 5px;">تأكد من الرابط</div>
+                                    `;
                         noPreviewElement.style.display = 'flex';
                         noPreviewElement.style.flexDirection = 'column';
                         noPreviewElement.style.alignItems = 'center';
@@ -2275,9 +2468,9 @@
             } else {
                 imgElement.style.display = 'none';
                 noPreviewElement.innerHTML = `
-                            <i class="fas fa-image"></i>
-                            <div>لم تتم إضافة صورة</div>
-                        `;
+                                <i class="fas fa-image"></i>
+                                <div>لم تتم إضافة صورة</div>
+                            `;
                 noPreviewElement.style.display = 'flex';
                 noPreviewElement.style.flexDirection = 'column';
                 noPreviewElement.style.alignItems = 'center';
@@ -2320,7 +2513,7 @@
         }
 
         function updateAllPreviews() {
-            for (let i = 1; i <= 3; i++) {
+            for (let i = 1; i <= 5; i++) { // تغيير من 3 إلى 5
                 updateCardPreview(i);
             }
         }
@@ -2330,20 +2523,20 @@
                 db.collection("settings").doc("mainAd").get().then((doc) => {
                     if (doc.exists) {
                         const d = doc.data();
-                        if (d.ad1) {
-                            document.getElementById('admin-ad-img1').value = d.ad1.img || '';
-                            document.getElementById('admin-ad-link1').value = d.ad1.url || '';
-                        }
-                        if (d.ad2) {
-                            document.getElementById('admin-ad-img2').value = d.ad2.img || '';
-                            document.getElementById('admin-ad-link2').value = d.ad2.url || '';
-                        }
-                        if (d.ad3) {
-                            document.getElementById('admin-ad-img3').value = d.ad3.img || '';
-                            document.getElementById('admin-ad-link3').value = d.ad3.url || '';
+
+                        // تحميل بيانات الإعلانات الخمسة
+                        for (let i = 1; i <= 5; i++) {
+                            const adKey = `ad${i}`;
+                            if (d[adKey]) {
+                                const imgInput = document.getElementById(`admin-ad-img${i}`);
+                                const linkInput = document.getElementById(`admin-ad-link${i}`);
+
+                                if (imgInput) imgInput.value = d[adKey].img || '';
+                                if (linkInput) linkInput.value = d[adKey].url || '';
+                            }
                         }
 
-                        // Update previews after loading data
+                        // تحديث المعاينات بعد تحميل البيانات
                         setTimeout(updateAllPreviews, 200);
                     } else {
                         updateAllPreviews();
@@ -2440,23 +2633,23 @@
             const col = document.getElementById('p-collection').value;
             const container = document.getElementById('products-list');
             container.innerHTML = `
-                        <div style="color:var(--text-muted); text-align:center; padding:40px; width:100%; display: flex; flex-direction: column; align-items: center; gap: 20px;">
-                            <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
-                            <div>جاري تحميل المنتجات...</div>
-                        </div>
-                    `;
+                            <div style="color:var(--text-muted); text-align:center; padding:40px; width:100%; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                                <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
+                                <div>جاري تحميل المنتجات...</div>
+                            </div>
+                        `;
 
             db.collection(col).orderBy("sortOrder", "asc").get().then(snapshot => {
                 container.innerHTML = '';
 
                 if (snapshot.empty) {
                     container.innerHTML = `
-                                <div style="color:var(--text-muted); text-align:center; padding:60px; width:100%; background: rgba(255,255,255,0.01); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.02);">
-                                    <i class="fas fa-box-open" style="font-size: 3rem; opacity: 0.2; margin-bottom: 20px;"></i>
-                                    <div style="font-size: 1.2rem; margin-bottom: 10px;">لا توجد منتجات في هذا القسم</div>
-                                    <div style="font-size: 0.9rem; opacity: 0.7;">قم بإضافة منتج جديد لبدء البيع</div>
-                                </div>
-                            `;
+                                    <div style="color:var(--text-muted); text-align:center; padding:60px; width:100%; background: rgba(255,255,255,0.01); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.02);">
+                                        <i class="fas fa-box-open" style="font-size: 3rem; opacity: 0.2; margin-bottom: 20px;"></i>
+                                        <div style="font-size: 1.2rem; margin-bottom: 10px;">لا توجد منتجات في هذا القسم</div>
+                                        <div style="font-size: 0.9rem; opacity: 0.7;">قم بإضافة منتج جديد لبدء البيع</div>
+                                    </div>
+                                `;
                     document.getElementById('product-count').textContent = '0';
                     return;
                 }
@@ -2466,37 +2659,37 @@
                     productCount++;
                     const data = doc.data();
                     const card = `
-                                <div class="product-card" data-id="${doc.id}">
-                                    <img src="${data.image}" class="p-img"
-                                         onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80'">
-                                    <div class="p-details">
-                                        <h3>${data.title}</h3>
-                                        <div style="font-size:0.9rem; color:var(--text-muted); margin-bottom: 10px;">${data.shortDescription || 'لا يوجد وصف'}</div>
-                                        <div class="p-price">
-                                            <i class="fas fa-coins"></i> ${data.price} EGP
+                                    <div class="product-card" data-id="${doc.id}">
+                                        <img src="${data.image}" class="p-img"
+                                             onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80'">
+                                        <div class="p-details">
+                                            <h3>${data.title}</h3>
+                                            <div style="font-size:0.9rem; color:var(--text-muted); margin-bottom: 10px;">${data.shortDescription || 'لا يوجد وصف'}</div>
+                                            <div class="p-price">
+                                                <i class="fas fa-coins"></i> ${data.price} EGP
+                                            </div>
+                                            <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                                                <span style="font-size:0.8rem; background: rgba(124, 58, 237, 0.08); color: var(--purple); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(124, 58, 237, 0.15);">
+                                                    <i class="fas fa-${getPlatformIcon(data.platform)}"></i> ${getPlatformName(data.platform)}
+                                                </span>
+                                                <span style="font-size:0.8rem; background: rgba(255,255,255,0.02); color: var(--text-muted); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03);">
+                                                    <i class="fas fa-fire"></i> ${data.category || 'games'}
+                                                </span>
+                                            </div>
                                         </div>
-                                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
-                                            <span style="font-size:0.8rem; background: rgba(124, 58, 237, 0.08); color: var(--purple); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(124, 58, 237, 0.15);">
-                                                <i class="fas fa-${getPlatformIcon(data.platform)}"></i> ${getPlatformName(data.platform)}
-                                            </span>
-                                            <span style="font-size:0.8rem; background: rgba(255,255,255,0.02); color: var(--text-muted); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03);">
-                                                <i class="fas fa-fire"></i> ${data.category || 'games'}
-                                            </span>
+                                        <div class="p-actions">
+                                            <button onclick="editProduct('${doc.id}', '${col}')" class="icon-btn btn-edit" title="تعديل">
+                                                <i class="fas fa-pen"></i>
+                                            </button>
+                                            <button onclick="deleteProduct('${doc.id}', '${col}')" class="icon-btn btn-del" title="حذف">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                            <div class="drag-handle" title="سحب لتغيير الترتيب">
+                                                <i class="fas fa-grip-lines"></i>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="p-actions">
-                                        <button onclick="editProduct('${doc.id}', '${col}')" class="icon-btn btn-edit" title="تعديل">
-                                            <i class="fas fa-pen"></i>
-                                        </button>
-                                        <button onclick="deleteProduct('${doc.id}', '${col}')" class="icon-btn btn-del" title="حذف">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                        <div class="drag-handle" title="سحب لتغيير الترتيب">
-                                            <i class="fas fa-grip-lines"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            `;
+                                `;
                     container.innerHTML += card;
                 });
 
@@ -2711,15 +2904,15 @@
         function loadOrders() {
             const tbody = document.getElementById('orders-body');
             tbody.innerHTML = `
-                        <tr>
-                            <td colspan="7" style="text-align:center; padding:50px;">
-                                <div style="color:var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 20px;">
-                                    <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
-                                    <div>جاري جلب بيانات الطلبات...</div>
-                                </div>
-                            </td>
-                        </tr>
-                    `;
+                            <tr>
+                                <td colspan="7" style="text-align:center; padding:50px;">
+                                    <div style="color:var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                                        <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
+                                        <div>جاري جلب بيانات الطلبات...</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
 
             console.log("=== بدء تحميل الطلبات ===");
 
@@ -2730,16 +2923,16 @@
 
                 if (snapshot.empty) {
                     tbody.innerHTML = `
-                                <tr>
-                                    <td colspan="7" style="text-align:center; padding:50px; color:var(--text-muted);">
-                                        <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-                                            <i class="fas fa-shopping-bag" style="font-size: 3rem; opacity: 0.2;"></i>
-                                            <div style="font-size: 1.2rem;">لا توجد طلبات حتى الآن</div>
-                                            <div style="font-size: 0.9rem; opacity: 0.7;">ستظهر الطلبات هنا عند وجودها</div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            `;
+                                    <tr>
+                                        <td colspan="7" style="text-align:center; padding:50px; color:var(--text-muted);">
+                                            <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                                                <i class="fas fa-shopping-bag" style="font-size: 3rem; opacity: 0.2;"></i>
+                                                <div style="font-size: 1.2rem;">لا توجد طلبات حتى الآن</div>
+                                                <div style="font-size: 0.9rem; opacity: 0.7;">ستظهر الطلبات هنا عند وجودها</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                `;
                     updateOrderStats(total, pending, completed, today);
                     return;
                 }
@@ -2826,45 +3019,45 @@
                     }
 
                     const row = `
-                                <tr class="order-row ${statusClass}">
-                                    <td style="font-family:monospace; color:var(--purple); letter-spacing:1px; font-weight:bold;">
-                                        #${doc.id.substr(0, 6).toUpperCase()}
-                                    </td>
-                                    <td>
-                                        <div style="font-weight:bold; color:white;">${userName}</div>
-                                        <div style="font-size:0.85rem; color:var(--text-muted); margin-top:5px;">
-                                            <i class="fas fa-envelope"></i> ${userEmail || 'لا يوجد إيميل'}
-                                        </div>
-                                    </td>
-                                    <td style="font-weight:500;">
-                                        ${order.items && order.items[0] ? order.items[0].title : 'Unknown Product'}
-                                    </td>
-                                    <td style="color:var(--gold); font-weight:bold; font-size:1.1rem;">
-                                        <i class="fas fa-coins"></i> ${order.totalPrice || 0} EGP
-                                    </td>
-                                    <td style="font-size:0.9rem; color:var(--text-muted);">
-                                        <i class="fas fa-calendar"></i> ${date}
-                                    </td>
-                                    <td>${statusHtml}</td>
-                                    <td>
-                                        <div style="display:flex; gap:8px; justify-content: flex-end;">
-                                            ${order.status !== 'completed' ? `
-                                                <button onclick="updateStatus('${doc.id}', 'completed')" class="icon-btn" style="background:rgba(16, 185, 129, 0.1); color:var(--green); border:1px solid rgba(16, 185, 129, 0.15);" title="تمكين كمنجز">
-                                                    <i class="fas fa-check"></i>
+                                    <tr class="order-row ${statusClass}">
+                                        <td style="font-family:monospace; color:var(--purple); letter-spacing:1px; font-weight:bold;">
+                                            #${doc.id.substr(0, 6).toUpperCase()}
+                                        </td>
+                                        <td>
+                                            <div style="font-weight:bold; color:white;">${userName}</div>
+                                            <div style="font-size:0.85rem; color:var(--text-muted); margin-top:5px;">
+                                                <i class="fas fa-envelope"></i> ${userEmail || 'لا يوجد إيميل'}
+                                            </div>
+                                        </td>
+                                        <td style="font-weight:500;">
+                                            ${order.items && order.items[0] ? order.items[0].title : 'Unknown Product'}
+                                        </td>
+                                        <td style="color:var(--gold); font-weight:bold; font-size:1.1rem;">
+                                            <i class="fas fa-coins"></i> ${order.totalPrice || 0} EGP
+                                        </td>
+                                        <td style="font-size:0.9rem; color:var(--text-muted);">
+                                            <i class="fas fa-calendar"></i> ${date}
+                                        </td>
+                                        <td>${statusHtml}</td>
+                                        <td>
+                                            <div style="display:flex; gap:8px; justify-content: flex-end;">
+                                                ${order.status !== 'completed' ? `
+                                                    <button onclick="updateStatus('${doc.id}', 'completed')" class="icon-btn" style="background:rgba(16, 185, 129, 0.1); color:var(--green); border:1px solid rgba(16, 185, 129, 0.15);" title="تمكين كمنجز">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                ` : ''}
+                                                ${order.status !== 'cancelled' ? `
+                                                    <button onclick="updateStatus('${doc.id}', 'cancelled')" class="icon-btn" style="background:rgba(239, 68, 68, 0.1); color:var(--red); border:1px solid rgba(239, 68, 68, 0.15);" title="إلغاء الطلب">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                ` : ''}
+                                                <button onclick="prepareEmail('${userEmail}', '${userName}', '${order.items && order.items[0] ? order.items[0].title : ''}')" class="icon-btn" style="background:rgba(124, 58, 237, 0.1); color:var(--purple); border:1px solid rgba(124, 58, 237, 0.15);" title="إرسال المنتج">
+                                                    <i class="fas fa-paper-plane"></i>
                                                 </button>
-                                            ` : ''}
-                                            ${order.status !== 'cancelled' ? `
-                                                <button onclick="updateStatus('${doc.id}', 'cancelled')" class="icon-btn" style="background:rgba(239, 68, 68, 0.1); color:var(--red); border:1px solid rgba(239, 68, 68, 0.15);" title="إلغاء الطلب">
-                                                    <i class="fas fa-times"></i>
-                                                </button>
-                                            ` : ''}
-                                            <button onclick="prepareEmail('${userEmail}', '${userName}', '${order.items && order.items[0] ? order.items[0].title : ''}')" class="icon-btn" style="background:rgba(124, 58, 237, 0.1); color:var(--purple); border:1px solid rgba(124, 58, 237, 0.15);" title="إرسال المنتج">
-                                                <i class="fas fa-paper-plane"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            `;
+                                            </div>
+                                        </td>
+                                    </tr>
+                                `;
                     tbody.innerHTML += row;
                 });
 
@@ -3145,15 +3338,15 @@
             if (connected) {
                 statusElement.classList.remove('offline');
                 statusElement.innerHTML = `
-                            <div class="connection-dot"></div>
-                            <span>متصل</span>
-                        `;
+                                <div class="connection-dot"></div>
+                                <span>متصل</span>
+                            `;
             } else {
                 statusElement.classList.add('offline');
                 statusElement.innerHTML = `
-                            <div class="connection-dot"></div>
-                            <span>غير متصل</span>
-                        `;
+                                <div class="connection-dot"></div>
+                                <span>غير متصل</span>
+                            `;
             }
         }
 
@@ -3264,6 +3457,21 @@
 
     </script>
 
+    <!-- Mobile Navigation Bottom Bar -->
+    <div class="mobile-bottom-nav" id="mobile-bottom-nav">
+        <button class="mobile-nav-btn active" onclick="switchTab('products', this)">
+            <i class="fas fa-cube"></i>
+            <span>المنتجات</span>
+        </button>
+        <button class="mobile-nav-btn" onclick="switchTab('orders', this)">
+            <i class="fas fa-shopping-bag"></i>
+            <span>الطلبات</span>
+        </button>
+        <button class="mobile-nav-btn" onclick="switchTab('ad-management', this)">
+            <i class="fas fa-images"></i>
+            <span>الإعلانات</span>
+        </button>
+    </div>
 
 </body>
 </html>
