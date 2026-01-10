@@ -1524,6 +1524,7 @@
                 display: block;
                 animation: pulse 1.5s infinite;
             }
+
         .select-box {
             position: relative;
             width: 100%;
@@ -1560,10 +1561,10 @@
             color: #fff;
             padding: 15px;
         }
-            /* لما تفتح القائمة، السهم يلف */
-            .select-box:hover::after {
-                border-top-color: #fff;
-            }
+        /* لما تفتح القائمة، السهم يلف */
+        .select-box:hover::after {
+            border-top-color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -2217,16 +2218,16 @@
                 const backdrop = document.createElement('div');
                 backdrop.id = 'sidebar-backdrop';
                 backdrop.style.cssText = `
-                        position: fixed;
-                        top: 0;
-                        left: 0;
-                        right: 0;
-                        bottom: 0;
-                        background: rgba(0,0,0,0.3);
-                        backdrop-filter: blur(2px);
-                        z-index: 1000;
-                        display: block;
-                    `;
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            background: rgba(0,0,0,0.3);
+                            backdrop-filter: blur(2px);
+                            z-index: 1000;
+                            display: block;
+                        `;
                 backdrop.onclick = toggleSidebar;
                 document.body.appendChild(backdrop);
             } else {
@@ -2260,10 +2261,10 @@
                         imgElement.style.display = 'none';
                         imgElement.classList.remove('loading');
                         noPreviewElement.innerHTML = `
-                                <i class="fas fa-exclamation-triangle" style="color: #FF6B6B;"></i>
-                                <div>رابط الصورة غير صالح</div>
-                                <div style="font-size: 0.7rem; margin-top: 5px;">تأكد من الرابط</div>
-                            `;
+                                    <i class="fas fa-exclamation-triangle" style="color: #FF6B6B;"></i>
+                                    <div>رابط الصورة غير صالح</div>
+                                    <div style="font-size: 0.7rem; margin-top: 5px;">تأكد من الرابط</div>
+                                `;
                         noPreviewElement.style.display = 'flex';
                         noPreviewElement.style.flexDirection = 'column';
                         noPreviewElement.style.alignItems = 'center';
@@ -2274,9 +2275,9 @@
             } else {
                 imgElement.style.display = 'none';
                 noPreviewElement.innerHTML = `
-                        <i class="fas fa-image"></i>
-                        <div>لم تتم إضافة صورة</div>
-                    `;
+                            <i class="fas fa-image"></i>
+                            <div>لم تتم إضافة صورة</div>
+                        `;
                 noPreviewElement.style.display = 'flex';
                 noPreviewElement.style.flexDirection = 'column';
                 noPreviewElement.style.alignItems = 'center';
@@ -2439,23 +2440,23 @@
             const col = document.getElementById('p-collection').value;
             const container = document.getElementById('products-list');
             container.innerHTML = `
-                    <div style="color:var(--text-muted); text-align:center; padding:40px; width:100%; display: flex; flex-direction: column; align-items: center; gap: 20px;">
-                        <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
-                        <div>جاري تحميل المنتجات...</div>
-                    </div>
-                `;
+                        <div style="color:var(--text-muted); text-align:center; padding:40px; width:100%; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                            <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
+                            <div>جاري تحميل المنتجات...</div>
+                        </div>
+                    `;
 
             db.collection(col).orderBy("sortOrder", "asc").get().then(snapshot => {
                 container.innerHTML = '';
 
                 if (snapshot.empty) {
                     container.innerHTML = `
-                            <div style="color:var(--text-muted); text-align:center; padding:60px; width:100%; background: rgba(255,255,255,0.01); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.02);">
-                                <i class="fas fa-box-open" style="font-size: 3rem; opacity: 0.2; margin-bottom: 20px;"></i>
-                                <div style="font-size: 1.2rem; margin-bottom: 10px;">لا توجد منتجات في هذا القسم</div>
-                                <div style="font-size: 0.9rem; opacity: 0.7;">قم بإضافة منتج جديد لبدء البيع</div>
-                            </div>
-                        `;
+                                <div style="color:var(--text-muted); text-align:center; padding:60px; width:100%; background: rgba(255,255,255,0.01); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.02);">
+                                    <i class="fas fa-box-open" style="font-size: 3rem; opacity: 0.2; margin-bottom: 20px;"></i>
+                                    <div style="font-size: 1.2rem; margin-bottom: 10px;">لا توجد منتجات في هذا القسم</div>
+                                    <div style="font-size: 0.9rem; opacity: 0.7;">قم بإضافة منتج جديد لبدء البيع</div>
+                                </div>
+                            `;
                     document.getElementById('product-count').textContent = '0';
                     return;
                 }
@@ -2465,37 +2466,37 @@
                     productCount++;
                     const data = doc.data();
                     const card = `
-                            <div class="product-card" data-id="${doc.id}">
-                                <img src="${data.image}" class="p-img"
-                                     onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80'">
-                                <div class="p-details">
-                                    <h3>${data.title}</h3>
-                                    <div style="font-size:0.9rem; color:var(--text-muted); margin-bottom: 10px;">${data.shortDescription || 'لا يوجد وصف'}</div>
-                                    <div class="p-price">
-                                        <i class="fas fa-coins"></i> ${data.price} EGP
+                                <div class="product-card" data-id="${doc.id}">
+                                    <img src="${data.image}" class="p-img"
+                                         onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80'">
+                                    <div class="p-details">
+                                        <h3>${data.title}</h3>
+                                        <div style="font-size:0.9rem; color:var(--text-muted); margin-bottom: 10px;">${data.shortDescription || 'لا يوجد وصف'}</div>
+                                        <div class="p-price">
+                                            <i class="fas fa-coins"></i> ${data.price} EGP
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                                            <span style="font-size:0.8rem; background: rgba(124, 58, 237, 0.08); color: var(--purple); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(124, 58, 237, 0.15);">
+                                                <i class="fas fa-${getPlatformIcon(data.platform)}"></i> ${getPlatformName(data.platform)}
+                                            </span>
+                                            <span style="font-size:0.8rem; background: rgba(255,255,255,0.02); color: var(--text-muted); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03);">
+                                                <i class="fas fa-fire"></i> ${data.category || 'games'}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px;">
-                                        <span style="font-size:0.8rem; background: rgba(124, 58, 237, 0.08); color: var(--purple); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(124, 58, 237, 0.15);">
-                                            <i class="fas fa-${getPlatformIcon(data.platform)}"></i> ${getPlatformName(data.platform)}
-                                        </span>
-                                        <span style="font-size:0.8rem; background: rgba(255,255,255,0.02); color: var(--text-muted); padding: 4px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.03);">
-                                            <i class="fas fa-fire"></i> ${data.category || 'games'}
-                                        </span>
+                                    <div class="p-actions">
+                                        <button onclick="editProduct('${doc.id}', '${col}')" class="icon-btn btn-edit" title="تعديل">
+                                            <i class="fas fa-pen"></i>
+                                        </button>
+                                        <button onclick="deleteProduct('${doc.id}', '${col}')" class="icon-btn btn-del" title="حذف">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        <div class="drag-handle" title="سحب لتغيير الترتيب">
+                                            <i class="fas fa-grip-lines"></i>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="p-actions">
-                                    <button onclick="editProduct('${doc.id}', '${col}')" class="icon-btn btn-edit" title="تعديل">
-                                        <i class="fas fa-pen"></i>
-                                    </button>
-                                    <button onclick="deleteProduct('${doc.id}', '${col}')" class="icon-btn btn-del" title="حذف">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                    <div class="drag-handle" title="سحب لتغيير الترتيب">
-                                        <i class="fas fa-grip-lines"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
+                            `;
                     container.innerHTML += card;
                 });
 
@@ -2560,9 +2561,15 @@
             const id = document.getElementById('p-id').value;
             const col = document.getElementById('p-collection').value;
 
+            // جلب القيمة من خانة الستوك
+            let stockInput = document.getElementById('p-stock').value;
+            // لو الخانة فاضية، بنخليها 99 (يعني متوفر)
+            let stockValue = stockInput === '' ? 99 : Number(stockInput);
+
             const productData = {
                 title: document.getElementById('p-title').value.trim(),
                 price: Number(document.getElementById('p-price').value),
+                stock: stockValue, // ✅ هنا بيتم حفظ الستوك
                 image: document.getElementById('p-image').value.trim(),
                 shortDescription: document.getElementById('p-desc').value.trim(),
                 platform: document.getElementById('p-platform').value,
@@ -2570,7 +2577,7 @@
                 updatedAt: firebase.firestore.FieldValue.serverTimestamp()
             };
 
-            // Validation
+            // التحقق من البيانات
             if (!productData.title || !productData.price) {
                 showToast("⚠️ يرجى ملء البيانات الأساسية (الاسم والسعر)", "error");
                 return;
@@ -2586,22 +2593,20 @@
             saveBtn.disabled = true;
 
             if (id) {
-                // Update existing product
+                // تحديث منتج موجود
                 db.collection(col).doc(id).update(productData).then(() => {
-                    showToast("✅ تم تحديث المنتج بنجاح", "success");
+                    showToast("✅ تم تحديث المنتج والكمية بنجاح", "success");
                     resetProductForm();
                     loadProducts();
-
-                    // Celebration
-                    confetti({ particleCount: 50, spread: 50, origin: { y: 0.6 } });
                 }).catch(error => {
-                    showToast("❌ حدث خطأ في تحديث المنتج", "error");
+                    console.error(error);
+                    showToast("❌ حدث خطأ في التحديث", "error");
                 }).finally(() => {
                     saveBtn.innerHTML = originalText;
                     saveBtn.disabled = false;
                 });
             } else {
-                // Create new product
+                // إضافة منتج جديد
                 productData.sortOrder = 999;
                 productData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
 
@@ -2609,11 +2614,9 @@
                     showToast("🎉 تم إضافة المنتج بنجاح", "success");
                     resetProductForm();
                     loadProducts();
-
-                    // Big celebration for new product
-                    confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
                 }).catch(error => {
-                    showToast("❌ حدث خطأ في إضافة المنتج", "error");
+                    console.error(error);
+                    showToast("❌ حدث خطأ في الإضافة", "error");
                 }).finally(() => {
                     saveBtn.innerHTML = originalText;
                     saveBtn.disabled = false;
@@ -2629,6 +2632,10 @@
                 document.getElementById('p-id').value = id;
                 document.getElementById('p-title').value = data.title || '';
                 document.getElementById('p-price').value = data.price || '';
+
+                // ✅ عرض الستوك الحالي (لو مفيش قيمة بيسيبها فاضية)
+                document.getElementById('p-stock').value = (data.stock !== undefined) ? data.stock : '';
+
                 document.getElementById('p-image').value = data.image || '';
                 document.getElementById('p-desc').value = data.shortDescription || '';
                 document.getElementById('p-platform').value = data.platform || 'steam';
@@ -2636,7 +2643,7 @@
                 document.getElementById('btn-cancel-edit').style.display = 'inline-flex';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
 
-                showToast("✏️ وضع التعديل مفعل - قم بتعديل البيانات", "info");
+                showToast("✏️ يمكنك الآن تعديل الكمية والسعر", "info");
             });
         }
 
@@ -2688,6 +2695,7 @@
             document.getElementById('p-id').value = '';
             document.getElementById('p-title').value = '';
             document.getElementById('p-price').value = '';
+            document.getElementById('p-stock').value = ''; // ✅ تفريغ الستوك
             document.getElementById('p-image').value = '';
             document.getElementById('p-desc').value = '';
             document.getElementById('p-platform').value = 'steam';
@@ -2698,20 +2706,22 @@
         }
 
         // ============================================
-        // 7. ORDERS MANAGEMENT SYSTEM
+        // 7. ORDERS MANAGEMENT SYSTEM (محسنة)
         // ============================================
         function loadOrders() {
             const tbody = document.getElementById('orders-body');
             tbody.innerHTML = `
-                    <tr>
-                        <td colspan="7" style="text-align:center; padding:50px;">
-                            <div style="color:var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 20px;">
-                                <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
-                                <div>جاري جلب بيانات الطلبات...</div>
-                            </div>
-                        </td>
-                    </tr>
-                `;
+                        <tr>
+                            <td colspan="7" style="text-align:center; padding:50px;">
+                                <div style="color:var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                                    <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
+                                    <div>جاري جلب بيانات الطلبات...</div>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+
+            console.log("=== بدء تحميل الطلبات ===");
 
             db.collection('orders').orderBy('createdAt', 'desc').limit(100).get().then(snapshot => {
                 tbody.innerHTML = '';
@@ -2720,22 +2730,28 @@
 
                 if (snapshot.empty) {
                     tbody.innerHTML = `
-                            <tr>
-                                <td colspan="7" style="text-align:center; padding:50px; color:var(--text-muted);">
-                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-                                        <i class="fas fa-shopping-bag" style="font-size: 3rem; opacity: 0.2;"></i>
-                                        <div style="font-size: 1.2rem;">لا توجد طلبات حتى الآن</div>
-                                        <div style="font-size: 0.9rem; opacity: 0.7;">ستظهر الطلبات هنا عند وجودها</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        `;
+                                <tr>
+                                    <td colspan="7" style="text-align:center; padding:50px; color:var(--text-muted);">
+                                        <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                                            <i class="fas fa-shopping-bag" style="font-size: 3rem; opacity: 0.2;"></i>
+                                            <div style="font-size: 1.2rem;">لا توجد طلبات حتى الآن</div>
+                                            <div style="font-size: 0.9rem; opacity: 0.7;">ستظهر الطلبات هنا عند وجودها</div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            `;
                     updateOrderStats(total, pending, completed, today);
                     return;
                 }
 
                 snapshot.forEach(doc => {
                     const order = doc.data();
+                    console.log("--------------------------------");
+                    console.log("Order ID:", doc.id);
+                    console.log("All Data:", order);
+                    console.log("All Keys:", Object.keys(order));
+                    console.log("--------------------------------");
+
                     total++;
 
                     // Count by status
@@ -2763,10 +2779,38 @@
                             minute: '2-digit'
                         }) : 'N/A';
 
-                    // Parse User Info
-                    let userEmail = order.userEmail || "";
-                    if (userEmail.includes("Email:")) userEmail = userEmail.split("Email:")[1].trim();
-                    const userName = order.userName || "Guest";
+                    // Parse User Info (بحث متقدم في البيانات)
+                    let userEmail = '';
+                    let userName = '';
+
+                    // محاولة استخراج الإيميل من مصادر مختلفة
+                    if (order.userEmail) userEmail = order.userEmail;
+                    else if (order.email) userEmail = order.email;
+                    else if (order.customerEmail) userEmail = order.customerEmail;
+                    else if (order.clientEmail) userEmail = order.clientEmail;
+                    else if (order.contactEmail) userEmail = order.contactEmail;
+                    else if (order.user && order.user.email) userEmail = order.user.email;
+                    else if (order.customer && order.customer.email) userEmail = order.customer.email;
+                    else if (order.client && order.client.email) userEmail = order.client.email;
+                    else if (order.contact && order.contact.email) userEmail = order.contact.email;
+
+                    // تنظيف الإيميل لو فيه نصوص إضافية
+                    if (typeof userEmail === 'string') {
+                        if (userEmail.includes("Email:")) userEmail = userEmail.split("Email:")[1].split(/\s/)[0].trim();
+                        if (userEmail.includes("email:")) userEmail = userEmail.split("email:")[1].split(/\s/)[0].trim();
+                    }
+
+                    // محاولة استخراج الاسم من مصادر مختلفة
+                    if (order.userName) userName = order.userName;
+                    else if (order.name) userName = order.name;
+                    else if (order.customerName) userName = order.customerName;
+                    else if (order.clientName) userName = order.clientName;
+                    else if (order.contactName) userName = order.contactName;
+                    else if (order.user && order.user.name) userName = order.user.name;
+                    else if (order.customer && order.customer.name) userName = order.customer.name;
+                    else if (order.client && order.client.name) userName = order.client.name;
+                    else if (order.contact && order.contact.name) userName = order.contact.name;
+                    else userName = "Guest";
 
                     // Determine Status Style
                     let statusHtml, statusClass;
@@ -2782,45 +2826,45 @@
                     }
 
                     const row = `
-                            <tr class="order-row ${statusClass}">
-                                <td style="font-family:monospace; color:var(--purple); letter-spacing:1px; font-weight:bold;">
-                                    #${doc.id.substr(0, 6).toUpperCase()}
-                                </td>
-                                <td>
-                                    <div style="font-weight:bold; color:white;">${userName}</div>
-                                    <div style="font-size:0.85rem; color:var(--text-muted); margin-top:5px;">
-                                        <i class="fas fa-envelope"></i> ${userEmail}
-                                    </div>
-                                </td>
-                                <td style="font-weight:500;">
-                                    ${order.items && order.items[0] ? order.items[0].title : 'Unknown Product'}
-                                </td>
-                                <td style="color:var(--gold); font-weight:bold; font-size:1.1rem;">
-                                    <i class="fas fa-coins"></i> ${order.totalPrice || 0} EGP
-                                </td>
-                                <td style="font-size:0.9rem; color:var(--text-muted);">
-                                    <i class="fas fa-calendar"></i> ${date}
-                                </td>
-                                <td>${statusHtml}</td>
-                                <td>
-                                    <div style="display:flex; gap:8px; justify-content: flex-end;">
-                                        ${order.status !== 'completed' ? `
-                                            <button onclick="updateStatus('${doc.id}', 'completed')" class="icon-btn" style="background:rgba(16, 185, 129, 0.1); color:var(--green); border:1px solid rgba(16, 185, 129, 0.15);" title="تمكين كمنجز">
-                                                <i class="fas fa-check"></i>
+                                <tr class="order-row ${statusClass}">
+                                    <td style="font-family:monospace; color:var(--purple); letter-spacing:1px; font-weight:bold;">
+                                        #${doc.id.substr(0, 6).toUpperCase()}
+                                    </td>
+                                    <td>
+                                        <div style="font-weight:bold; color:white;">${userName}</div>
+                                        <div style="font-size:0.85rem; color:var(--text-muted); margin-top:5px;">
+                                            <i class="fas fa-envelope"></i> ${userEmail || 'لا يوجد إيميل'}
+                                        </div>
+                                    </td>
+                                    <td style="font-weight:500;">
+                                        ${order.items && order.items[0] ? order.items[0].title : 'Unknown Product'}
+                                    </td>
+                                    <td style="color:var(--gold); font-weight:bold; font-size:1.1rem;">
+                                        <i class="fas fa-coins"></i> ${order.totalPrice || 0} EGP
+                                    </td>
+                                    <td style="font-size:0.9rem; color:var(--text-muted);">
+                                        <i class="fas fa-calendar"></i> ${date}
+                                    </td>
+                                    <td>${statusHtml}</td>
+                                    <td>
+                                        <div style="display:flex; gap:8px; justify-content: flex-end;">
+                                            ${order.status !== 'completed' ? `
+                                                <button onclick="updateStatus('${doc.id}', 'completed')" class="icon-btn" style="background:rgba(16, 185, 129, 0.1); color:var(--green); border:1px solid rgba(16, 185, 129, 0.15);" title="تمكين كمنجز">
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            ` : ''}
+                                            ${order.status !== 'cancelled' ? `
+                                                <button onclick="updateStatus('${doc.id}', 'cancelled')" class="icon-btn" style="background:rgba(239, 68, 68, 0.1); color:var(--red); border:1px solid rgba(239, 68, 68, 0.15);" title="إلغاء الطلب">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            ` : ''}
+                                            <button onclick="prepareEmail('${userEmail}', '${userName}', '${order.items && order.items[0] ? order.items[0].title : ''}')" class="icon-btn" style="background:rgba(124, 58, 237, 0.1); color:var(--purple); border:1px solid rgba(124, 58, 237, 0.15);" title="إرسال المنتج">
+                                                <i class="fas fa-paper-plane"></i>
                                             </button>
-                                        ` : ''}
-                                        ${order.status !== 'cancelled' ? `
-                                            <button onclick="updateStatus('${doc.id}', 'cancelled')" class="icon-btn" style="background:rgba(239, 68, 68, 0.1); color:var(--red); border:1px solid rgba(239, 68, 68, 0.15);" title="إلغاء الطلب">
-                                                <i class="fas fa-times"></i>
-                                            </button>
-                                        ` : ''}
-                                        <button onclick="prepareEmail('${userEmail}', '${userName}', '${order.items && order.items[0] ? order.items[0].title : ''}')" class="icon-btn" style="background:rgba(124, 58, 237, 0.1); color:var(--purple); border:1px solid rgba(124, 58, 237, 0.15);" title="إرسال المنتج">
-                                            <i class="fas fa-paper-plane"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        `;
+                                        </div>
+                                    </td>
+                                </tr>
+                            `;
                     tbody.innerHTML += row;
                 });
 
@@ -2834,6 +2878,9 @@
                 } else {
                     notificationBell.classList.remove('has-notification');
                 }
+
+                console.log("=== انتهى تحميل الطلبات ===");
+                console.log(`الإجمالي: ${total}، المنتظرة: ${pending}، المكتملة: ${completed}`);
 
             }).catch(error => {
                 console.error("Error loading orders:", error);
@@ -2891,15 +2938,50 @@
         // ============================================
         // 8. EMAIL SYSTEM
         // ============================================
-        function prepareEmail(email, name, product = '') {
-            document.getElementById('mail-to').value = email;
-            document.getElementById('mail-name').value = name;
+        function prepareEmail(email, name, product = '', orderId = '') {
+            // تنظيف الإيميل
+            let cleanEmail = email;
+            if (email && email.includes('||')) {
+                // استخراج أول جزء قبل ||
+                cleanEmail = email.split('||')[0].trim();
+            }
+
+            // إزالة "Email:" من البداية إذا وجد
+            if (cleanEmail.toLowerCase().startsWith('email:')) {
+                cleanEmail = cleanEmail.substring(6).trim();
+            }
+
+            // البحث عن إيميل في النص
+            const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/;
+            const emailMatch = cleanEmail.match(emailRegex);
+            if (emailMatch) {
+                cleanEmail = emailMatch[0];
+            }
+
+            document.getElementById('mail-to').value = cleanEmail || '';
+            document.getElementById('mail-name').value = name || '';
             document.getElementById('mail-account').value = '';
             document.getElementById('mail-pass').value = '';
-            document.getElementById('mail-msg').value = product ? `طلبك: ${product}\n\nشكراً لاختيارك Berlin Store!` : '';
+
+            // إضافة تفاصيل الطلب كملاحظة
+            let message = `طلب #${orderId}\n`;
+            message += `المنتج: ${product}\n\n`;
+            message += `العميل: ${name}\n`;
+            if (email && !cleanEmail.includes('@')) {
+                message += `تفاصيل العميل: ${email}\n\n`;
+            }
+            message += `شكراً لاختيارك Berlin Store!\n`;
+            message += `ستصلك البيانات خلال دقائق ⚡`;
+
+            document.getElementById('mail-msg').value = message;
 
             document.getElementById('email-modal').style.display = 'flex';
-            document.getElementById('mail-account').focus();
+
+            if (cleanEmail) {
+                document.getElementById('mail-account').focus();
+            } else {
+                showToast("⚠️ لا يوجد إيميل صالح، تأكد من كتابة الإيميل في حقل التواصل", "warning");
+            }
         }
 
         function closeModal(id) {
@@ -3063,15 +3145,15 @@
             if (connected) {
                 statusElement.classList.remove('offline');
                 statusElement.innerHTML = `
-                        <div class="connection-dot"></div>
-                        <span>متصل</span>
-                    `;
+                            <div class="connection-dot"></div>
+                            <span>متصل</span>
+                        `;
             } else {
                 statusElement.classList.add('offline');
                 statusElement.innerHTML = `
-                        <div class="connection-dot"></div>
-                        <span>غير متصل</span>
-                    `;
+                            <div class="connection-dot"></div>
+                            <span>غير متصل</span>
+                        `;
             }
         }
 
@@ -3135,112 +3217,53 @@
             }
         });
 
-        // 1. دالة حفظ المنتج (تم تحديثها لتشمل الستوك)
-        function saveProduct() {
-            const id = document.getElementById('p-id').value;
-            const col = document.getElementById('p-collection').value;
+        // في دالة loadOrders() في الداشبورد، استبدل جزء استخراج البيانات بـ:
+        // Parse User Info (بحث متقدم في البيانات)
+        let userEmail = '';
+        let userName = '';
 
-            // جلب القيمة من خانة الستوك
-            let stockInput = document.getElementById('p-stock').value;
-            // لو الخانة فاضية، بنخليها 99 (يعني متوفر)
-            let stockValue = stockInput === '' ? 99 : Number(stockInput);
-
-            const productData = {
-                title: document.getElementById('p-title').value.trim(),
-                price: Number(document.getElementById('p-price').value),
-                stock: stockValue, // ✅ هنا بيتم حفظ الستوك
-                image: document.getElementById('p-image').value.trim(),
-                shortDescription: document.getElementById('p-desc').value.trim(),
-                platform: document.getElementById('p-platform').value,
-                category: "games",
-                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-            };
-
-            // التحقق من البيانات
-            if (!productData.title || !productData.price) {
-                showToast("⚠️ يرجى ملء البيانات الأساسية (الاسم والسعر)", "error");
-                return;
-            }
-
-            if (!productData.image) {
-                productData.image = 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=400&q=80';
-            }
-
-            const saveBtn = document.querySelector('#form-actions .btn-success');
-            const originalText = saveBtn.innerHTML;
-            saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
-            saveBtn.disabled = true;
-
-            if (id) {
-                // تحديث منتج موجود
-                db.collection(col).doc(id).update(productData).then(() => {
-                    showToast("✅ تم تحديث المنتج والكمية بنجاح", "success");
-                    resetProductForm();
-                    loadProducts();
-                }).catch(error => {
-                    console.error(error);
-                    showToast("❌ حدث خطأ في التحديث", "error");
-                }).finally(() => {
-                    saveBtn.innerHTML = originalText;
-                    saveBtn.disabled = false;
-                });
-            } else {
-                // إضافة منتج جديد
-                productData.sortOrder = 999;
-                productData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
-
-                db.collection(col).add(productData).then(() => {
-                    showToast("🎉 تم إضافة المنتج بنجاح", "success");
-                    resetProductForm();
-                    loadProducts();
-                }).catch(error => {
-                    console.error(error);
-                    showToast("❌ حدث خطأ في الإضافة", "error");
-                }).finally(() => {
-                    saveBtn.innerHTML = originalText;
-                    saveBtn.disabled = false;
-                });
-            }
+        // البحث الذكي عن الإيميل
+        if (order.userEmail && order.userEmail.includes('@')) {
+            userEmail = order.userEmail;
+        } else if (order.email && order.email.includes('@')) {
+            userEmail = order.email;
+        } else if (order.customerEmail && order.customerEmail.includes('@')) {
+            userEmail = order.customerEmail;
+        } else if (order.user && order.user.email && order.user.email.includes('@')) {
+            userEmail = order.user.email;
+        } else if (order.customer && order.customer.email && order.customer.email.includes('@')) {
+            userEmail = order.customer.email;
+        } else if (order.userEmail) {
+            // إذا كانت البيانات مختلطة، استخراج أول إيميل
+            const emailMatch = order.userEmail.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/);
+            if (emailMatch) userEmail = emailMatch[0];
+        } else if (order.customerDetails) {
+            // استخراج من التفاصيل
+            const emailMatch = order.customerDetails.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/);
+            if (emailMatch) userEmail = emailMatch[0];
         }
 
-        // 2. دالة التعديل (عشان تجيب رقم الستوك القديم في الخانة)
-        function editProduct(id, col) {
-            db.collection(col).doc(id).get().then(doc => {
-                if (!doc.exists) return;
-
-                const data = doc.data();
-                document.getElementById('p-id').value = id;
-                document.getElementById('p-title').value = data.title || '';
-                document.getElementById('p-price').value = data.price || '';
-
-                // ✅ عرض الستوك الحالي (لو مفيش قيمة بيسيبها فاضية)
-                document.getElementById('p-stock').value = (data.stock !== undefined) ? data.stock : '';
-
-                document.getElementById('p-image').value = data.image || '';
-                document.getElementById('p-desc').value = data.shortDescription || '';
-                document.getElementById('p-platform').value = data.platform || 'steam';
-
-                document.getElementById('btn-cancel-edit').style.display = 'inline-flex';
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-
-                showToast("✏️ يمكنك الآن تعديل الكمية والسعر", "info");
-            });
+        // استخراج الاسم
+        if (order.userName) userName = order.userName;
+        else if (order.user && order.user.name) userName = order.user.name;
+        else if (order.customer && order.customer.name) userName = order.customer.name;
+        else if (order.userEmail) {
+            // محاولة استخراج الاسم من البريد أو التفاصيل
+            const nameMatch = order.userEmail.match(/(?:Name|Contact|ContactInfo):\s*([^\n]+)/i);
+            if (nameMatch) userName = nameMatch[1].trim();
         }
 
-        // 3. دالة التفريغ (عشان تفضي خانة الستوك بعد ما تخلص)
-        function resetProductForm() {
-            document.getElementById('p-id').value = '';
-            document.getElementById('p-title').value = '';
-            document.getElementById('p-price').value = '';
-            document.getElementById('p-stock').value = ''; // ✅ تفريغ الستوك
-            document.getElementById('p-image').value = '';
-            document.getElementById('p-desc').value = '';
-            document.getElementById('p-platform').value = 'steam';
-
-            document.getElementById('btn-cancel-edit').style.display = 'none';
-            document.getElementById('p-title').focus();
+        // إذا لم يتم العثور على إيميل، استخدم النص الكامل
+        if (!userEmail || userEmail === 'no-email@example.com') {
+            userEmail = order.userEmail || order.customerDetails || 'no-details@example.com';
         }
+
+        // تنظيف النص النهائي
+        userEmail = userEmail.replace(/^\s*Email:\s*/i, '').replace(/\s*\|\|.*$/, '').trim();
+
 
     </script>
+
+
 </body>
 </html>
