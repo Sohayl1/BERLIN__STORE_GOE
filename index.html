@@ -46312,28 +46312,29 @@ window.addEventListener('appinstalled', () => {
 
     /* زر الشات بوت - أصغر وأكثر وضوحاً */
     #chat-bot-toggle {
+        /* ... (CSS الأساسي يظل كما هو) ... */
         position: fixed;
-        bottom: 20px; /* أقرب للحافة */
-        left: 20px; /* أقرب للحافة */
-        width: 90px; /* أصغر بكثير */
-        height: 40px; /* أصغر بكثير */
-        background: rgba(138, 43, 226, 0.25); /* أكثر وضوحاً */
-        color: #ffffff; /* أبيض بدلاً من بلورد */
+        bottom: 20px;
+        left: 20px;
+        width: 90px;
+        height: 40px;
+        background: rgba(138, 43, 226, 0.25);
+        color: #ffffff;
         border: 2px solid rgba(138, 43, 226, 0.5);
-        border-radius: 20px; /* زوايا أكثر استدارة */
+        border-radius: 20px;
         cursor: pointer;
-        font-size: 12px; /* نص أصغر */
+        font-size: 12px;
         font-weight: bold;
-        box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4); /* ظل أكثر وضوحاً */
-        z-index: 99999; /* z-index أعلى لضمان الظهور */
+        box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+        z-index: 99999;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 5px; /* مسافة أقل بين العناصر */
-        padding: 0 10px; /* حشوة أقل */
-        backdrop-filter: blur(10px); /* تأثير ضبابي أقوى */
-        -webkit-backdrop-filter: blur(10px); /* لـ Safari */
+        gap: 5px;
+        padding: 0 10px;
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
     }
 
         #chat-bot-toggle:hover {
@@ -46343,29 +46344,30 @@ window.addEventListener('appinstalled', () => {
             box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
         }
 
-    /* تحسين ظهور الزر على الموبايل */
+    /* تحسين ظهور الزر على الموبايل (شاشات أقل من 768px) */
     @media (max-width: 768px) {
         #chat-bot-toggle {
             width: 80px;
             height: 36px;
             font-size: 11px;
-            bottom: 15px;
+            bottom: 50px; /* **تم التعديل: رفع الزر لأعلى** */
             left: 15px;
-            box-shadow: 0 3px 10px rgba(138, 43, 226, 0.5); /* ظل أكثر وضوحاً على الموبايل */
-            background: rgba(138, 43, 226, 0.3); /* أكثر وضوحاً على الموبايل */
+            box-shadow: 0 3px 10px rgba(138, 43, 226, 0.5);
+            background: rgba(138, 43, 226, 0.3);
         }
     }
 
+    /* شاشات الموبايل الصغيرة (أقل من 480px) */
     @media (max-width: 480px) {
         #chat-bot-toggle {
             width: 75px;
             height: 34px;
             font-size: 10px;
-            bottom: 10px;
+            bottom: 65px; /* **تم التعديل: رفع الزر لأعلى** */
             left: 10px;
-            border: 1px solid rgba(138, 43, 226, 0.6); /* حدود أكثر وضوحاً */
-            background: rgba(138, 43, 226, 0.35); /* لون أكثر قوة */
-            z-index: 999999; /* أعلى قيمة ممكنة */
+            border: 1px solid rgba(138, 43, 226, 0.6);
+            background: rgba(138, 43, 226, 0.35);
+            z-index: 999999;
         }
     }
 
