@@ -1851,17 +1851,16 @@
                 <div class="header-bar">
                     <div class="page-title">
                         <h1>إدارة الإعلانات</h1>
-                        <p>تحكم كامل في إعلانات السلايدر الرئيسي</p>
+                        <p>تحكم كامل في إعلانات السلايدر الرئيسي (5 إعلانات)</p>
                     </div>
                 </div>
 
                 <div class="glass-panel">
                     <h3 style="margin: 0 0 25px 0; border-bottom: 1px solid rgba(124, 58, 237, 0.08); padding-bottom: 20px; color: var(--purple); display: flex; align-items: center; gap: 15px;">
-                        <i class="fas fa-sliders-h"></i> إعدادات الإعلانات الثلاثة
+                        <i class="fas fa-sliders-h"></i> إعدادات الإعلانات الخمسة
                     </h3>
 
                     <div class="ad-cards-grid">
-                        <!-- Ad Card 1 -->
                         <div class="ad-card-item">
                             <h4><i class="fas fa-image" style="color: #FF6B6B;"></i> الإعلان الأول</h4>
 
@@ -1889,11 +1888,10 @@
                             </div>
 
                             <div class="ad-card-info" style="font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 10px; margin-top: 10px;">
-                                <i class="fas fa-info-circle"></i> يظهر أولاً في السلايدر الرئيسي
+                                <i class="fas fa-info-circle"></i> يظهر رقم 1 في السلايدر
                             </div>
                         </div>
 
-                        <!-- Ad Card 2 -->
                         <div class="ad-card-item">
                             <h4><i class="fas fa-image" style="color: #4ECDC4;"></i> الإعلان الثاني</h4>
 
@@ -1921,11 +1919,10 @@
                             </div>
 
                             <div class="ad-card-info" style="font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 10px; margin-top: 10px;">
-                                <i class="fas fa-info-circle"></i> يظهر ثانياً في السلايدر
+                                <i class="fas fa-info-circle"></i> يظهر رقم 2 في السلايدر
                             </div>
                         </div>
 
-                        <!-- Ad Card 3 -->
                         <div class="ad-card-item">
                             <h4><i class="fas fa-image" style="color: #FFD93D;"></i> الإعلان الثالث</h4>
 
@@ -1953,13 +1950,76 @@
                             </div>
 
                             <div class="ad-card-info" style="font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 10px; margin-top: 10px;">
-                                <i class="fas fa-info-circle"></i> يظهر ثالثاً في السلايدر
+                                <i class="fas fa-info-circle"></i> يظهر رقم 3 في السلايدر
                             </div>
                         </div>
+
+                        <div class="ad-card-item">
+                            <h4><i class="fas fa-image" style="color: #A29BFE;"></i> الإعلان الرابع</h4>
+
+                            <div class="ad-preview-container">
+                                <img id="preview-img-4" class="ad-preview-img" style="display: none;">
+                                <div id="no-preview-4" class="no-preview">
+                                    <i class="fas fa-image"></i>
+                                    <div>لم تتم إضافة صورة</div>
+                                </div>
+                                <button class="refresh-preview-btn" onclick="refreshPreview(4)">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+
+                            <div class="ad-input-group">
+                                <label class="ad-input-label">
+                                    <i class="fas fa-link"></i> رابط الصورة
+                                </label>
+                                <input type="text" id="admin-ad-img4" class="ad-input" placeholder="https://example.com/image4.jpg" oninput="updateCardPreview(4)">
+
+                                <label class="ad-input-label" style="margin-top: 15px;">
+                                    <i class="fas fa-external-link-alt"></i> رابط التوجيه
+                                </label>
+                                <input type="text" id="admin-ad-link4" class="ad-input" placeholder="https://yourstore.com/product4">
+                            </div>
+
+                            <div class="ad-card-info" style="font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                                <i class="fas fa-info-circle"></i> يظهر رقم 4 في السلايدر
+                            </div>
+                        </div>
+
+                        <div class="ad-card-item">
+                            <h4><i class="fas fa-image" style="color: #FF7675;"></i> الإعلان الخامس</h4>
+
+                            <div class="ad-preview-container">
+                                <img id="preview-img-5" class="ad-preview-img" style="display: none;">
+                                <div id="no-preview-5" class="no-preview">
+                                    <i class="fas fa-image"></i>
+                                    <div>لم تتم إضافة صورة</div>
+                                </div>
+                                <button class="refresh-preview-btn" onclick="refreshPreview(5)">
+                                    <i class="fas fa-sync-alt"></i>
+                                </button>
+                            </div>
+
+                            <div class="ad-input-group">
+                                <label class="ad-input-label">
+                                    <i class="fas fa-link"></i> رابط الصورة
+                                </label>
+                                <input type="text" id="admin-ad-img5" class="ad-input" placeholder="https://example.com/image5.jpg" oninput="updateCardPreview(5)">
+
+                                <label class="ad-input-label" style="margin-top: 15px;">
+                                    <i class="fas fa-external-link-alt"></i> رابط التوجيه
+                                </label>
+                                <input type="text" id="admin-ad-link5" class="ad-input" placeholder="https://yourstore.com/product5">
+                            </div>
+
+                            <div class="ad-card-info" style="font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 10px; margin-top: 10px;">
+                                <i class="fas fa-info-circle"></i> يظهر رقم 5 في السلايدر
+                            </div>
+                        </div>
+
                     </div>
 
                     <button type="button" onclick="updateFirebaseSlider()" id="saveAdBtn" class="save-ad-btn">
-                        <i class="fas fa-save"></i> حفظ جميع الإعلانات
+                        <i class="fas fa-save"></i> حفظ وتحديث الـ 5 إعلانات
                     </button>
                 </div>
             </section>
@@ -2297,11 +2357,12 @@
         }
 
         async function updateFirebaseSlider() {
-            console.log("محاولة حفظ بيانات السلايدر...");
+            console.log("محاولة حفظ بيانات السلايدر (5 إعلانات)...");
 
-            // Collect data
+            // Collect data reference
             const btn = document.getElementById('saveAdBtn');
 
+            // 1. تجميع بيانات الإعلانات الثلاثة الأولى (القديمة)
             const img1 = document.getElementById('admin-ad-img1').value;
             const link1 = document.getElementById('admin-ad-link1').value;
 
@@ -2310,6 +2371,18 @@
 
             const img3 = document.getElementById('admin-ad-img3').value;
             const link3 = document.getElementById('admin-ad-link3').value;
+
+            // 2. تجميع بيانات الإعلانات الجديدة (الرابع والخامس)
+            // نستخدم (|| "") لضمان عدم حدوث خطأ إذا كانت الحقول غير موجودة في الـ HTML بعد
+            const img4Element = document.getElementById('admin-ad-img4');
+            const link4Element = document.getElementById('admin-ad-link4');
+            const img4 = img4Element ? img4Element.value : "";
+            const link4 = link4Element ? link4Element.value : "";
+
+            const img5Element = document.getElementById('admin-ad-img5');
+            const link5Element = document.getElementById('admin-ad-link5');
+            const img5 = img5Element ? img5Element.value : "";
+            const link5 = link5Element ? link5Element.value : "";
 
             // Validate at least first image
             if (!img1) {
@@ -2325,21 +2398,28 @@
             try {
                 if (typeof db === 'undefined') throw new Error("Firebase db is not defined");
 
-                // Save to Firebase
+                // Save to Firebase (تم التحديث ليشمل 5 إعلانات)
                 await db.collection("settings").doc("mainAd").set({
                     ad1: { img: img1, url: link1 },
                     ad2: { img: img2, url: link2 },
                     ad3: { img: img3, url: link3 },
+                    ad4: { img: img4, url: link4 }, // New Ad 4
+                    ad5: { img: img5, url: link5 }, // New Ad 5
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                 }, { merge: true });
 
-                showToast("✅ تم تحديث السلايدر والروابط بنجاح!", "success");
+                showToast("✅ تم تحديث السلايدر (5 إعلانات) بنجاح!", "success");
 
                 // Celebration effect
-                confetti({ particleCount: 100, spread: 60, origin: { y: 0.6 } });
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 100, spread: 60, origin: { y: 0.6 } });
+                }
 
-                // Update previews
-                updateAllPreviews();
+                // Update previews if function exists
+                if (typeof updateAllPreviews === 'function') {
+                    updateAllPreviews();
+                }
+
             } catch (error) {
                 console.error("❌ Firebase Error:", error);
                 showToast("❌ حدث خطأ أثناء الحفظ: " + error.message, "error");

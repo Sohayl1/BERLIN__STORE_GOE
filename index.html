@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 
-    <link rel="manifest" href="./manifest.json">
+    <link rel="manifest" href="/manifest.json">
 
     <meta name="theme-color" content="#0066ff">
 
@@ -33979,10 +33979,13 @@ function filterPortfolio(category, btnElement) {
                                                                                                                                 if (doc.exists) {
                                                                                                                                     const data = doc.data();
 
+                                                                                                                                    // التعديل هنا: جلب 5 إعلانات بدلاً من 3
                                                                                                                                     const newAds = [
                                                                                                                                         { img: data.ad1?.img, url: data.ad1?.url },
                                                                                                                                         { img: data.ad2?.img, url: data.ad2?.url },
-                                                                                                                                        { img: data.ad3?.img, url: data.ad3?.url }
+                                                                                                                                        { img: data.ad3?.img, url: data.ad3?.url },
+                                                                                                                                        { img: data.ad4?.img, url: data.ad4?.url }, // New Ad 4
+                                                                                                                                        { img: data.ad5?.img, url: data.ad5?.url }  // New Ad 5
                                                                                                                                     ].filter(ad => ad.img && ad.img.trim() !== "");
 
                                                                                                                                     if (JSON.stringify(newAds) !== JSON.stringify(adsData)) {
@@ -33990,7 +33993,7 @@ function filterPortfolio(category, btnElement) {
 
                                                                                                                                         if (adsData.length > 0) {
                                                                                                                                             // Reset
-                                                                                                                                            if(sliderInterval) clearInterval(sliderInterval);
+                                                                                                                                            if (sliderInterval) clearInterval(sliderInterval);
                                                                                                                                             currentIndex = 0;
 
                                                                                                                                             // Load First Image
@@ -34040,7 +34043,7 @@ function filterPortfolio(category, btnElement) {
                                                                                                                             // التبديل السحري:
                                                                                                                             // 1. ضع الصورة الجديدة في الحاوية "الحالية"
                                                                                                                             // (ملاحظة: لضمان عدم ظهور اللودر فجأة، ننسخ الحالة أيضاً)
-                                                                                                                            if(nextImg.classList.contains('img-loaded')) {
+                                                                                                                            if (nextImg.classList.contains('img-loaded')) {
                                                                                                                                 hideSkeleton(currImg); // تأكد ان اللودر مخفي
                                                                                                                             } else {
                                                                                                                                 showSkeleton(currImg);
@@ -46092,6 +46095,53 @@ document.addEventListener('keydown', function(event) {
         console.log('PWA was installed');
     });
 
+         if ('serviceWorker' in navigator) {
+             window.addEventListener('load', function () {
+                 navigator.serviceWorker.register('/service-worker.js').then(function (registration) {
+                     console.log('ServiceWorker registration successful');
+                 }, function (err) {
+                     console.log('ServiceWorker registration failed: ', err);
+                 });
+             });
+}
+         let installEvent = null;
+         const installButton = document.getElementById('pwa-install-btn');
+
+// 1. أول ما تفتح الموقع، الزرار المفروض يكون مخفي
+// (اختياري: لو عايزه يفضل ظاهر سيب السطر ده)
+// installButton.style.display = 'none';
+
+// 2. المتصفح بيقول: "أنا جاهز للتثبيت"
+window.addEventListener('beforeinstallprompt', (e) => {
+             // امنع المتصفح من إنه يظهر الرسالة القديمة أوتوماتيك
+             e.preventDefault();
+
+         // خزن الحدث ده في متغير عشان نستخدمه لما ندوس ع الزرار
+         installEvent = e;
+
+         // دلوقتي أظهر الزرار بتاعك للمستخدم
+         installButton.style.display = 'block'; 
+});
+
+         // 3. دي الدالة اللي إنت بتنادي عليها في الـ onclick
+         async function installPWA() {
+  if (!installEvent) {
+    return; // لو مفيش حدث تثبيت، متعملش حاجة
+  }
+
+         // أظهر نافذة التثبيت
+         installEvent.prompt();
+
+         // شوف المستخدم اختار إيه (وافق ولا رفض)
+         const {outcome} = await installEvent.userChoice;
+         console.log('User choice:', outcome);
+
+         // صفر المتغير عشان مينفعش تستخدمه تاني
+         installEvent = null;
+
+  // اختياري: اخفي الزرار بعد التثبيت
+  // installButton.style.display = 'none';
+}
     </script>
 
 </body>
