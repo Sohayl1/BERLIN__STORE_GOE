@@ -2549,74 +2549,74 @@ window.addEventListener('load', function() {
         }
 
         async function updateFirebaseSlider() {
-            console.log("محاولة حفظ بيانات السلايدر (5 إعلانات)...");
+            console.log("🔄 بداية محاولة حفظ بيانات السلايدر...");
 
-            // Collect data reference
             const btn = document.getElementById('saveAdBtn');
 
-            // 1. تجميع بيانات الإعلانات الثلاثة الأولى (القديمة)
-            const img1 = document.getElementById('admin-ad-img1').value;
-            const link1 = document.getElementById('admin-ad-link1').value;
+            // تجميع البيانات
+            const img1 = document.getElementById('admin-ad-img1')?.value || "";
+            const link1 = document.getElementById('admin-ad-link1')?.value || "";
+            const img2 = document.getElementById('admin-ad-img2')?.value || "";
+            const link2 = document.getElementById('admin-ad-link2')?.value || "";
+            const img3 = document.getElementById('admin-ad-img3')?.value || "";
+            const link3 = document.getElementById('admin-ad-link3')?.value || "";
+            const img4 = document.getElementById('admin-ad-img4')?.value || "";
+            const link4 = document.getElementById('admin-ad-link4')?.value || "";
+            const img5 = document.getElementById('admin-ad-img5')?.value || "";
+            const link5 = document.getElementById('admin-ad-link5')?.value || "";
 
-            const img2 = document.getElementById('admin-ad-img2').value;
-            const link2 = document.getElementById('admin-ad-link2').value;
+            console.log("📝 البيانات المجمعة:", { img1, link1, img2, link2, img3, link3, img4, link4, img5, link5 });
 
-            const img3 = document.getElementById('admin-ad-img3').value;
-            const link3 = document.getElementById('admin-ad-link3').value;
-
-            // 2. تجميع بيانات الإعلانات الجديدة (الرابع والخامس)
-            // نستخدم (|| "") لضمان عدم حدوث خطأ إذا كانت الحقول غير موجودة في الـ HTML بعد
-            const img4Element = document.getElementById('admin-ad-img4');
-            const link4Element = document.getElementById('admin-ad-link4');
-            const img4 = img4Element ? img4Element.value : "";
-            const link4 = link4Element ? link4Element.value : "";
-
-            const img5Element = document.getElementById('admin-ad-img5');
-            const link5Element = document.getElementById('admin-ad-link5');
-            const img5 = img5Element ? img5Element.value : "";
-            const link5 = link5Element ? link5Element.value : "";
-
-            // Validate at least first image
+            // التحقق من الصورة الأولى على الأقل
             if (!img1) {
                 showToast("⚠️ يرجى وضع رابط الصورة الأولى على الأقل", "error");
                 return;
             }
 
-            // Loading effect
+            // تأثير التحميل
             const originalContent = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
             btn.disabled = true;
 
             try {
-                if (typeof db === 'undefined') throw new Error("Firebase db is not defined");
+                // ✅ التحقق من Firebase
+                if (typeof db === 'undefined') {
+                    throw new Error("Firebase db غير معرّف - تحقق من اتصال الإنترنت وإعدادات Firebase");
+                }
 
-                // Save to Firebase (تم التحديث ليشمل 5 إعلانات)
-                await db.collection("settings").doc("mainAd").set({
+                console.log("📤 جاري الإرسال لـ Firebase...");
+
+                const dataToSave = {
                     ad1: { img: img1, url: link1 },
                     ad2: { img: img2, url: link2 },
                     ad3: { img: img3, url: link3 },
-                    ad4: { img: img4, url: link4 }, // New Ad 4
-                    ad5: { img: img5, url: link5 }, // New Ad 5
+                    ad4: { img: img4, url: link4 },
+                    ad5: { img: img5, url: link5 },
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                }, { merge: true });
+                };
 
-                showToast("✅ تم تحديث السلايدر (5 إعلانات) بنجاح!", "success");
+                console.log("📦 البيانات للحفظ:", dataToSave);
 
-                // Celebration effect
+                await db.collection("settings").doc("mainAd").set(dataToSave, { merge: true });
+
+                console.log("✅ تم الحفظ بنجاح في Firebase!");
+                showToast("✅ تم تحديث السلايدر بنجاح!", "success");
+
+                // تأثير احتفال
                 if (typeof confetti === 'function') {
                     confetti({ particleCount: 100, spread: 60, origin: { y: 0.6 } });
                 }
 
-                // Update previews if function exists
+                // تحديث المعاينات
                 if (typeof updateAllPreviews === 'function') {
                     updateAllPreviews();
                 }
 
             } catch (error) {
                 console.error("❌ Firebase Error:", error);
-                showToast("❌ حدث خطأ أثناء الحفظ: " + error.message, "error");
+                console.error("❌ Error Details:", error.message);
+                showToast("❌ خطأ: " + error.message, "error");
             } finally {
-                // Restore button
                 setTimeout(() => {
                     btn.innerHTML = originalContent;
                     btn.disabled = false;
