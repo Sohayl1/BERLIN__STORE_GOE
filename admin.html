@@ -1889,8 +1889,6 @@
                             <option value="activision">Activision</option>
                             <option value="discord">Discord</option>
                             <option value="playstation">PlayStation</option>
-                            <option value="xbox">Xbox</option>
-                            <option value="valorant">Valorant</option>
                             <option value="other">لا شيء</option>
                         </select>
                     </div>
@@ -2904,15 +2902,15 @@ window.addEventListener('load', function() {
         function loadOrders() {
             const tbody = document.getElementById('orders-body');
             tbody.innerHTML = `
-                            <tr>
-                                <td colspan="7" style="text-align:center; padding:50px;">
-                                    <div style="color:var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 20px;">
-                                        <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
-                                        <div>جاري جلب بيانات الطلبات...</div>
-                                    </div>
-                                </td>
-                            </tr>
-                        `;
+        <tr>
+            <td colspan="7" style="text-align:center; padding:50px;">
+                <div style="color:var(--text-muted); display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 2rem;"></i>
+                    <div>جاري جلب بيانات الطلبات...</div>
+                </div>
+            </td>
+        </tr>
+    `;
 
             console.log("=== بدء تحميل الطلبات ===");
 
@@ -2923,16 +2921,16 @@ window.addEventListener('load', function() {
 
                 if (snapshot.empty) {
                     tbody.innerHTML = `
-                                    <tr>
-                                        <td colspan="7" style="text-align:center; padding:50px; color:var(--text-muted);">
-                                            <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-                                                <i class="fas fa-shopping-bag" style="font-size: 3rem; opacity: 0.2;"></i>
-                                                <div style="font-size: 1.2rem;">لا توجد طلبات حتى الآن</div>
-                                                <div style="font-size: 0.9rem; opacity: 0.7;">ستظهر الطلبات هنا عند وجودها</div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                `;
+                <tr>
+                    <td colspan="7" style="text-align:center; padding:50px; color:var(--text-muted);">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                            <i class="fas fa-shopping-bag" style="font-size: 3rem; opacity: 0.2;"></i>
+                            <div style="font-size: 1.2rem;">لا توجد طلبات حتى الآن</div>
+                            <div style="font-size: 0.9rem; opacity: 0.7;">ستظهر الطلبات هنا عند وجودها</div>
+                        </div>
+                    </td>
+                </tr>
+            `;
                     updateOrderStats(total, pending, completed, today);
                     return;
                 }
@@ -2972,11 +2970,11 @@ window.addEventListener('load', function() {
                             minute: '2-digit'
                         }) : 'N/A';
 
-                    // Parse User Info (بحث متقدم في البيانات)
+                    // ✅✅ البحث المتقدم عن الإيميل (محدث)
                     let userEmail = '';
                     let userName = '';
 
-                    // محاولة استخراج الإيميل من مصادر مختلفة
+                    // محاولة استخراج الإيميل من الحقول الرئيسية
                     if (order.userEmail) userEmail = order.userEmail;
                     else if (order.email) userEmail = order.email;
                     else if (order.customerEmail) userEmail = order.customerEmail;
@@ -2987,10 +2985,23 @@ window.addEventListener('load', function() {
                     else if (order.client && order.client.email) userEmail = order.client.email;
                     else if (order.contact && order.contact.email) userEmail = order.contact.email;
 
+                    // ✅ البحث في extraData لو الإيميل مش موجود
+                    if (!userEmail && order.extraData) {
+                        userEmail = order.extraData.Customer_Main_Email ||
+                            order.extraData.Payment_Email ||
+                            order.extraData.Gmail ||
+                            order.extraData.Account_Email ||
+                            order.extraData['Customer_Main_Email'] ||
+                            order.extraData['Payment_Email'] ||
+                            order.extraData['Gmail'] ||
+                            order.extraData['Account_Email'];
+                    }
+
                     // تنظيف الإيميل لو فيه نصوص إضافية
                     if (typeof userEmail === 'string') {
                         if (userEmail.includes("Email:")) userEmail = userEmail.split("Email:")[1].split(/\s/)[0].trim();
                         if (userEmail.includes("email:")) userEmail = userEmail.split("email:")[1].split(/\s/)[0].trim();
+                        if (userEmail === "N/A" || userEmail === "No Email Found") userEmail = '';
                     }
 
                     // محاولة استخراج الاسم من مصادر مختلفة
@@ -3004,6 +3015,10 @@ window.addEventListener('load', function() {
                     else if (order.client && order.client.name) userName = order.client.name;
                     else if (order.contact && order.contact.name) userName = order.contact.name;
                     else userName = "Guest";
+
+                    // ✅ طباعة الإيميل الذي تم العثور عليه للتأكد
+                    console.log("📧 Email Found:", userEmail || 'لا يوجد');
+                    console.log("👤 User Name:", userName);
 
                     // Determine Status Style
                     let statusHtml, statusClass;
@@ -3019,45 +3034,45 @@ window.addEventListener('load', function() {
                     }
 
                     const row = `
-                                    <tr class="order-row ${statusClass}">
-                                        <td style="font-family:monospace; color:var(--purple); letter-spacing:1px; font-weight:bold;">
-                                            #${doc.id.substr(0, 6).toUpperCase()}
-                                        </td>
-                                        <td>
-                                            <div style="font-weight:bold; color:white;">${userName}</div>
-                                            <div style="font-size:0.85rem; color:var(--text-muted); margin-top:5px;">
-                                                <i class="fas fa-envelope"></i> ${userEmail || 'لا يوجد إيميل'}
-                                            </div>
-                                        </td>
-                                        <td style="font-weight:500;">
-                                            ${order.items && order.items[0] ? order.items[0].title : 'Unknown Product'}
-                                        </td>
-                                        <td style="color:var(--gold); font-weight:bold; font-size:1.1rem;">
-                                            <i class="fas fa-coins"></i> ${order.totalPrice || 0} EGP
-                                        </td>
-                                        <td style="font-size:0.9rem; color:var(--text-muted);">
-                                            <i class="fas fa-calendar"></i> ${date}
-                                        </td>
-                                        <td>${statusHtml}</td>
-                                        <td>
-                                            <div style="display:flex; gap:8px; justify-content: flex-end;">
-                                                ${order.status !== 'completed' ? `
-                                                    <button onclick="updateStatus('${doc.id}', 'completed')" class="icon-btn" style="background:rgba(16, 185, 129, 0.1); color:var(--green); border:1px solid rgba(16, 185, 129, 0.15);" title="تمكين كمنجز">
-                                                        <i class="fas fa-check"></i>
-                                                    </button>
-                                                ` : ''}
-                                                ${order.status !== 'cancelled' ? `
-                                                    <button onclick="updateStatus('${doc.id}', 'cancelled')" class="icon-btn" style="background:rgba(239, 68, 68, 0.1); color:var(--red); border:1px solid rgba(239, 68, 68, 0.15);" title="إلغاء الطلب">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                ` : ''}
-                                                <button onclick="prepareEmail('${userEmail}', '${userName}', '${order.items && order.items[0] ? order.items[0].title : ''}')" class="icon-btn" style="background:rgba(124, 58, 237, 0.1); color:var(--purple); border:1px solid rgba(124, 58, 237, 0.15);" title="إرسال المنتج">
-                                                    <i class="fas fa-paper-plane"></i>
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                `;
+                <tr class="order-row ${statusClass}">
+                    <td style="font-family:monospace; color:var(--purple); letter-spacing:1px; font-weight:bold;">
+                        #${doc.id.substr(0, 6).toUpperCase()}
+                    </td>
+                    <td>
+                        <div style="font-weight:bold; color:white;">${userName}</div>
+                        <div style="font-size:0.85rem; color:var(--text-muted); margin-top:5px;">
+                            <i class="fas fa-envelope"></i> ${userEmail || 'لا يوجد إيميل'}
+                        </div>
+                    </td>
+                    <td style="font-weight:500;">
+                        ${order.items && order.items[0] ? order.items[0].title : 'Unknown Product'}
+                    </td>
+                    <td style="color:var(--gold); font-weight:bold; font-size:1.1rem;">
+                        <i class="fas fa-coins"></i> ${order.totalPrice || 0} EGP
+                    </td>
+                    <td style="font-size:0.9rem; color:var(--text-muted);">
+                        <i class="fas fa-calendar"></i> ${date}
+                    </td>
+                    <td>${statusHtml}</td>
+                    <td>
+                        <div style="display:flex; gap:8px; justify-content: flex-end;">
+                            ${order.status !== 'completed' ? `
+                                <button onclick="updateStatus('${doc.id}', 'completed')" class="icon-btn" style="background:rgba(16, 185, 129, 0.1); color:var(--green); border:1px solid rgba(16, 185, 129, 0.15);" title="تمكين كمنجز">
+                                    <i class="fas fa-check"></i>
+                                </button>
+                            ` : ''}
+                            ${order.status !== 'cancelled' ? `
+                                <button onclick="updateStatus('${doc.id}', 'cancelled')" class="icon-btn" style="background:rgba(239, 68, 68, 0.1); color:var(--red); border:1px solid rgba(239, 68, 68, 0.15);" title="إلغاء الطلب">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            ` : ''}
+                            <button onclick="prepareEmail('${userEmail}', '${userName}', '${order.items && order.items[0] ? order.items[0].title : ''}')" class="icon-btn" style="background:rgba(124, 58, 237, 0.1); color:var(--purple); border:1px solid rgba(124, 58, 237, 0.15);" title="إرسال المنتج">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `;
                     tbody.innerHTML += row;
                 });
 
@@ -3103,23 +3118,68 @@ window.addEventListener('load', function() {
             showToast(`📋 جاري عرض: ${filterText}`, "info");
         }
 
-        function updateStatus(id, status) {
-            const statusText = status === 'completed' ? 'مكتمل' : 'ملغي';
-            if (!confirm(`⚠️ هل تريد تغيير حالة الطلب إلى "${statusText}"؟`)) return;
+        // ✅ دالة تحديث حالة الطلب في الداشبورد
+        function updateStatus(orderId, newStatus) {
+            if (!orderId || !newStatus) {
+                showToast("❌ خطأ في البيانات", "error");
+                return;
+            }
 
-            db.collection('orders').doc(id).update({
-                status: status,
+            console.log('🔄 تحديث الطلب', orderId, 'إلى', newStatus);
+
+            // 1️⃣ تحديث Firebase (الكود الموجود)
+            db.collection('orders').doc(orderId).update({
+                status: newStatus,
                 updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-            }).then(() => {
-                showToast(`✅ تم تغيير الحالة إلى ${statusText}`, "success");
-                loadOrders();
+            })
+                .then(function () {
+                    console.log('✅ تم تحديث Firebase');
 
-                if (status === 'completed') {
-                    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-                }
-            }).catch(error => {
-                showToast("❌ حدث خطأ في تغيير الحالة", "error");
-            });
+                    // 2️⃣ تحديث Google Sheets
+                    updateGoogleSheetStatus(orderId, newStatus);
+
+                    showToast('✅ تم تحديث الطلب إلى: ' + (newStatus === 'completed' ? 'مكتمل' : newStatus === 'cancelled' ? 'ملغي' : 'قيد الانتظار'), "success");
+
+                    loadOrders();
+
+                    if (newStatus === 'completed') {
+                        confetti({
+                            particleCount: 100,
+                            spread: 70,
+                            origin: { y: 0.6 }
+                        });
+                    }
+                })
+                .catch(function (error) {
+                    console.error("❌ خطأ في التحديث:", error);
+                    showToast("❌ فشل تحديث الطلب: " + error.message, "error");
+                });
+        }
+
+        // ✅ دالة جديدة لتحديث Google Sheets
+        function updateGoogleSheetStatus(orderId, newStatus) {
+            const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzTnc9hTa4-Ho4r1p7rMdfJhRhVaP7ZQ1hE5Pg_4PaQEUVSB2CFs5cmJQFDSzVEopZI/exec";
+
+            // تحويل الحالة للعربي
+            let arabicStatus = 'قيد المراجعة';
+            if (newStatus === 'completed') arabicStatus = 'مكتمل';
+            if (newStatus === 'cancelled') arabicStatus = 'ملغي';
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: JSON.stringify({
+                    action: "update_order_status",
+                    orderId: orderId,
+                    status: arabicStatus
+                })
+            })
+                .then(function (response) { return response.json(); })
+                .then(function (data) {
+                    console.log('✅ تم تحديث Google Sheets:', data);
+                })
+                .catch(function (error) {
+                    console.error('❌ خطأ في تحديث Google Sheets:', error);
+                });
         }
 
         function showPendingOrders() {
@@ -3157,14 +3217,9 @@ window.addEventListener('load', function() {
             document.getElementById('mail-pass').value = '';
 
             // إضافة تفاصيل الطلب كملاحظة
-            let message = `طلب #${orderId}\n`;
-            message += `المنتج: ${product}\n\n`;
-            message += `العميل: ${name}\n`;
-            if (email && !cleanEmail.includes('@')) {
-                message += `تفاصيل العميل: ${email}\n\n`;
-            }
-            message += `شكراً لاختيارك Berlin Store!\n`;
-            message += `ستصلك البيانات خلال دقائق ⚡`;
+            let message = `${orderId}\n\n`;
+            message += `المنتج: ${product}\n`;
+            message += `شكراً لاختيارك Berlin Store!`;
 
             document.getElementById('mail-msg').value = message;
 
