@@ -1,9 +1,9 @@
-﻿// sw.js - أبسط كود عشان يرضي شروط PWA
+﻿// ملف sw.js
 self.addEventListener('install', (e) => {
-    console.log('[Service Worker] Install');
+    console.log('[Service Worker] تم التثبيت');
 });
 
 self.addEventListener('fetch', (e) => {
-    // هنا ممكن تضيف كود الكاش، بس ده كفاية للتثبيت
+    // الكود ده ضروري عشان جوجل يعتبره تطبيق
     e.respondWith(fetch(e.request));
 });
